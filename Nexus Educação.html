@@ -634,31 +634,52 @@
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdjeXhmZWNtYXFuYmhkbnhhYWpzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk1MjUwMTcsImV4cCI6MjA3NTEwMTAxN30.EO92s08p7jzIWnonw3IyGMBK2HVkIrdwvrAGwiBgqLs';
         let supabaseClient;
 
-        /*
-            IMPORTANTE:
-            1. Crie as seguintes tabelas no seu projeto Supabase:
-               - alunos
-               - ministrantes
-               - admins
-               - cursos
-               - chats
-            2. As colunas devem corresponder às propriedades dos objetos que eram salvos no localStorage.
-               Para campos como 'cursosInscritos', 'aulas', 'formacao', use o tipo de coluna JSONB.
-            3. Crie os seguintes Buckets no Supabase Storage (e os marque como públicos):
-               - fotos-perfil
-               - imagens-cursos
-               - comprovantes
-               - contratos
-               - chats
-               - anotacoes-alunos
-        */
-
         // ===================================================
         // ESTADO DA APLICAÇÃO
         // ===================================================
         const estado = {
-            usuarioLogado: null, telaAtual: 'telaInicial', telaAnterior: null, cursoSelecionadoId: null, confirmacaoCallback: null, signaturePad: null, chatInterval: null, aulaSelecionadaIndex: 0
+            usuarioLogado: null,
+            telaAtual: 'telaInicial',
+            telaAnterior: null,
+            cursoSelecionadoId: null,
+            confirmacaoCallback: null,
+            signaturePad: null,
+            chatInterval: null,
+            aulaSelecionadaIndex: 0,
+            cache: {
+                cursos: null,
+                alunos: null,
+                ministrantes: null,
+                admins: null,
+            }
         };
+
+        // ===================================================
+        // FUNÇÕES DE CACHE E DADOS
+        // ===================================================
+        async function getFromCacheOuFetch(tabela) {
+            if (estado.cache[tabela]) {
+                return estado.cache[tabela];
+            }
+            const { data, error } = await supabaseClient.from(tabela).select('*');
+            if (error) {
+                console.error(`Erro ao buscar dados de '${tabela}':`, error);
+                return [];
+            }
+            estado.cache[tabela] = data;
+            return data;
+        }
+
+        function invalidarCache(tabela = null) {
+            if (tabela) {
+                console.log(`Invalidando cache para: ${tabela}`);
+                estado.cache[tabela] = null;
+            } else { // Invalida todo o cache
+                console.log('Invalidando todo o cache.');
+                estado.cache = { cursos: null, alunos: null, ministrantes: null, admins: null };
+            }
+        }
+
 
         // ===================================================
         // FUNÇÕES UTILITÁRIAS E DE CARREGAMENTO
@@ -667,7 +688,6 @@
         window.hideLoader = function() { document.getElementById('modalCarregamento').classList.add('hidden'); }
 
         function sanitizeFileName(fileName) {
-            // Substitui caracteres inválidos para nomes de arquivo de armazenamento por _
             return fileName.replace(/[^a-zA-Z0-9.\-_]/g, '_');
         }
 
@@ -738,7 +758,7 @@
 
         window.formatarData = function(event) {
             const input = event.target;
-            let v = input.value.replace(/\D/g, '').slice(0, 8); // Manter apenas dígitos, máx 8
+            let v = input.value.replace(/\D/g, '').slice(0, 8);
             if (v.length >= 5) {
                 input.value = `${v.slice(0, 2)}/${v.slice(2, 4)}/${v.slice(4)}`;
             } else if (v.length >= 3) {
@@ -750,7 +770,7 @@
 
         window.formatarHorario = function(event) {
             const input = event.target;
-            let v = input.value.replace(/\D/g, '').slice(0, 4); // Manter apenas dígitos, máx 4 (HHMM)
+            let v = input.value.replace(/\D/g, '').slice(0, 4);
             if (v.length >= 3) {
                 input.value = `${v.slice(0, 2)}:${v.slice(2)}`;
             } else {
@@ -779,7 +799,7 @@
             try {
                 const formData = new FormData(event.target), dados = Object.fromEntries(formData.entries());
                 
-                const { data: existingUser, error: checkError } = await supabaseClient.from('alunos').select('email').eq('email', dados.email).single();
+                const { data: existingUser } = await supabaseClient.from('alunos').select('email').eq('email', dados.email).single();
                 if (existingUser) {
                     mostrarModal("Este email já está cadastrado.");
                     return;
@@ -802,16 +822,16 @@
                 }
                 
                 const { error: insertError } = await supabaseClient.from('alunos').insert([dados]);
-                if (insertError) {
-                    mostrarModal("Erro ao realizar cadastro.");
-                    console.error("Insert Error:", insertError);
-                    return;
-                }
+                if (insertError) throw insertError;
 
+                invalidarCache('alunos');
                 mostrarModal("Cadastro realizado com sucesso!");
                 document.getElementById('formCadastroAluno').reset(); 
                 document.getElementById('previewFotoAluno').classList.add('hidden');
                 mostrarTela('telaLoginAluno');
+            } catch (error) {
+                mostrarModal("Erro ao realizar cadastro.");
+                console.error("Erro no cadastro de aluno:", error);
             } finally {
                 hideLoader();
             }
@@ -824,7 +844,7 @@
                 const formData = new FormData(event.target);
                 const dados = Object.fromEntries(formData.entries());
 
-                const { data: existingUser, error: checkError } = await supabaseClient.from('ministrantes').select('email').eq('email', dados.email).single();
+                const { data: existingUser } = await supabaseClient.from('ministrantes').select('email').eq('email', dados.email).single();
                 if (existingUser) {
                     mostrarModal("Este email já está cadastrado.");
                     return;
@@ -853,16 +873,16 @@
                 }
 
                 const { error: insertError } = await supabaseClient.from('ministrantes').insert([dados]);
-                if (insertError) {
-                    mostrarModal("Erro ao realizar cadastro.");
-                    console.error("Insert Error:", insertError);
-                    return;
-                }
+                if (insertError) throw insertError;
 
+                invalidarCache('ministrantes');
                 mostrarModal("Cadastro realizado com sucesso!");
                 document.getElementById('formCadastroMinistrante').reset();
                 document.getElementById('previewFotoMinistrante').classList.add('hidden');
                 mostrarTela('telaLoginMinistrante');
+            } catch (error) {
+                mostrarModal("Erro ao realizar cadastro.");
+                console.error("Erro no cadastro de ministrante:", error);
             } finally {
                 hideLoader();
             }
@@ -906,7 +926,8 @@
             showLoader();
             try {
                 const email = document.getElementById('loginEmailAdmin').value, senha = document.getElementById('loginSenhaAdmin').value;
-                const { data: admin, error } = await supabaseClient.from('admins').select('*').eq('email', email).eq('senha', senha).single();
+                const admins = await getFromCacheOuFetch('admins');
+                const admin = admins.find(a => a.email === email && a.senha === senha);
 
                 if(admin){ 
                     estado.usuarioLogado = { tipo: 'admin', email: admin.email, nome: admin.nome };
@@ -926,6 +947,7 @@
             }
             estado.usuarioLogado = null; 
             localStorage.removeItem('sessaoUsuario');
+            invalidarCache();
             mostrarTela('telaInicial'); 
         }
         async function verificarSessao() {
@@ -975,34 +997,25 @@
             showLoader();
             try {
                 const container = document.getElementById(containerId);
+                const todosCursos = await getFromCacheOuFetch('cursos');
+                let cursosFiltrados = todosCursos.filter(c => c.status !== 'cancelado');
                 
-                let query = supabaseClient.from('cursos').select('*');
-                
-                // If on the main page and not searching, show only open courses.
                 if (containerId === 'listaCursosInicial' && !filtro) {
-                    query = query.eq('statusInscricao', 'recebendo').order('id', { ascending: false }).limit(6);
-                } 
-                // If there is a search filter, apply it to all courses.
-                else if (filtro) {
-                    query = query.ilike('nomeDoCurso', `%${filtro}%`);
-                }
-
-                const { data: cursos, error } = await query;
-                
-                if (error || !cursos) {
-                    container.innerHTML = '<p class="col-span-full text-center text-neutral-400">Erro ao carregar cursos.</p>';
-                    console.error("Error fetching cursos:", error);
-                    return;
+                    cursosFiltrados = cursosFiltrados.filter(c => c.statusInscricao === 'recebendo')
+                                                     .sort((a,b) => b.id - a.id)
+                                                     .slice(0, 6);
+                } else if (filtro) {
+                    const filtroLowerCase = filtro.toLowerCase();
+                    cursosFiltrados = cursosFiltrados.filter(c => c.nomeDoCurso.toLowerCase().includes(filtroLowerCase));
                 }
 
                 container.innerHTML = '';
-                if (cursos.length === 0) { 
+                if (cursosFiltrados.length === 0) { 
                     container.innerHTML = '<p class="col-span-full text-center text-neutral-400">Nenhum curso encontrado.</p>'; 
                     return; 
                 }
 
-                cursos.forEach(curso => {
-                    if (curso.status === 'cancelado') return;
+                cursosFiltrados.forEach(curso => {
                     const isRecebendo = curso.statusInscricao === 'recebendo';
                     const buttonHtml = `<button onclick="verDetalhesCurso(${curso.id})" class="w-full btn-primary font-bold py-2 px-4 rounded-lg mt-auto">Ver Detalhes</button>`;
                     const allMinistrantes = [...new Set(curso.aulas.flatMap(a => a.ministrantes))];
@@ -1022,12 +1035,13 @@
         window.verDetalhesCurso = async function(cursoId) {
             showLoader();
             try {
-                const [{ data: curso, error: cursoError }, { data: todosMinistrantes, error: ministrantesError }] = await Promise.all([
-                    supabaseClient.from('cursos').select('*').eq('id', cursoId).single(),
-                    supabaseClient.from('ministrantes').select('nomeCompleto, formacao')
+                const [todosCursos, todosMinistrantes] = await Promise.all([
+                    getFromCacheOuFetch('cursos'),
+                    getFromCacheOuFetch('ministrantes')
                 ]);
+                const curso = todosCursos.find(c => c.id == cursoId);
 
-                if (cursoError || !curso || curso.status === 'cancelado') {
+                if (!curso || curso.status === 'cancelado') {
                     mostrarModal("Curso não encontrado ou não está mais disponível.");
                     return;
                 }
@@ -1152,12 +1166,9 @@
                 }
                 
                 const { error: updateError } = await supabaseClient.from(tipoUsuario + 's').update(novosDados).eq('id', usuarioAtual.id);
-                if (updateError) {
-                    mostrarModal("Erro ao atualizar o perfil.");
-                    console.error(updateError);
-                    return;
-                }
+                if (updateError) throw updateError;
 
+                invalidarCache(tipoUsuario + 's');
                 if (novosDados.nomeCompleto !== estado.usuarioLogado.nome) {
                     estado.usuarioLogado.nome = novosDados.nomeCompleto;
                     localStorage.setItem('sessaoUsuario', JSON.stringify(estado.usuarioLogado));
@@ -1169,7 +1180,11 @@
                 }
                 
                 mostrarModal("Perfil atualizado com sucesso!");
-            } finally {
+            } catch (error) {
+                 mostrarModal("Erro ao atualizar o perfil.");
+                 console.error("Erro ao salvar perfil:", error);
+            }
+            finally {
                 hideLoader();
             }
         }
@@ -1259,7 +1274,6 @@
         async function renderizarPainelAluno() {
             showLoader();
             try {
-                // Executar todas as renderizações de aba em paralelo
                 await Promise.all([
                     renderizarCursosPainelAluno(),
                     renderizarMeusCursos(),
@@ -1276,10 +1290,10 @@
         async function renderizarMeusCursos() {
             const container = document.getElementById('listaMeusCursos');
             const { data: aluno, error: alunoError } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
-            const { data: todosCursos, error: cursosError } = await supabaseClient.from('cursos').select('*');
+            const todosCursos = await getFromCacheOuFetch('cursos');
             
-            if (alunoError || cursosError) {
-                container.innerHTML = '<p>Erro ao carregar seus cursos.</p>';
+            if (alunoError) {
+                container.innerHTML = '<p>Erro ao carregar os seus cursos.</p>';
                 return;
             }
 
@@ -1328,7 +1342,8 @@
             }
             
             estado.cursoSelecionadoId = cursoId;
-            const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
+            const todosCursos = await getFromCacheOuFetch('cursos');
+            const curso = todosCursos.find(c => c.id == cursoId);
             document.getElementById('nomeCursoPagamento').innerText = curso.nomeDoCurso;
             document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}`;
             mostrarTela('telaPagamento');
@@ -1366,19 +1381,20 @@
                 const novasInscricoes = [...(aluno.cursosInscritos || []), novaInscricao];
 
                 const { error: updateError } = await supabaseClient.from('alunos').update({ cursosInscritos: novasInscricoes }).eq('id', aluno.id);
-                if (updateError) {
-                    mostrarModal("Erro ao registrar sua inscrição.");
-                    console.error(updateError);
-                    return;
-                }
+                if (updateError) throw updateError;
                 
+                invalidarCache('alunos');
                 mostrarModal("Comprovante enviado! Aguarde a aprovação.");
                 fileInput.value = ''; 
                 document.getElementById('previewComprovante').classList.add('hidden');
                 await renderizarMeusCursos(); 
                 mudarAbaPainelAluno('meusCursos'); 
                 mostrarTela('painelAluno');
-            } finally {
+            } catch (error){
+                 mostrarModal("Erro ao registrar sua inscrição.");
+                 console.error("Erro ao enviar comprovante:", error);
+            }
+            finally {
                 hideLoader();
             }
         }
@@ -1458,7 +1474,6 @@
                 
                 conteudoContainer.innerHTML = chatHtml + aulasHtml + frequenciaHtml + certificadoHtml + anotacoesHtml;
                 
-                // Render content in parallel
                 const renderPromises = [
                     renderizarListaAulas(cursoId),
                     renderizarChat(cursoId),
@@ -1503,7 +1518,7 @@
                 const match = input.match(/src="([^"]+)"/);
                 return match ? match[1] : null;
             }
-            return input; // It's already a URL
+            return input;
         }
 
         window.acessarLinkMinistrante = async function(cursoId) {
@@ -2002,7 +2017,7 @@
             if (error || !aluno) return;
 
             const inscricao = Array.isArray(aluno.cursosInscritos) ? aluno.cursosInscritos.find(i => i.cursoId == cursoId) : null;
-            if(!inscricao) return; // Se não houver inscrição, não faz nada.
+            if(!inscricao) return;
 
             const { status } = await calcularStatusFrequencia(aluno, cursoId);
 
@@ -2023,22 +2038,24 @@
             let dataEmissao = null;
             
             if (tipo === 'aluno') {
-                const { data: alunos } = await supabaseClient.from('alunos').select('*');
+                const alunos = await getFromCacheOuFetch('alunos');
                  for (const aluno of alunos) { 
                      const inscricao = Array.isArray(aluno.cursosInscritos) ? aluno.cursosInscritos.find(i => i.certificadoCodigo === codigo) : null; 
                      if (inscricao) { 
-                         const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', inscricao.cursoId).single();
+                         const cursos = await getFromCacheOuFetch('cursos');
+                         const curso = cursos.find(c => c.id == inscricao.cursoId);
                          info = { usuario: aluno, curso }; 
                          dataEmissao = new Date(inscricao.certificadoEmitidoEm);
                          break; 
                     } 
                 }
-            } else { // ministrante
-                 const { data: ministrantes } = await supabaseClient.from('ministrantes').select('*');
+            } else { 
+                 const ministrantes = await getFromCacheOuFetch('ministrantes');
                  for (const ministrante of ministrantes) { 
                      const vinculo = Array.isArray(ministrante.cursosVinculados) ? ministrante.cursosVinculados.find(v => v.certificadoCodigo === codigo) : null; 
                      if(vinculo) { 
-                         const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', vinculo.cursoId).single();
+                         const cursos = await getFromCacheOuFetch('cursos');
+                         const curso = cursos.find(c => c.id == vinculo.cursoId);
                          info = { usuario: ministrante, curso }; 
                          dataEmissao = new Date(vinculo.certificadoEmitidoEm);
                          break; 
@@ -2077,7 +2094,7 @@
             let ministrantesHtml = '';
             if (tipo === 'aluno') {
                 const nomesMinistrantes = [...new Set(curso.aulas.flatMap(a => a.ministrantes))];
-                const { data: todosMinistrantes } = await supabaseClient.from('ministrantes').select('*');
+                const todosMinistrantes = await getFromCacheOuFetch('ministrantes');
                 ministrantesHtml = nomesMinistrantes.map(nome => {
                     const ministranteInfo = todosMinistrantes.find(m => m.nomeCompleto === nome);
                     if (!ministranteInfo) return `<p>${nome}</p>`;
@@ -2169,21 +2186,14 @@
         async function renderizarPainelMinistrante() {
             showLoader();
             try {
-                const [
-                    { data: ministrante, error: ministranteError },
-                    { data: todosCursos, error: cursosError },
-                    { data: todosAlunos, error: alunosError }
-                ] = await Promise.all([
+                const [ministranteData, todosCursos, todosAlunos] = await Promise.all([
                     supabaseClient.from('ministrantes').select('*').eq('email', estado.usuarioLogado.email).single(),
-                    supabaseClient.from('cursos').select('*'),
-                    supabaseClient.from('alunos').select('cursosInscritos')
+                    getFromCacheOuFetch('cursos'),
+                    getFromCacheOuFetch('alunos')
                 ]);
 
-                if (ministranteError || cursosError || alunosError) {
-                    console.error("Error fetching minister panel data:", ministranteError || cursosError || alunosError);
-                    document.getElementById('listaCursosMinistrante').innerHTML = '<p>Error loading your courses.</p>';
-                    return;
-                }
+                const { data: ministrante, error: ministranteError } = ministranteData;
+                if (ministranteError) throw ministranteError;
 
                 const container = document.getElementById('listaCursosMinistrante');
                 const cursosVinculados = todosCursos.filter(c => c.status !== 'cancelado' && c.aulas.some(a => a.ministrantes.includes(ministrante.nomeCompleto)));
@@ -2278,6 +2288,7 @@
                 const { error: updateError } = await supabaseClient.from('ministrantes').update({ contrato: novoContrato }).eq('email', ministranteEmail);
                 
                 if (!updateError) {
+                    invalidarCache('ministrantes');
                     await renderizarAreaContratoMinistrante(ministranteEmail);
                     mostrarModal("Contrato assinado enviado com sucesso!");
                 }
@@ -2290,48 +2301,29 @@
         // PAINEL DO ADMINISTRADOR
         // ===================================================
         window.mudarAbaPainelAdmin = async function(abaId) {
-            // Esconde todas as divs de conteúdo primeiro
             document.querySelectorAll('#conteudoAbaAdmin > div').forEach(c => c.classList.add('hidden'));
-            // Estiliza os separadores
             document.querySelectorAll('.tab-admin').forEach(tab => { 
                 tab.classList.remove('border-indigo-500', 'text-indigo-400'); 
                 tab.classList.add('border-transparent', 'text-gray-400'); 
             });
             
-            // Mostra a div de conteúdo alvo e estiliza o separador ativo
             const contentDiv = document.getElementById(`abaConteudo-${abaId}`);
             if (contentDiv) contentDiv.classList.remove('hidden');
             
             const tabLink = document.getElementById(`aba-${abaId}`);
             if (tabLink) tabLink.classList.add('border-indigo-500', 'text-indigo-400');
 
-            // Busca e renderiza novamente os dados para o separador selecionado
             switch (abaId) {
-                case 'gerenciarCursos':
-                    await renderizarPainelAdminCursos();
-                    break;
-                case 'gerenciarAprovacoes':
-                    await renderizarPainelAdminAprovacoes();
-                    break;
-                case 'gerenciarReembolsos':
-                    await renderizarPainelAdminReembolsos();
-                    break;
-                case 'gerenciarCertificados':
-                    await renderizarPainelAdminCertificados();
-                    break;
-                case 'gerenciarAlunos':
-                    await renderizarPainelAdminAlunos();
-                    break;
-                case 'gerenciarMinistrantes':
-                    await renderizarPainelAdminMinistrantes();
-                    break;
-                case 'gerenciarEmpresas':
-                    await renderizarPainelAdminEmpresas();
-                    break;
+                case 'gerenciarCursos': await renderizarPainelAdminCursos(); break;
+                case 'gerenciarAprovacoes': await renderizarPainelAdminAprovacoes(); break;
+                case 'gerenciarReembolsos': await renderizarPainelAdminReembolsos(); break;
+                case 'gerenciarCertificados': await renderizarPainelAdminCertificados(); break;
+                case 'gerenciarAlunos': await renderizarPainelAdminAlunos(); break;
+                case 'gerenciarMinistrantes': await renderizarPainelAdminMinistrantes(); break;
+                case 'gerenciarEmpresas': await renderizarPainelAdminEmpresas(); break;
             }
         }
         async function renderizarPainelAdmin() { 
-            // Apenas renderiza o separador padrão no carregamento inicial
             await renderizarPainelAdminCursos();
         }
         
@@ -2339,21 +2331,16 @@
             showLoader();
             try {
                 const container = document.getElementById('listaCursosAdmin');
-                const [{ data: cursos, error: cursosError }, { data: todosAlunos, error: alunosError }] = await Promise.all([
-                    supabaseClient.from('cursos').select('*'),
-                    supabaseClient.from('alunos').select('cursosInscritos')
+                const [cursos, todosAlunos] = await Promise.all([
+                    getFromCacheOuFetch('cursos'),
+                    getFromCacheOuFetch('alunos')
                 ]);
 
-                if (cursosError || alunosError) {
-                    container.innerHTML = '<p>Error loading data.</p>';
-                    return;
-                }
-
                 container.innerHTML = '';
-                if (cursos.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum curso.</p>'; return; }
+                const cursosAtivos = cursos.filter(c => c.status !== 'cancelado');
+                if (cursosAtivos.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum curso.</p>'; return; }
                 
-                cursos.forEach(c => {
-                    if (c.status === 'cancelado') return;
+                cursosAtivos.forEach(c => {
                     const alunosAprovados = todosAlunos.filter(a => Array.isArray(a.cursosInscritos) && a.cursosInscritos.some(i => i.cursoId == c.id && i.status === 'aprovado')).length;
                     const faturamento = alunosAprovados * parseFloat(c.preco);
                     const totalInscritos = todosAlunos.filter(a => Array.isArray(a.cursosInscritos) && a.cursosInscritos.some(i => i.cursoId == c.id && (i.status === 'aprovado' || i.status === 'pendente'))).length;
@@ -2402,17 +2389,10 @@
             showLoader();
             try {
                 const container = document.getElementById('listaAprovacoesAdmin');
-                const [{ data: alunos, error: alunosError }, { data: cursos, error: cursosError }] = await Promise.all([
-                    supabaseClient.from('alunos').select('*'),
-                    supabaseClient.from('cursos').select('id, nomeDoCurso')
+                const [alunos, cursos] = await Promise.all([
+                    getFromCacheOuFetch('alunos'),
+                    getFromCacheOuFetch('cursos')
                 ]);
-
-
-                if (alunosError || cursosError) {
-                console.error("Erro ao carregar dados:", alunosError || cursosError);
-                container.innerHTML = '<p class="text-center text-red-400">Erro ao carregar aprovações.</p>';
-                return;
-                }
 
                 container.innerHTML = ''; 
                 let temPendente = false;
@@ -2436,8 +2416,7 @@
             showLoader();
             try {
                 const container = document.getElementById('listaAlunosAdmin');
-                const { data: alunos, error } = await supabaseClient.from('alunos').select('nomeCompleto, email');
-                if (error) return;
+                const alunos = await getFromCacheOuFetch('alunos');
 
                 container.innerHTML = '';
                 if (alunos.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum aluno.</p>'; return; }
@@ -2450,8 +2429,7 @@
             showLoader();
             try {
                 const container = document.getElementById('listaMinistrantesAdmin');
-                const { data: ministrantes, error } = await supabaseClient.from('ministrantes').select('nomeCompleto, email');
-                if(error) return;
+                const ministrantes = await getFromCacheOuFetch('ministrantes');
 
                 container.innerHTML = '';
                 if (ministrantes.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum ministrante.</p>'; return; }
@@ -2474,15 +2452,10 @@
                 const container = document.getElementById('listaCursosCertificados');
                 if(!container) return;
 
-                const [{ data: cursos, error: cursosError }, { data: ministrantes, error: ministrantesError }] = await Promise.all([
-                    supabaseClient.from('cursos').select('*'),
-                    supabaseClient.from('ministrantes').select('*')
+                const [cursos, ministrantes] = await Promise.all([
+                    getFromCacheOuFetch('cursos'),
+                    getFromCacheOuFetch('ministrantes')
                 ]);
-
-                if(cursosError || ministrantesError) {
-                    container.innerHTML = '<p class="text-center text-red-400">Erro ao carregar dados.</p>';
-                    return;
-                }
 
                 if (cursos.length === 0) {
                     container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum curso cadastrado para gerir certificados.</p>';
@@ -2523,13 +2496,7 @@
             showLoader();
             try {
                 const container = document.getElementById('listaEmpresasAdmin');
-                const { data: alunos, error } = await supabaseClient.from('alunos').select('cnpjEmpresa');
-
-                if(error) {
-                    container.innerHTML = '<p class="text-center text-red-400">Erro ao carregar empresas.</p>';
-                    return;
-                }
-
+                const alunos = await getFromCacheOuFetch('alunos');
                 const empresasCnpjs = [...new Set(alunos.map(a => a.cnpjEmpresa).filter(Boolean))];
 
                 if(empresasCnpjs.length === 0) {
@@ -2554,7 +2521,7 @@
 
         window.adicionarAulaBlock = async function(aula = {}) {
             const container = document.getElementById('aulasContainer');
-            const { data: todosMinistrantes, error } = await supabaseClient.from('ministrantes').select('*');
+            const todosMinistrantes = await getFromCacheOuFetch('ministrantes');
             const aulaIndex = container.children.length;
 
             const ministrantesHtml = todosMinistrantes && todosMinistrantes.length > 0 ? todosMinistrantes.map(m => {
@@ -2692,7 +2659,7 @@
                 }
 
                 const novosDados = {
-                    id: cursoId ? Number(cursoId) : undefined, // Supabase gera ID se for undefined
+                    id: cursoId ? Number(cursoId) : undefined,
                     nomeDoCurso: formData.get('nomeDoCurso'),
                     preco: formData.get('preco'),
                     cotaMinima: formData.get('cotaMinima'),
@@ -2728,13 +2695,9 @@
                 });
                 
                 const { error } = await supabaseClient.from('cursos').upsert(novosDados, { onConflict: 'id' });
-
-                if(error) {
-                    mostrarModal("Erro ao salvar curso.");
-                    console.error(error);
-                    return;
-                }
+                if (error) throw error;
                 
+                invalidarCache('cursos');
                 fecharModal('modalCurso'); 
                 await renderizarPainelAdminCursos(); 
                 if (estado.usuarioLogado && estado.usuarioLogado.tipo === 'ministrante') {
@@ -2742,7 +2705,11 @@
                 }
                 await renderizarCursos('listaCursosInicial');
                 mostrarModal('Curso salvo!');
-            } finally {
+            } catch (error) {
+                 mostrarModal("Erro ao salvar curso.");
+                 console.error("Erro ao salvar curso:", error);
+            }
+            finally {
                 hideLoader();
             }
         }
@@ -2755,21 +2722,11 @@
         async function cancelarCurso(id) {
             showLoader();
             try {
-                // 1. Update course status
                 const { error: cursoError } = await supabaseClient.from('cursos').update({ status: 'cancelado', statusInscricao: 'fechado' }).eq('id', id);
-                if(cursoError) {
-                    mostrarModal("Erro ao cancelar o curso.");
-                    console.error(cursoError);
-                    return;
-                }
+                if(cursoError) throw cursoError;
 
-                // 2. Find all students and update their enrollment status
                 const { data: todosAlunos, error: alunosError } = await supabaseClient.from('alunos').select('*');
-                if (alunosError) {
-                    mostrarModal("Erro ao buscar alunos para reembolso.");
-                    console.error(alunosError);
-                    return;
-                }
+                if (alunosError) throw alunosError;
                 
                 const alunosParaReembolsar = todosAlunos.filter(aluno =>
                     Array.isArray(aluno.cursosInscritos) &&
@@ -2783,9 +2740,13 @@
                         await supabaseClient.from('alunos').update({ cursosInscritos: aluno.cursosInscritos }).eq('id', aluno.id);
                     }
                 }
-
+                invalidarCache('cursos');
+                invalidarCache('alunos');
                 mostrarModal('Curso cancelado com sucesso. Alunos movidos para a fila de reembolso.');
                 await renderizarPainelAdminCursos();
+            } catch (error) {
+                mostrarModal("Erro ao processar o cancelamento.");
+                console.error("Erro ao cancelar curso:", error);
             } finally {
                 hideLoader();
             }
@@ -2795,13 +2756,14 @@
             showLoader();
             try {
                 const { error } = await supabaseClient.from('cursos').update({ status: 'cancelado', statusInscricao: 'fechado' }).eq('id', id);
-                if (error) {
-                    mostrarModal("Erro ao excluir o curso.");
-                    console.error(error);
-                    return;
-                }
+                if (error) throw error;
+
+                invalidarCache('cursos');
                 await renderizarPainelAdminCursos();
                 mostrarModal('Curso excluído com sucesso.');
+            } catch (error) {
+                mostrarModal("Erro ao excluir o curso.");
+                console.error("Erro ao excluir curso:", error);
             } finally {
                 hideLoader();
             }
@@ -2810,6 +2772,7 @@
             const { data: curso } = await supabaseClient.from('cursos').select('statusInscricao').eq('id', id).single();
             const novoStatus = curso.statusInscricao === 'recebendo' ? 'fechado' : 'recebendo';
             await supabaseClient.from('cursos').update({ statusInscricao: novoStatus }).eq('id', id);
+            invalidarCache('cursos');
             await renderizarPainelAdminCursos(); 
         }
         window.aprovarPagamento = async function(email, cursoId) {
@@ -2820,6 +2783,7 @@
             inscricao.aprovadoEm = new Date().toISOString();
             
             await supabaseClient.from('alunos').update({ cursosInscritos: inscricoes }).eq('id', aluno.id);
+            invalidarCache('alunos');
             await renderizarPainelAdminAprovacoes(); 
         }
         window.reprovarPagamento = async function(email, cursoId) { 
@@ -2827,6 +2791,7 @@
             const inscricoes = aluno.cursosInscritos;
             inscricoes.find(i => i.cursoId == cursoId).status = 'reprovado';
             await supabaseClient.from('alunos').update({ cursosInscritos: inscricoes }).eq('id', aluno.id);
+            invalidarCache('alunos');
             await renderizarPainelAdminAprovacoes();
         }
         
@@ -2889,15 +2854,11 @@
         window.verInscritos = async function(cursoId) {
             showLoader();
             try {
-                const [{ data: curso, error: cursoError }, { data: todosAlunos, error: alunosError }] = await Promise.all([
-                    supabaseClient.from('cursos').select('id, nomeDoCurso').eq('id', cursoId).single(),
-                    supabaseClient.from('alunos').select('*')
+                const [cursos, todosAlunos] = await Promise.all([
+                    getFromCacheOuFetch('cursos'),
+                    getFromCacheOuFetch('alunos')
                 ]);
-
-                if (cursoError || alunosError) {
-                    mostrarModal("Erro ao carregar inscritos.");
-                    return;
-                }
+                const curso = cursos.find(c => c.id == cursoId);
 
                 const alunosInscritos = todosAlunos.filter(aluno => Array.isArray(aluno.cursosInscritos) && aluno.cursosInscritos.some(i => i.cursoId == cursoId));
                 
@@ -3034,9 +2995,10 @@
                 const { data: { publicUrl } } = supabaseClient.storage.from('contratos').getPublicUrl(filePath);
                 
                 const { data: ministrante } = await supabaseClient.from('ministrantes').select('contrato').eq('email', email).single();
-                const novoContrato = { ...(ministrante.contrato || {}), enviadoPeloAdmin: publicUrl, assinadoPeloMinistrante: null }; // Reset signed status on new upload
+                const novoContrato = { ...(ministrante.contrato || {}), enviadoPeloAdmin: publicUrl, assinadoPeloMinistrante: null };
 
                 await supabaseClient.from('ministrantes').update({ contrato: novoContrato }).eq('email', email);
+                invalidarCache('ministrantes');
                 await verDetalhes('ministrante', email);
                 mostrarModal("Contrato enviado com sucesso!");
             } finally {
@@ -3052,18 +3014,20 @@
             showLoader();
             try {
                 const { error } = await supabaseClient.from(tipo + 's').delete().eq('email', email);
-                if (error) {
-                    mostrarModal(`Erro ao excluir ${tipo}.`);
-                    console.error(error);
-                    return;
-                }
+                if (error) throw error;
+                
+                invalidarCache(tipo + 's');
                 mostrarModal(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} excluído com sucesso.`);
                 if (tipo === 'aluno') {
                     await renderizarPainelAdminAlunos();
                 } else {
                     await renderizarPainelAdminMinistrantes();
                 }
-            } finally {
+            } catch(error) {
+                mostrarModal(`Erro ao excluir ${tipo}.`);
+                console.error(`Erro ao excluir ${tipo}:`, error);
+            }
+            finally {
                 hideLoader();
             }
         }
@@ -3096,24 +3060,23 @@
                 if (filesToDelete.length > 0) {
                     const { error: storageError } = await supabaseClient.storage.from('contratos').remove(filesToDelete);
                     if (storageError && storageError.statusCode !== '404') {
-                        // Log error but continue to update DB record
                         console.error("Erro ao excluir arquivos do Storage:", storageError);
                     }
                 }
 
                 const novoContrato = { status: 'pendente', enviadoPeloAdmin: null, assinadoPeloMinistrante: null };
                 const { error: updateError } = await supabaseClient.from('ministrantes').update({ contrato: novoContrato }).eq('email', email);
+                if (updateError) throw updateError;
 
-                if (updateError) {
-                    mostrarModal("Erro ao remover o registro do contrato do ministrante.");
-                    console.error(updateError);
-                    return;
-                }
-
+                invalidarCache('ministrantes');
                 mostrarModal("Contrato excluído com sucesso.");
-                await verDetalhes('ministrante', email); // Refresh the modal view
+                await verDetalhes('ministrante', email);
 
-            } finally {
+            } catch(error) {
+                mostrarModal("Erro ao remover o registro do contrato do ministrante.");
+                console.error("Erro ao excluir contrato:", error);
+            }
+            finally {
                 hideLoader();
             }
         }
@@ -3198,6 +3161,7 @@
                     mostrarModal("Erro ao registrar frequência.");
                     console.error(error);
                 } else {
+                    invalidarCache('alunos');
                     mostrarModal("Código registrado com sucesso!");
                     await renderizarAreaFrequencia(cursoId);
                 }
@@ -3263,6 +3227,7 @@
                     const { error } = await supabaseClient.from('alunos').update({ cursosInscritos: usuario.cursosInscritos }).eq('id', usuario.id);
                     if (error) { mostrarModal("Erro ao emitir certificado."); console.error(error); return; }
                 }
+                 invalidarCache('alunos');
             } else if (tipo === 'ministrante') {
                  let vinculos = Array.isArray(usuario.cursosVinculados) ? usuario.cursosVinculados : [];
                  let vinculo = vinculos.find(v => v.cursoId == cursoId);
@@ -3278,11 +3243,11 @@
                  }
                  const { error } = await supabaseClient.from('ministrantes').update({ cursosVinculados: vinculos }).eq('id', usuario.id);
                  if (error) { mostrarModal("Erro ao emitir certificado para ministrante."); console.error(error); return; }
+                 invalidarCache('ministrantes');
             }
 
             mostrarModal("Certificado liberado com sucesso!");
 
-            // Refresh the current view
             if (estado.telaAtual === 'painelAdmin' && document.getElementById('aba-gerenciarCertificados').classList.contains('border-indigo-500')) {
                 await renderizarPainelAdminCertificados();
             } else if (estado.telaAtual === 'painelAdmin' && document.getElementById('conteudoModalDetalhes').innerHTML.includes('Alunos da Empresa')) {
@@ -3297,29 +3262,25 @@
         window.verAlunosEmpresa = async function(cnpj) {
             showLoader();
             try {
-                const [{ data: alunos, error: alunosError }, { data: cursos, error: cursosError }] = await Promise.all([
-                    supabaseClient.from('alunos').select('*').eq('cnpjEmpresa', cnpj),
-                    supabaseClient.from('cursos').select('id, nomeDoCurso')
+                const [alunos, cursos] = await Promise.all([
+                    getFromCacheOuFetch('alunos'),
+                    getFromCacheOuFetch('cursos')
                 ]);
-
-                if (alunosError || cursosError) {
-                    mostrarModal("Erro ao carregar dados da empresa.");
-                    return;
-                }
+                const alunosDaEmpresa = alunos.filter(a => a.cnpjEmpresa === cnpj);
 
                 const container = document.getElementById('conteudoModalDetalhes');
-                container.dataset.cnpj = cnpj; // Store cnpj for refresh
+                container.dataset.cnpj = cnpj;
                 let html = `
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-xl font-bold nexus-gradient-text">Alunos da Empresa (CNPJ: ${cnpj})</h2>
                         <button id="btnImprimirTodos" onclick="imprimirCertificadosEmpresa('${cnpj}')" class="btn-success text-white px-4 py-2 rounded-lg">Imprimir Todos (PDF)</button>
                     </div>`;
 
-                if (alunos.length === 0) {
+                if (alunosDaEmpresa.length === 0) {
                     html += '<p>Nenhum aluno encontrado para esta empresa.</p>';
                 } else {
                     html += '<div class="space-y-4">';
-                    for (const aluno of alunos) {
+                    for (const aluno of alunosDaEmpresa) {
                         html += `<div class="bg-neutral-800 p-3 rounded-lg">
                                     <p class="font-bold text-white">${aluno.nomeCompleto}</p>`;
                         
@@ -3330,7 +3291,6 @@
                                     const { status: statusFrequencia, cor } = await calcularStatusFrequencia(aluno, inscricao.cursoId);
                                     
                                     let certButton = '';
-                                    // Certificate can only be issued if payment is approved and frequency is sufficient
                                     if (inscricao.status === 'aprovado' && statusFrequencia === 'Presente') {
                                         certButton = inscricao.certificadoCodigo
                                             ? `<button onclick="visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
@@ -3384,7 +3344,6 @@
                                 const { status } = await calcularStatusFrequencia(aluno, inscricao.cursoId);
                                 if (status === 'Presente') {
                                     let codigoCertificado = inscricao.certificadoCodigo;
-                                    // Se não tiver código, emite silenciosamente
                                     if (!codigoCertificado) {
                                         const codigo = `NEXUS-AL-${inscricao.cursoId}-${aluno.id}`;
                                         const inscricaoIndex = aluno.cursosInscritos.findIndex(i => i.cursoId == inscricao.cursoId);
@@ -3392,8 +3351,8 @@
                                         aluno.cursosInscritos[inscricaoIndex].certificadoEmitidoEm = new Date().toISOString();
                                         await supabaseClient.from('alunos').update({ cursosInscritos: aluno.cursosInscritos }).eq('id', aluno.id);
                                         codigoCertificado = codigo;
+                                        invalidarCache('alunos');
                                     }
-                                    // Gera o HTML do certificado e adiciona ao container
                                     const htmlCertificado = await gerarHtmlCertificado('aluno', codigoCertificado);
                                     const wrapper = document.createElement('div');
                                     wrapper.className = 'page-break';
@@ -3420,7 +3379,6 @@
                 };
                 await html2pdf().set(opt).from(containerParaPdf).save();
                 
-                // Atualiza a vista para mostrar os botões "Ver"
                 verAlunosEmpresa(cnpj);
             } finally {
                 btn.disabled = false;
@@ -3440,7 +3398,8 @@
             }
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-            // Login com a tecla Enter
+            invalidarCache();
+
             document.getElementById('loginSenhaAluno').addEventListener('keydown', e => { if (e.key === 'Enter') loginAluno(); });
             document.getElementById('loginSenhaMinistrante').addEventListener('keydown', e => { if (e.key === 'Enter') loginMinistrante(); });
             document.getElementById('loginSenhaAdmin').addEventListener('keydown', e => { if (e.key === 'Enter') loginAdmin(); });
@@ -3468,6 +3427,5 @@
 
 </body>
 </html>
-
 
 
