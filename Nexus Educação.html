@@ -237,6 +237,12 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Contato -->
+                <div class="mt-16 text-center text-neutral-400 text-sm">
+                    <p>Entre em contato conosco pelo email: nexuseducacao.ct@gmail.com</p>
+                    <p>ou pelo WhatsApp: <a href="https://wa.me/5588999361992" target="_blank" class="text-indigo-400 hover:underline">(88) 99936-1992</a></p>
+                </div>
             </section>
 
             <!-- TELA LOGIN ALUNO -->
@@ -508,28 +514,47 @@
                  <div class="glassmorphism p-8 rounded-xl shadow-lg">
                     <h2 class="text-2xl font-bold text-center mb-2">Pagamento do Curso</h2>
                     <p id="nomeCursoPagamento" class="text-center text-indigo-400 font-semibold mb-6"></p>
-                    <p id="precoCursoPagamento" class="text-center text-white font-bold text-3xl mb-4"></p>
-                    
-                    <div class="text-center space-y-4">
-                        <p class="text-neutral-300">Realize o pagamento via PIX para garantir sua vaga.</p>
-                        <div class="bg-neutral-800 p-4 rounded-lg">
-                            <p class="text-sm text-neutral-400">Chave PIX (CNPJ)</p>
-                            <div class="flex justify-center items-center gap-4 mt-2">
-                                <p id="chavePixPagamento" class="text-lg font-mono text-white">62.323.279/0001-00</p>
-                                <button onclick="copiarChavePix()" class="text-indigo-400 hover:text-indigo-300"><i class="fas fa-copy"></i></button>
+
+                    <div id="payment-tabs-container">
+                        <div class="mb-4 border-b border-neutral-700">
+                            <nav id="payment-tabs-nav" class="flex -mb-px justify-center" aria-label="Tabs">
+                                <a href="#" onclick="mudarAbaPagamento('pix')" id="aba-pagamento-pix" class="tab-pagamento border-indigo-500 text-indigo-400 w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm">PIX</a>
+                                <a href="#" onclick="mudarAbaPagamento('cartao')" id="aba-pagamento-cartao" class="tab-pagamento border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 w-1/2 py-4 px-1 text-center border-b-2 font-medium text-sm">Cartão de Crédito</a>
+                            </nav>
+                        </div>
+
+                        <div id="conteudo-pagamento-pix">
+                            <p class="text-center text-neutral-300">Pague com PIX e envie o comprovante abaixo.</p>
+                            <div class="bg-neutral-800 p-4 rounded-lg my-4">
+                                <p class="text-sm text-neutral-400">Chave PIX (CNPJ)</p>
+                                <div class="flex justify-center items-center gap-4 mt-2">
+                                    <p class="text-lg font-mono text-white">62.323.279/0001-00</p>
+                                    <button onclick="copiarChavePix()" class="text-indigo-400 hover:text-indigo-300"><i class="fas fa-copy"></i></button>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="border-t border-neutral-700 pt-4">
-                            <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">Envie o Comprovante de Pagamento</label>
-                            <input type="file" id="comprovantePagamento" accept="image/*,application/pdf">
-                            <img id="previewComprovante" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+
+                        <div id="conteudo-pagamento-cartao" class="hidden">
+                            <p class="text-center text-neutral-300">Clique no botão para pagar com cartão e depois anexe o comprovante.</p>
+                            <button id="btnPagarComCartao" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-lg my-4"><i class="fas fa-credit-card mr-2"></i>Ir para Pagamento Seguro</button>
                         </div>
-                        
-                        <p class="text-sm text-yellow-400 mt-4">Sua vaga será confirmada e o curso liberado após a aprovação do pagamento pelo administrador.</p>
-                        <button onclick="enviarComprovante()" class="w-full btn-primary font-bold p-3 rounded-lg">Enviar Comprovante</button>
                     </div>
-                     <button onclick="mostrarTelaAnterior()" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar</button>
+
+                    <div class="border-t border-neutral-700 pt-4 mt-4">
+                        <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento</label>
+                        <input type="file" id="comprovantePagamento" accept="image/*,application/pdf">
+                        <img id="previewComprovante" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+                    </div>
+                    
+                    <p class="text-sm text-yellow-400 mt-4 text-center">Sua vaga será confirmada após a aprovação do comprovante.</p>
+                    <button onclick="enviarComprovante()" class="w-full btn-primary font-bold p-3 rounded-lg mt-4">Enviar Comprovante</button>
+                    
+                    <div class="mt-6 text-center text-neutral-400 text-xs">
+                        <p>Dúvidas? Entre em contato conosco pelo email: nexuseducacao.ct@gmail.com</p>
+                        <p>ou pelo WhatsApp: <a href="https://wa.me/5588999361992" target="_blank" class="text-indigo-400 hover:underline">(88) 99936-1992</a></p>
+                    </div>
+
+                    <button onclick="mostrarTelaAnterior()" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar</button>
                  </div>
             </section>
 
@@ -592,6 +617,10 @@
                         <label class="block mb-2 text-sm font-medium text-neutral-300">Cota Mínima de Alunos</label>
                         <input type="number" name="cotaMinima" placeholder="Ex: 20" required class="w-full p-3 rounded-lg border-2">
                     </div>
+                </div>
+                 <div>
+                    <label class="block mb-2 text-sm font-medium text-neutral-300">Link de Pagamento com Cartão (Opcional)</label>
+                    <input type="url" name="linkCartao" placeholder="https://link.pagseguro.com/..." class="w-full p-3 rounded-lg border-2">
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -1345,7 +1374,21 @@
             const todosCursos = await getFromCacheOuFetch('cursos');
             const curso = todosCursos.find(c => c.id == cursoId);
             document.getElementById('nomeCursoPagamento').innerText = curso.nomeDoCurso;
-            document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}`;
+            
+            const navTabs = document.getElementById('payment-tabs-nav');
+            const paymentTabsContainer = document.getElementById('payment-tabs-container');
+
+            if (curso.linkCartao) {
+                paymentTabsContainer.classList.remove('hidden');
+                navTabs.classList.remove('hidden');
+                document.getElementById('btnPagarComCartao').onclick = () => window.open(curso.linkCartao, '_blank');
+                mudarAbaPagamento('pix');
+            } else {
+                paymentTabsContainer.classList.add('hidden');
+                document.getElementById('conteudo-pagamento-pix').classList.remove('hidden');
+                document.getElementById('conteudo-pagamento-cartao').classList.add('hidden');
+            }
+
             mostrarTela('telaPagamento');
         }
         window.copiarChavePix = function() { navigator.clipboard.writeText('62.323.279/0001-00').then(() => mostrarModal("Chave PIX copiada!"), () => mostrarModal("Falha ao copiar.")); }
@@ -1402,6 +1445,23 @@
         // ===================================================
         // TELA DO CURSO (AULA, CHAT, CERTIFICADO)
         // ===================================================
+
+        window.mudarAbaPagamento = function(abaId) {
+            document.querySelectorAll('.tab-pagamento').forEach(tab => {
+                tab.classList.remove('border-indigo-500', 'text-indigo-400');
+                tab.classList.add('border-transparent', 'text-gray-400');
+            });
+            document.getElementById(`aba-pagamento-${abaId}`).classList.add('border-indigo-500', 'text-indigo-400');
+
+            if (abaId === 'pix') {
+                document.getElementById('conteudo-pagamento-pix').classList.remove('hidden');
+                document.getElementById('conteudo-pagamento-cartao').classList.add('hidden');
+            } else {
+                document.getElementById('conteudo-pagamento-pix').classList.add('hidden');
+                document.getElementById('conteudo-pagamento-cartao').classList.remove('hidden');
+            }
+        }
+
         window.acessarCurso = async function(cursoId) {
             showLoader();
             try {
@@ -2663,6 +2723,7 @@
                     nomeDoCurso: formData.get('nomeDoCurso'),
                     preco: formData.get('preco'),
                     cotaMinima: formData.get('cotaMinima'),
+                    linkCartao: formData.get('linkCartao'),
                     cargaHorariaAluno: formData.get('cargaHorariaAluno'),
                     cargaHorariaMinistrante: formData.get('cargaHorariaMinistrante'),
                     imagem: imagemFinal,
@@ -3427,5 +3488,8 @@
 
 </body>
 </html>
+
+
+
 
 
