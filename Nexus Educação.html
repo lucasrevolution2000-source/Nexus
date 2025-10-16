@@ -715,6 +715,12 @@
                 telaAlvo.classList.add('fade-in');
                 setTimeout(() => telaAlvo.classList.remove('fade-in'), 500);
                 
+                // Adiciona foco automático ao primeiro campo de entrada para melhorar a usabilidade móvel
+                const firstInput = telaAlvo.querySelector('input, textarea, select');
+                if (firstInput && !firstInput.disabled) {
+                    setTimeout(() => firstInput.focus(), 100); // Pequeno atraso para garantir que a transição não interfira
+                }
+                
                 estado.telaAnterior = estado.telaAtual; 
                 estado.telaAtual = telaId; 
             }
@@ -2894,9 +2900,28 @@
                 }
 
                 if (tipo === 'ministrante' && usuario.formacao) {
-                    const { graduadoEm, especialistaEm, mestreEm, doutorEm, posDoutorEm } = usuario.formacao;
-                    let formacaoHtml = [graduadoEm, especialistaEm, mestreEm, doutorEm, posDoutorEm].filter(Boolean).join(', ');
-                    if (formacaoHtml) html += `<p><strong class="font-semibold text-neutral-300">Formação:</strong> ${formacaoHtml}</p>`;
+                    const titulos = {
+                        graduadoEm: 'Graduado em',
+                        especialistaEm: 'Especialista em',
+                        mestreEm: 'Mestre em',
+                        doutorEm: 'Doutor em',
+                        posDoutorEm: 'Pós-Doutor em'
+                    };
+                    let hasFormation = false;
+                    let formacaoHtml = '';
+                    for (const [key, value] of Object.entries(usuario.formacao)) {
+                        if (value) {
+                            formacaoHtml += `<p><strong class="font-semibold text-neutral-300 w-32 inline-block">${titulos[key]}:</strong> <span>${value}</span></p>`;
+                            hasFormation = true;
+                        }
+                    }
+
+                    if (hasFormation) {
+                        html += `<div class="border-t border-neutral-600 mt-4 pt-4">
+                                    <h4 class="font-bold text-neutral-100 mb-2">Titulação Acadêmica</h4>
+                                    <div class="space-y-1">${formacaoHtml}</div>
+                                 </div>`;
+                    }
                 }
 
                 if (tipo === 'ministrante') {
@@ -3517,6 +3542,8 @@
 
 </body>
 </html>
+
+
 
 
 
