@@ -292,6 +292,9 @@
                         </div>
                         <button type="submit" class="w-full btn-primary font-bold p-3 rounded-lg">Cadastrar</button>
                     </form>
+                    <p class="text-xs text-neutral-400 mt-4 text-center">
+                        Ao se cadastrar, você concorda com nossos Termos de Serviço e Política de Privacidade. Seus dados serão tratados com segurança e em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+                    </p>
                     <p class="text-center text-neutral-300 mt-4">Já tem uma conta? <a href="#" onclick="mostrarTela('telaLoginAluno')" class="font-semibold text-indigo-400 hover:underline">Faça Login</a></p>
                     <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
@@ -322,7 +325,19 @@
                         <input type="text" name="nomeCompleto" placeholder="Nome completo ou Razão Social no caso de empresa" required class="w-full p-3 rounded-lg border-2">
                         <input type="text" name="cpfCnpj" placeholder="CPF ou CNPJ no caso de empresa" required class="w-full p-3 rounded-lg border-2">
                         <input type="text" name="rg" placeholder="RG (somente para pessoa física)" class="w-full p-3 rounded-lg border-2">
-                        <input type="text" name="cep" placeholder="CEP" required class="w-full p-3 rounded-lg border-2">
+                        <div class="border border-neutral-600 p-3 rounded-lg space-y-3">
+                            <label class="block -mb-2 text-sm font-medium text-neutral-300">Endereço</label>
+                            <input type="text" name="cep" placeholder="CEP" required class="w-full p-3 rounded-lg border-2">
+                            <input type="text" name="rua" placeholder="Rua" required class="w-full p-3 rounded-lg border-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="numero" placeholder="Número" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="bairro" placeholder="Bairro" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="cidade" placeholder="Cidade" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="estado" placeholder="Estado" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                        </div>
                         <div class="border border-neutral-600 p-3 rounded-lg space-y-3">
                             <label class="block -mb-2 text-sm font-medium text-neutral-300">Formação Acadêmica</label>
                             <input type="text" name="graduadoEm" placeholder="Graduado em:" class="w-full p-3 rounded-lg border-2">
@@ -361,6 +376,9 @@
                         </div>
                         <button type="submit" class="w-full btn-primary font-bold p-3 rounded-lg">Cadastrar</button>
                     </form>
+                    <p class="text-xs text-neutral-400 mt-4 text-center">
+                        Ao se cadastrar, você concorda com nossos Termos de Serviço e Política de Privacidade. Seus dados serão tratados com segurança e em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+                    </p>
                     <p class="text-center text-neutral-300 mt-4">Já tem uma conta? <a href="#" onclick="mostrarTela('telaLoginMinistrante')" class="font-semibold text-indigo-400 hover:underline">Faça Login</a></p>
                     <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
@@ -1223,7 +1241,19 @@
                             </div>
                             <input type="text" name="nomeCompleto" placeholder="Nome Completo" value="${usuario.nomeCompleto || ''}" required class="w-full p-3 rounded-lg border-2">
                             ${camposEspecificos}
-                            <input type="text" name="cep" placeholder="CEP" value="${usuario.cep || ''}" required class="w-full p-3 rounded-lg border-2">
+                            <div class="border border-neutral-600 p-3 rounded-lg space-y-3">
+                                <label class="block -mb-2 text-sm font-medium text-neutral-300">Endereço</label>
+                                <input type="text" name="cep" placeholder="CEP" value="${usuario.cep || ''}" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="rua" placeholder="Rua" value="${usuario.rua || ''}" required class="w-full p-3 rounded-lg border-2">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input type="text" name="numero" placeholder="Número" value="${usuario.numero || ''}" required class="w-full p-3 rounded-lg border-2">
+                                    <input type="text" name="bairro" placeholder="Bairro" value="${usuario.bairro || ''}" required class="w-full p-3 rounded-lg border-2">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input type="text" name="cidade" placeholder="Cidade" value="${usuario.cidade || ''}" required class="w-full p-3 rounded-lg border-2">
+                                    <input type="text" name="estado" placeholder="Estado" value="${usuario.estado || ''}" required class="w-full p-3 rounded-lg border-2">
+                                </div>
+                            </div>
                             <input type="text" name="whatsapp" placeholder="WhatsApp" value="${usuario.whatsapp || ''}" required class="w-full p-3 rounded-lg border-2">
                             <input type="text" name="instagram" placeholder="@ do Instagram" value="${usuario.instagram || ''}" required class="w-full p-3 rounded-lg border-2">
                             
@@ -2841,7 +2871,22 @@
                 if (error || !usuario) return;
 
                 const container = document.getElementById('conteudoModalDetalhes');
-                let html = `<div class="w-full max-w-lg mx-auto"><div class="text-center p-6"><img src="${usuario.fotoPerfil || 'https://placehold.co/128x128/171717/FFFFFF?text=?'}" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-indigo-500"><h2 class="text-xl font-bold">${usuario.nomeCompleto}</h2><p class="text-sm text-neutral-400">${usuario.email}</p></div><div class="border-t border-neutral-700 px-6 py-4 space-y-2">`;
+                
+                let fotoHtml = `<img src="${usuario.fotoPerfil || 'https://placehold.co/128x128/171717/FFFFFF?text=?'}" class="w-24 h-24 rounded-full mx-auto mb-4 border-2 border-indigo-500 object-cover">`;
+
+                if (tipo === 'ministrante' && usuario.fotoPerfil) {
+                    fotoHtml = `
+                        <div class="relative w-24 h-24 mx-auto mb-4 group">
+                            <a href="${usuario.fotoPerfil}" download="foto_${usuario.nomeCompleto.replace(/\s/g, '_')}.jpg" title="Clique para baixar a imagem original">
+                                <img src="${usuario.fotoPerfil}" class="w-24 h-24 rounded-full border-2 border-indigo-500 object-cover">
+                                <div class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                                    <i class="fas fa-download text-white text-2xl"></i>
+                                </div>
+                            </a>
+                        </div>`;
+                }
+
+                let html = `<div class="w-full max-w-lg mx-auto"><div class="text-center p-6">${fotoHtml}<h2 class="text-xl font-bold">${usuario.nomeCompleto}</h2><p class="text-sm text-neutral-400">${usuario.email}</p></div><div class="border-t border-neutral-700 px-6 py-4 space-y-2">`;
                 for (const [key, value] of Object.entries(usuario)) {
                     if (!['senha', 'fotoPerfil', 'formacao', 'cursosInscritos', 'cursosVinculados', 'contrato', 'id', 'email', 'nomeCompleto'].includes(key) && typeof value !== 'object') {
                         html += `<p><strong class="font-semibold text-neutral-300 capitalize">${key.replace(/([A-Z])/g, ' $1')}:</strong> ${value || 'Não informado'}</p>`;
@@ -3472,4 +3517,8 @@
 
 </body>
 </html>
+
+
+
+
 
