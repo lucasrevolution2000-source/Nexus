@@ -156,6 +156,12 @@
             -webkit-mask-image: radial-gradient(ellipse, black 70%, transparent 100%);
             mask-image: radial-gradient(ellipse, black 70%, transparent 100%);
         }
+        .logo-parceiro {
+            transition: transform 0.3s ease;
+        }
+        .logo-parceiro:hover {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen">
@@ -235,6 +241,14 @@
                              <p class="mt-2 text-lg text-white font-bold">Jaqueline</p>
                              <p class="text-sm text-neutral-300 font-semibold">Diretora Executiva da Nexus</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Parceiros -->
+                <div class="mt-16">
+                    <h2 class="text-2xl font-semibold mb-8 text-center border-b-2 border-indigo-500 pb-2">Nossos Parceiros</h2>
+                    <div id="parceirosContainer" class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
+                        <!-- Logos dos parceiros serão inseridos aqui -->
                     </div>
                 </div>
             </section>
@@ -491,6 +505,7 @@
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarAlunos')" id="aba-gerenciarAlunos" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Alunos</a>
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarMinistrantes')" id="aba-gerenciarMinistrantes" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Ministrantes</a>
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarEmpresas')" id="aba-gerenciarEmpresas" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Empresas</a>
+                        <a href="#" onclick="mudarAbaPainelAdmin('gerenciarParceiros')" id="aba-gerenciarParceiros" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Parceiros</a>
                     </nav>
                 </div>
                 <div id="conteudoAbaAdmin">
@@ -513,10 +528,29 @@
                         <div id="listaAlunosAdmin" class="space-y-4"></div>
                     </div>
                     <div id="abaConteudo-gerenciarMinistrantes" class="hidden">
+                        <div class="mb-4">
+                            <input type="text" id="buscaMinistrante" onkeyup="renderizarPainelAdminMinistrantes()" placeholder="Buscar por nome ou titulação..." class="w-full p-3 rounded-lg border-2">
+                        </div>
                          <div id="listaMinistrantesAdmin" class="space-y-4"></div>
                     </div>
                     <div id="abaConteudo-gerenciarEmpresas" class="hidden">
                          <div id="listaEmpresasAdmin" class="space-y-4"></div>
+                    </div>
+                    <div id="abaConteudo-gerenciarParceiros" class="hidden">
+                        <div class="glassmorphism p-6 rounded-xl">
+                            <h3 class="text-xl font-bold mb-4">Adicionar Novo Parceiro</h3>
+                            <form id="formParceiro" onsubmit="salvarParceiro(event)" class="flex flex-col sm:flex-row items-center gap-4">
+                                <input type="text" name="nome" placeholder="Nome do Parceiro" required class="w-full p-3 rounded-lg border-2">
+                                <input type="file" name="logo" required accept="image/*" class="w-full">
+                                <button type="submit" class="btn-primary font-bold py-3 px-6 rounded-lg whitespace-nowrap">Adicionar</button>
+                            </form>
+                        </div>
+                        <div class="mt-8">
+                            <h3 class="text-xl font-bold mb-4">Parceiros Atuais</h3>
+                            <div id="listaParceirosAdmin" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                <!-- Lista de parceiros -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -685,20 +719,11 @@
         /*
             IMPORTANTE:
             1. Crie as seguintes tabelas no seu projeto Supabase:
-               - alunos
-               - ministrantes
-               - admins
-               - cursos
-               - chats
-            2. As colunas devem corresponder às propriedades dos objetos que eram salvos no localStorage.
+               - alunos, ministrantes, admins, cursos, chats, parceiros
+            2. As colunas devem corresponder às propriedades dos objetos.
                Para campos como 'cursosInscritos', 'aulas', 'formacao', use o tipo de coluna JSONB.
             3. Crie os seguintes Buckets no Supabase Storage (e os marque como públicos):
-               - fotos-perfil
-               - imagens-cursos
-               - comprovantes
-               - contratos
-               - chats
-               - anotacoes-alunos
+               - fotos-perfil, imagens-cursos, comprovantes, contratos, chats, anotacoes-alunos, logos-parceiros
         */
 
         // ===================================================
@@ -1045,11 +1070,15 @@
                     query = query.ilike('nomeDoCurso', `%${filtro}%`);
                 }
 
-                const { data: cursos, error } = await query;
+                // Fetch courses and all instructors in parallel
+                const [{ data: cursos, error: cursosError }, { data: todosMinistrantes, error: ministrantesError }] = await Promise.all([
+                    query,
+                    supabaseClient.from('ministrantes').select('nomeCompleto, formacao')
+                ]);
                 
-                if (error || !cursos) {
+                if (cursosError || ministrantesError || !cursos) {
                     container.innerHTML = '<p class="col-span-full text-center text-neutral-400">Erro ao carregar cursos.</p>';
-                    console.error("Error fetching cursos:", error);
+                    console.error("Error fetching data:", cursosError || ministrantesError);
                     return;
                 }
 
@@ -1063,17 +1092,57 @@
                     if (curso.status === 'cancelado') return;
                     const isRecebendo = curso.statusInscricao === 'recebendo';
                     const buttonHtml = `<button onclick="verDetalhesCurso(${curso.id})" class="w-full btn-primary font-bold py-2 px-4 rounded-lg mt-auto">Ver Detalhes</button>`;
-                    const allMinistrantes = [...new Set(curso.aulas.flatMap(a => a.ministrantes))];
+                    const allMinistrantesNomes = [...new Set(curso.aulas.flatMap(a => a.ministrantes))];
+                    
+                    const ministrantesComTitulacao = allMinistrantesNomes.map(nome => {
+                        const ministranteInfo = todosMinistrantes.find(m => m.nomeCompleto === nome);
+                        if (!ministranteInfo || !ministranteInfo.formacao) {
+                            return nome; 
+                        }
+                        
+                        const titulos = ministranteInfo.formacao;
+                        let titulacao = '';
+                        if(titulos.posDoutorEm) titulacao = 'Pós-Doutor(a)';
+                        else if(titulos.doutorEm) titulacao = 'Doutor(a)';
+                        else if(titulos.mestreEm) titulacao = 'Mestra';
+                        else if(titulos.especialistaEm) titulacao = 'Especialista';
+                        
+                        return titulacao ? `${nome} (${titulacao})` : nome;
+                    }).join(', ');
                     
                     let dataHoraHtml = '<p class="text-neutral-300 text-sm mb-2"><i class="fas fa-calendar-alt w-5 mr-1 text-neutral-400"></i> Data a definir</p>';
                     if (curso.aulas && curso.aulas.length > 0 && curso.aulas[0].data && curso.aulas[0].horarioInicio) {
                         dataHoraHtml = `<p class="text-neutral-300 text-sm mb-2"><i class="fas fa-calendar-alt w-5 mr-1 text-neutral-400"></i> Início em ${new Date(curso.aulas[0].data).toLocaleDateString('pt-BR', {timeZone: 'UTC'})} às ${curso.aulas[0].horarioInicio}</p>`;
                     }
 
-                    container.innerHTML += `<div class="glassmorphism rounded-xl overflow-hidden shadow-lg flex flex-col h-full"><div class="relative"><img class="w-full h-48 object-cover" src="${curso.imagem}" alt="Imagem do curso ${curso.nomeDoCurso}"><div class="absolute top-2 right-2 text-xs font-bold py-1 px-3 rounded-full ${isRecebendo ? 'bg-green-500' : 'bg-red-500'}">${isRecebendo ? 'Recebendo inscrições' : 'Inscrições encerradas'}</div></div><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-bold mb-2">${curso.nomeDoCurso}</h3>${dataHoraHtml}<p class="text-neutral-300 text-sm mb-4"><i class="fas fa-chalkboard-teacher w-5 mr-1 text-neutral-400"></i> ${allMinistrantes.join(', ') || 'A definir'}</p><p class="text-2xl font-bold text-white mb-4">R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}</p>${buttonHtml}</div></div>`;
+                    container.innerHTML += `<div class="glassmorphism rounded-xl overflow-hidden shadow-lg flex flex-col h-full"><div class="relative"><img class="w-full h-48 object-cover" src="${curso.imagem}" alt="Imagem do curso ${curso.nomeDoCurso}"><div class="absolute top-2 right-2 text-xs font-bold py-1 px-3 rounded-full ${isRecebendo ? 'bg-green-500' : 'bg-red-500'}">${isRecebendo ? 'Recebendo inscrições' : 'Inscrições encerradas'}</div></div><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-bold mb-2">${curso.nomeDoCurso}</h3>${dataHoraHtml}<p class="text-neutral-300 text-sm mb-4"><i class="fas fa-chalkboard-teacher w-5 mr-1 text-neutral-400"></i> ${ministrantesComTitulacao || 'A definir'}</p><p class="text-2xl font-bold text-white mb-4">R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}</p>${buttonHtml}</div></div>`;
                 });
             } finally {
                 hideLoader();
+            }
+        }
+
+        async function renderizarParceiros() {
+            const container = document.getElementById('parceirosContainer');
+            if (!container) return;
+            try {
+                const { data: parceiros, error } = await supabaseClient.from('parceiros').select('*');
+                if (error) { throw error; }
+
+                if (!parceiros || parceiros.length === 0) {
+                    container.innerHTML = '<p class="text-neutral-500">Nossos parceiros aparecerão aqui em breve.</p>';
+                    return;
+                }
+                
+                container.innerHTML = parceiros.map(p => `
+                    <div class="flex justify-center">
+                         <img src="${p.logoUrl}" alt="${p.nome}" class="h-32 object-contain logo-parceiro">
+                    </div>
+                `).join('');
+
+            } catch(e) {
+                console.error("Erro ao carregar parceiros:", e);
+                container.innerHTML = '';
             }
         }
 
@@ -1109,7 +1178,7 @@
                     const ministranteInfo = todosMinistrantes.find(m => m.nomeCompleto === nome);
                     if (!ministranteInfo) return `<p class="font-bold text-white">${nome}</p>`;
                     
-                    const titulos = { graduadoEm: 'Graduado(a) em', especialistaEm: 'Especialista em', mestreEm: 'Mestre em', doutorEm: 'Doutor(a) em', posDoutorEm: 'Pós-Doutor(a) em' };
+                    const titulos = { graduadoEm: 'Graduado(a) em', especialistaEm: 'Especialista em', mestreEm: 'Mestra em', doutorEm: 'Doutor(a) em', posDoutorEm: 'Pós-Doutor(a) em' };
                     const qualificacoes = Object.entries(ministranteInfo.formacao)
                         .filter(([key, value]) => value)
                         .map(([key, value]) => `<li>${titulos[key] || key}: ${value}</li>`).join('');
@@ -2425,6 +2494,9 @@
                 case 'gerenciarEmpresas':
                     await renderizarPainelAdminEmpresas();
                     break;
+                case 'gerenciarParceiros':
+                    await renderizarPainelAdminParceiros();
+                    break;
             }
         }
         async function renderizarPainelAdmin() { 
@@ -2547,12 +2619,39 @@
             showLoader();
             try {
                 const container = document.getElementById('listaMinistrantesAdmin');
-                const { data: ministrantes, error } = await supabaseClient.from('ministrantes').select('nomeCompleto, email');
+                const filtro = document.getElementById('buscaMinistrante').value.toLowerCase();
+                const { data: ministrantes, error } = await supabaseClient.from('ministrantes').select('*');
                 if(error) return;
 
+                const ministrantesFiltrados = ministrantes.filter(m => {
+                    const nome = m.nomeCompleto.toLowerCase();
+                    const formacaoString = Object.values(m.formacao || {}).join(' ').toLowerCase();
+                    return nome.includes(filtro) || formacaoString.includes(filtro);
+                });
+
                 container.innerHTML = '';
-                if (ministrantes.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum ministrante.</p>'; return; }
-                ministrantes.forEach(m => { container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex items-center justify-between"><div><p class="font-bold">${m.nomeCompleto}</p><p class="text-sm text-neutral-400">${m.email}</p></div><div class="flex items-center gap-2"><button onclick="verDetalhes('ministrante', '${m.email}')" class="btn-secondary px-4 py-2 rounded-lg">Detalhes</button><button onclick="confirmarExclusaoUsuario('ministrante', '${m.email}')" class="btn-danger text-white px-4 py-2 rounded-lg"><i class="fas fa-trash"></i></button></div></div>`; });
+                if (ministrantesFiltrados.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum ministrante encontrado.</p>'; return; }
+                
+                ministrantesFiltrados.forEach(m => { 
+                    const titulos = Object.entries(m.formacao || {})
+                        .filter(([key, value]) => value)
+                        .map(([key, value]) => key.replace('Em', '').replace(/([A-Z])/g, ' $1').trim())
+                        .join(', ') || 'Nenhuma titulação informada';
+
+                    container.innerHTML += `
+                        <div class="glassmorphism p-4 rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <p class="font-bold">${m.nomeCompleto}</p>
+                                <p class="text-sm text-neutral-400">${m.email}</p>
+                                <p class="text-sm text-indigo-300 mt-1"><i class="fab fa-whatsapp mr-2"></i>${m.whatsapp}</p>
+                                <p class="text-xs text-neutral-300 mt-1 capitalize"><i class="fas fa-graduation-cap mr-2"></i>${titulos}</p>
+                            </div>
+                            <div class="flex items-center gap-2 flex-shrink-0">
+                                <button onclick="verDetalhes('ministrante', '${m.email}')" class="btn-secondary px-3 py-2 rounded-lg">Detalhes</button>
+                                <button onclick="confirmarExclusaoUsuario('ministrante', '${m.email}')" class="btn-danger text-white px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>`; 
+                });
             } finally {
                 hideLoader();
             }
@@ -2646,7 +2745,105 @@
                 hideLoader();
             }
         }
+
+        async function renderizarPainelAdminParceiros() {
+            showLoader();
+            try {
+                const container = document.getElementById('listaParceirosAdmin');
+                const { data: parceiros, error } = await supabaseClient.from('parceiros').select('*');
+                if (error) { throw error; }
+
+                if (!parceiros || parceiros.length === 0) {
+                    container.innerHTML = '<p class="text-center text-neutral-500 col-span-full">Nenhum parceiro cadastrado.</p>';
+                    return;
+                }
+                
+                container.innerHTML = parceiros.map(p => `
+                    <div class="relative group">
+                        <img src="${p.logoUrl}" alt="${p.nome}" class="w-full h-24 object-contain bg-neutral-800 p-2 rounded-lg">
+                        <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button onclick="confirmarExclusaoParceiro(${p.id}, '${p.logoUrl}')" class="text-red-400 hover:text-red-300 text-2xl">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <p class="text-center text-xs mt-1 truncate">${p.nome}</p>
+                    </div>
+                `).join('');
+            } catch (e) {
+                console.error("Erro ao renderizar parceiros no admin:", e);
+                document.getElementById('listaParceirosAdmin').innerHTML = '<p class="col-span-full text-red-500">Erro ao carregar parceiros.</p>';
+            } finally {
+                hideLoader();
+            }
+        }
         
+        window.salvarParceiro = async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const fileInput = form.querySelector('input[type="file"]');
+            const file = fileInput.files[0];
+            const nome = form.querySelector('input[type="text"]').value;
+
+            if (!file || !nome) {
+                mostrarModal("Nome e logo do parceiro são obrigatórios.");
+                return;
+            }
+
+            showLoader();
+            try {
+                const filePath = `public/parceiro-${Date.now()}-${sanitizeFileName(file.name)}`;
+                const { error: uploadError } = await supabaseClient.storage.from('logos-parceiros').upload(filePath, file);
+                if (uploadError) {
+                    handleStorageError(uploadError, 'logos-parceiros');
+                    return;
+                }
+
+                const { data: { publicUrl } } = supabaseClient.storage.from('logos-parceiros').getPublicUrl(filePath);
+
+                const { error: insertError } = await supabaseClient.from('parceiros').insert([{ nome: nome, logoUrl: publicUrl }]);
+                if (insertError) { throw insertError; }
+
+                mostrarModal("Parceiro adicionado com sucesso!");
+                form.reset();
+                await renderizarPainelAdminParceiros();
+                await renderizarParceiros(); // Atualiza a tela inicial
+            } catch (e) {
+                console.error("Erro ao salvar parceiro:", e);
+                mostrarModal("Erro ao salvar parceiro.");
+            } finally {
+                hideLoader();
+            }
+        }
+        
+        window.confirmarExclusaoParceiro = function(id, logoUrl) {
+            mostrarConfirmacao("Tem certeza que deseja excluir este parceiro? O logo será removido permanentemente.", () => excluirParceiro(id, logoUrl));
+        }
+
+        async function excluirParceiro(id, logoUrl) {
+            showLoader();
+            try {
+                // Deletar da tabela
+                const { error: dbError } = await supabaseClient.from('parceiros').delete().eq('id', id);
+                if (dbError) { throw dbError; }
+
+                // Deletar do storage
+                const urlParts = logoUrl.split('/logos-parceiros/');
+                if (urlParts.length > 1) {
+                    const filePath = urlParts[1];
+                    await supabaseClient.storage.from('logos-parceiros').remove([filePath]);
+                }
+                
+                mostrarModal("Parceiro excluído com sucesso!");
+                await renderizarPainelAdminParceiros();
+                await renderizarParceiros(); // Atualiza a tela inicial
+            } catch(e) {
+                console.error("Erro ao excluir parceiro:", e);
+                mostrarModal("Erro ao excluir parceiro.");
+            } finally {
+                hideLoader();
+            }
+        }
+
         const gerarCodigo = () => Math.random().toString(36).substring(2, 8).toUpperCase();
 
         window.adicionarAulaBlock = async function(aula = {}) {
@@ -3579,7 +3776,10 @@
 
 
             verificarSessao();
-            if (!estado.usuarioLogado) { renderizarCursos('listaCursosInicial'); }
+            if (!estado.usuarioLogado) { 
+                renderizarCursos('listaCursosInicial'); 
+                renderizarParceiros();
+            }
             const previews = { 
                 'fotoPerfilAluno': 'previewFotoAluno', 
                 'fotoPerfilMinistrante': 'previewFotoMinistrante', 
