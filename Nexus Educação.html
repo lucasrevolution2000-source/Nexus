@@ -529,23 +529,49 @@
                     <p id="precoCursoPagamento" class="text-center text-white font-bold text-3xl mb-4"></p>
                     
                     <div class="text-center space-y-4">
-                        <p class="text-neutral-300">Realize o pagamento via PIX para garantir sua vaga.</p>
+                        <p class="text-neutral-300">Escolha um método de pagamento para garantir sua vaga.</p>
+
+                        <!-- Opção PIX -->
                         <div class="bg-neutral-800 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-white mb-2">Opção 1: Pagar com PIX</h3>
                             <p class="text-sm text-neutral-400">Chave PIX (CNPJ)</p>
                             <div class="flex justify-center items-center gap-4 mt-2">
                                 <p id="chavePixPagamento" class="text-lg font-mono text-white">62.323.279/0001-00</p>
                                 <button onclick="copiarChavePix()" class="text-indigo-400 hover:text-indigo-300"><i class="fas fa-copy"></i></button>
                             </div>
+                            
+                            <div class="border-t border-neutral-700 pt-4 mt-4">
+                                <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento</label>
+                                <input type="file" id="comprovantePagamento" accept="image/*,application/pdf">
+                                <img id="previewComprovante" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+                            </div>
+                            
+                            <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante pelo administrador.</p>
+                            <button onclick="enviarComprovante('pix')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovante</button>
                         </div>
-                        
-                        <div class="border-t border-neutral-700 pt-4">
-                            <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">Envie o Comprovante de Pagamento</label>
-                            <input type="file" id="comprovantePagamento" accept="image/*,application/pdf">
-                            <img id="previewComprovante" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+
+                        <!-- Separador e Opção Cartão (controlado por JS) -->
+                        <div id="opcaoCartaoContainer" class="hidden">
+                             <div class="relative flex py-2 items-center">
+                                <div class="flex-grow border-t border-neutral-600"></div>
+                                <span class="flex-shrink mx-4 text-neutral-400">OU</span>
+                                <div class="flex-grow border-t border-neutral-600"></div>
+                            </div>
+                            <div class="bg-neutral-800 p-4 rounded-lg">
+                                 <h3 class="text-lg font-semibold text-white mb-2">Opção 2: Pagar com Cartão</h3>
+                                 <p class="text-sm text-neutral-300 mb-4">1. Clique no botão abaixo para ir ao site de pagamento seguro.</p>
+                                 <button onclick="abrirLinkPagamentoCartao()" class="w-full btn-success text-white font-bold p-3 rounded-lg mb-4"><i class="fas fa-credit-card mr-2"></i>Ir para Pagamento com Cartão</button>
+                                 
+                                 <div class="border-t border-neutral-700 pt-4">
+                                     <p class="text-sm text-neutral-300 mb-4">2. Após pagar, volte aqui e envie o comprovante.</p>
+                                    <label for="comprovantePagamentoCartao" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento (Cartão)</label>
+                                    <input type="file" id="comprovantePagamentoCartao" accept="image/*,application/pdf">
+                                    <img id="previewComprovanteCartao" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+                                </div>
+                                 <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante pelo administrador.</p>
+                                 <button onclick="enviarComprovante('cartao')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovante (Cartão)</button>
+                            </div>
                         </div>
-                        
-                        <p class="text-sm text-yellow-400 mt-4">Sua vaga será confirmada e o curso liberado após a aprovação do pagamento pelo administrador.</p>
-                        <button onclick="enviarComprovante()" class="w-full btn-primary font-bold p-3 rounded-lg">Enviar Comprovante</button>
                     </div>
                      <button onclick="mostrarTelaAnterior()" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar</button>
                  </div>
@@ -610,6 +636,10 @@
                         <label class="block mb-2 text-sm font-medium text-neutral-300">Cota Mínima de Alunos</label>
                         <input type="number" name="cotaMinima" placeholder="Ex: 20" required class="w-full p-3 rounded-lg border-2">
                     </div>
+                </div>
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-neutral-300">Link de Pagamento (Cartão)</label>
+                    <input type="url" name="linkPagamentoCartao" placeholder="https://seu-link-de-pagamento.com" class="w-full p-3 rounded-lg border-2">
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -1371,13 +1401,39 @@
             const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
             document.getElementById('nomeCursoPagamento').innerText = curso.nomeDoCurso;
             document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}`;
+            
+            const opcaoCartaoContainer = document.getElementById('opcaoCartaoContainer');
+            if (curso.linkPagamentoCartao) {
+                opcaoCartaoContainer.classList.remove('hidden');
+            } else {
+                opcaoCartaoContainer.classList.add('hidden');
+            }
+            
             mostrarTela('telaPagamento');
         }
         window.copiarChavePix = function() { navigator.clipboard.writeText('62.323.279/0001-00').then(() => mostrarModal("Chave PIX copiada!"), () => mostrarModal("Falha ao copiar.")); }
-        window.enviarComprovante = async function() {
+
+        window.abrirLinkPagamentoCartao = async function() {
+            if (!estado.cursoSelecionadoId) return;
             showLoader();
             try {
-                const fileInput = document.getElementById('comprovantePagamento');
+                const { data: curso, error } = await supabaseClient.from('cursos').select('linkPagamentoCartao').eq('id', estado.cursoSelecionadoId).single();
+
+                if (error || !curso || !curso.linkPagamentoCartao) {
+                    mostrarModal("Link de pagamento com cartão não está disponível para este curso.");
+                    return;
+                }
+                window.open(curso.linkPagamentoCartao, '_blank');
+            } finally {
+                hideLoader();
+            }
+        }
+
+        window.enviarComprovante = async function(metodo = 'pix') {
+            showLoader();
+            try {
+                const fileInputId = metodo === 'pix' ? 'comprovantePagamento' : 'comprovantePagamentoCartao';
+                const fileInput = document.getElementById(fileInputId);
                 if (fileInput.files.length === 0) { mostrarModal("Por favor, anexe o comprovante."); return; }
                 const file = fileInput.files[0];
 
@@ -1414,7 +1470,8 @@
                 
                 mostrarModal("Comprovante enviado! Aguarde a aprovação.");
                 fileInput.value = ''; 
-                document.getElementById('previewComprovante').classList.add('hidden');
+                const previewId = metodo === 'pix' ? 'previewComprovante' : 'previewComprovanteCartao';
+                document.getElementById(previewId).classList.add('hidden');
                 await renderizarMeusCursos(); 
                 mudarAbaPainelAluno('meusCursos'); 
                 mostrarTela('painelAluno');
@@ -2736,6 +2793,7 @@
                     nomeDoCurso: formData.get('nomeDoCurso'),
                     preco: formData.get('preco'),
                     cotaMinima: formData.get('cotaMinima'),
+                    linkPagamentoCartao: formData.get('linkPagamentoCartao'),
                     cargaHorariaAluno: formData.get('cargaHorariaAluno'),
                     cargaHorariaMinistrante: formData.get('cargaHorariaMinistrante'),
                     imagem: imagemFinal,
@@ -3522,7 +3580,13 @@
 
             verificarSessao();
             if (!estado.usuarioLogado) { renderizarCursos('listaCursosInicial'); }
-            const previews = { 'fotoPerfilAluno': 'previewFotoAluno', 'fotoPerfilMinistrante': 'previewFotoMinistrante', 'comprovantePagamento': 'previewComprovante', 'imagemUploadCurso': 'previewImagemCurso' };
+            const previews = { 
+                'fotoPerfilAluno': 'previewFotoAluno', 
+                'fotoPerfilMinistrante': 'previewFotoMinistrante', 
+                'comprovantePagamento': 'previewComprovante', 
+                'comprovantePagamentoCartao': 'previewComprovanteCartao',
+                'imagemUploadCurso': 'previewImagemCurso' 
+            };
             Object.entries(previews).forEach(([inputId, previewId]) => {
                 const inputElement = document.getElementById(inputId);
                 if (inputElement) {
@@ -3542,9 +3606,6 @@
 
 </body>
 </html>
-
-
-
 
 
 
