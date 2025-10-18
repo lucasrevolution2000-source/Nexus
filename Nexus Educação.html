@@ -3263,9 +3263,12 @@
                                     <span onclick="verDetalhes('aluno', '${aluno.email}')" class="cursor-pointer font-semibold">${aluno.nomeCompleto}</span>
                                     <div class="text-xs text-neutral-400 mt-1">Frequência Geral: ${frequenciaHtml}</div>
                                 </div>
-                                <div class="flex items-center gap-4 w-full sm:w-auto">
-                                <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
-                                <div class="w-32 text-right">${certButton}</div>
+                                <div class="flex items-center gap-2 w-full sm:w-auto">
+                                    <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
+                                    <div class="w-32 text-right">${certButton}</div>
+                                    <button onclick="confirmarExclusaoMatricula('${aluno.email}', ${curso.id})" class="btn-danger text-white text-xs px-2 py-1 rounded-lg" title="Excluir Matrícula">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
                             </div>`;
                     };
@@ -3275,6 +3278,52 @@
                 container.innerHTML = html;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '800px';
                 mostrarModal('', 'modalDetalhes');
+            } finally {
+                hideLoader();
+            }
+        }
+
+        window.confirmarExclusaoMatricula = function(alunoEmail, cursoId) {
+            mostrarConfirmacao(
+                'Tem certeza que deseja excluir a matrícula deste aluno neste curso? Esta ação é irreversível.', 
+                () => excluirMatricula(alunoEmail, cursoId)
+            );
+        }
+
+        async function excluirMatricula(alunoEmail, cursoId) {
+            showLoader();
+            try {
+                // Fetch the student
+                const { data: aluno, error: fetchError } = await supabaseClient
+                    .from('alunos')
+                    .select('*')
+                    .eq('email', alunoEmail)
+                    .single();
+                
+                if (fetchError || !aluno) {
+                    throw new Error("Aluno não encontrado.");
+                }
+
+                // Filter out the specific enrollment
+                const novasInscricoes = aluno.cursosInscritos.filter(inscricao => inscricao.cursoId != cursoId);
+
+                // Update the student's record
+                const { error: updateError } = await supabaseClient
+                    .from('alunos')
+                    .update({ cursosInscritos: novasInscricoes })
+                    .eq('id', aluno.id);
+                    
+                if (updateError) {
+                    throw updateError;
+                }
+
+                mostrarModal("Matrícula excluída com sucesso!");
+                // Refresh the 'inscritos' modal to show the updated list
+                await verInscritos(cursoId);
+
+            } catch (error) {
+                console.error("Erro ao excluir matrícula:", error);
+                mostrarModal("Ocorreu um erro ao excluir a matrícula.");
             } finally {
                 hideLoader();
             }
@@ -3806,6 +3855,8 @@
 
 </body>
 </html>
+
+
 
 
 
