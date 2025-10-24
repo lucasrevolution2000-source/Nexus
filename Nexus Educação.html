@@ -840,6 +840,7 @@
         function converterDataParaISO(dataString) {
             if (!dataString || !/^\d{2}\/\d{2}\/\d{4}$/.test(dataString)) return dataString;
             const [dia, mes, ano] = dataString.split('/');
+            // Supabase/PostgreSQL prefere o formato ISO 8601 (YYYY-MM-DD)
             return `${ano}-${mes}-${dia}`;
         }
 
@@ -857,6 +858,9 @@
             showLoader();
             try {
                 const formData = new FormData(event.target), dados = Object.fromEntries(formData.entries());
+                
+                // CORREÇÃO: Converter data de nascimento para o formato ISO antes de salvar no DB
+                dados.dataNascimento = converterDataParaISO(dados.dataNascimento);
                 
                 const { data: existingUser, error: checkError } = await supabaseClient.from('alunos').select('email').eq('email', dados.email).single();
                 if (existingUser) {
@@ -882,7 +886,7 @@
                 
                 const { error: insertError } = await supabaseClient.from('alunos').insert([dados]);
                 if (insertError) {
-                    mostrarModal("Erro ao realizar cadastro.");
+                    mostrarModal("Erro ao realizar cadastro. Verifique os dados e tente novamente.");
                     console.error("Insert Error:", insertError);
                     return;
                 }
@@ -1167,7 +1171,7 @@
                     aulasHtml = curso.aulas.map((aula, index) => `
                         <div class="py-3">
                             <h5 class="font-semibold text-indigo-300">Aula ${index + 1}: ${aula.titulo}</h5>
-                            <p class="text-sm text-neutral-400 mt-1"><i class="fas fa-calendar-alt fa-fw mr-2"></i>${new Date(aula.data).toLocaleDateString('pt-BR', {timeZone: 'UTC'})} das ${aula.horarioInicio} às ${aula.horarioFim}</p>
+                            <p class="text-sm text-neutral-400 mt-1"><i class="fas fa-calendar-alt fa-fw mr-2"></i> Início em ${new Date(aula.data).toLocaleDateString('pt-BR', {timeZone: 'UTC'})} das ${aula.horarioInicio} às ${aula.horarioFim}</p>
                             <p class="text-sm text-neutral-300 mt-1"><strong>Tópicos:</strong> ${aula.topicos}</p>
                         </div>
                     `).join('<hr class="border-neutral-700">');
@@ -2178,7 +2182,7 @@
             }
             
             if (inscricao.certificadoCodigo) {
-                area.innerHTML = `<i class="fas fa-check-circle text-green-400 text-4xl mb-3"></i><h4 class="font-bold">Certificado Liberado!</h4><p class="text-neutral-300 text-sm mb-4">Seu código:</p><p class="font-mono bg-neutral-900 p-2 rounded-lg text-lg">${inscricao.certificadoCodigo}</p><button onclick="visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-primary w-full mt-4 py-2 rounded-lg">Visualizar Certificado</button>`;
+                area.innerHTML = `<i class="fas fa-check-circle text-green-400 text-4xl mb-3"></i><h4 class="font-bold">Certificado Liberado</h4><p class="text-neutral-300 text-sm mb-4">Seu código:</p><p class="font-mono bg-neutral-900 p-2 rounded-lg text-lg">${inscricao.certificadoCodigo}</p><button onclick="visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-primary w-full mt-4 py-2 rounded-lg">Visualizar Certificado</button>`;
             } else {
                 area.innerHTML = `<i class="fas fa-tasks text-indigo-400 text-4xl mb-3"></i><h4 class="font-bold">Certificado Pendente</h4><p class="text-neutral-300 text-sm mb-4">Você já cumpriu os requisitos. Aguardando liberação pelo administrador.</p>`;
             }
@@ -2202,8 +2206,8 @@
             } else { // ministrante
                  const { data: ministrantes } = await supabaseClient.from('ministrantes').select('*');
                  for (const ministrante of ministrantes) { 
-                     const vinculo = Array.isArray(ministrante.cursosVinculados) ? ministrante.cursosVinculados.find(v => v.certificadoCodigo === codigo) : null; 
-                     if(vinculo) { 
+                     const vinculo = Array.isArray(ministrante.cursosVinculados) ? ministrante.cursosVinculados.find(v => v.cursoId == codigo.split('-')[2]) : null; 
+                     if(vinculo && vinculo.certificadoCodigo === codigo) { 
                          const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', vinculo.cursoId).single();
                          info = { usuario: ministrante, curso }; 
                          dataEmissao = new Date(vinculo.certificadoEmitidoEm);
@@ -2537,7 +2541,8 @@
                     let dataUltimaAulaDoCurso = null;
                     if (c.aulas && c.aulas.length > 0) {
                         const aulasOrdenadas = [...c.aulas].sort((a, b) => new Date(b.data) - new Date(a.data));
-                        dataUltimaAulaDoCurso = aulasOrdenadas[0].data;
+                        const dataUltimaAula = aulasOrdenadas[0].data;
+                        dataUltimaAulaDoCurso = aulasOrdenadas[0].data; // Keep only the date part
                     }
 
                     if (!cotaAtingida && dataUltimaAulaDoCurso && new Date(dataUltimaAulaDoCurso) < new Date()) {
@@ -3263,12 +3268,9 @@
                                     <span onclick="verDetalhes('aluno', '${aluno.email}')" class="cursor-pointer font-semibold">${aluno.nomeCompleto}</span>
                                     <div class="text-xs text-neutral-400 mt-1">Frequência Geral: ${frequenciaHtml}</div>
                                 </div>
-                                <div class="flex items-center gap-2 w-full sm:w-auto">
-                                    <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
-                                    <div class="w-32 text-right">${certButton}</div>
-                                    <button onclick="confirmarExclusaoMatricula('${aluno.email}', ${curso.id})" class="btn-danger text-white text-xs px-2 py-1 rounded-lg" title="Excluir Matrícula">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
+                                <div class="flex items-center gap-4 w-full sm:w-auto">
+                                <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
+                                <div class="w-32 text-right">${certButton}</div>
                                 </div>
                             </div>`;
                     };
@@ -3278,52 +3280,6 @@
                 container.innerHTML = html;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '800px';
                 mostrarModal('', 'modalDetalhes');
-            } finally {
-                hideLoader();
-            }
-        }
-
-        window.confirmarExclusaoMatricula = function(alunoEmail, cursoId) {
-            mostrarConfirmacao(
-                'Tem certeza que deseja excluir a matrícula deste aluno neste curso? Esta ação é irreversível.', 
-                () => excluirMatricula(alunoEmail, cursoId)
-            );
-        }
-
-        async function excluirMatricula(alunoEmail, cursoId) {
-            showLoader();
-            try {
-                // Fetch the student
-                const { data: aluno, error: fetchError } = await supabaseClient
-                    .from('alunos')
-                    .select('*')
-                    .eq('email', alunoEmail)
-                    .single();
-                
-                if (fetchError || !aluno) {
-                    throw new Error("Aluno não encontrado.");
-                }
-
-                // Filter out the specific enrollment
-                const novasInscricoes = aluno.cursosInscritos.filter(inscricao => inscricao.cursoId != cursoId);
-
-                // Update the student's record
-                const { error: updateError } = await supabaseClient
-                    .from('alunos')
-                    .update({ cursosInscritos: novasInscricoes })
-                    .eq('id', aluno.id);
-                    
-                if (updateError) {
-                    throw updateError;
-                }
-
-                mostrarModal("Matrícula excluída com sucesso!");
-                // Refresh the 'inscritos' modal to show the updated list
-                await verInscritos(cursoId);
-
-            } catch (error) {
-                console.error("Erro ao excluir matrícula:", error);
-                mostrarModal("Ocorreu um erro ao excluir a matrícula.");
             } finally {
                 hideLoader();
             }
@@ -3855,9 +3811,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
