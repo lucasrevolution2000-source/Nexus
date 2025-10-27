@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR" class="dark">
 <head>
@@ -95,17 +94,20 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.8);
-            z-index: 40;
+            z-index: 50; /* Aumentado para 50 */
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-y: auto;
+            overflow-y: auto; 
             padding: 1rem;
         }
         .modal-content {
-            z-index: 50;
+            z-index: 51; /* Z-index do conteúdo */
             width: 95%;
             max-width: 600px;
+        }
+        #modalConfirmacao {
+            z-index: 60; /* Garantir que a confirmação fique na frente de todos os outros modais */
         }
         input[type="file"] {
              color: #9ca3af;
@@ -576,13 +578,21 @@
                             </div>
                             
                             <div class="border-t border-neutral-700 pt-4 mt-4">
-                                <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento</label>
-                                <input type="file" id="comprovantePagamento" accept="image/*,application/pdf">
+                                <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">1. Anexe o Comprovante de Pagamento (Obrigatório)</label>
+                                <input type="file" id="comprovantePagamento" accept="image/*,application/pdf" required>
                                 <img id="previewComprovante" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
                             </div>
                             
-                            <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante pelo administrador.</p>
-                            <button onclick="enviarComprovante('pix')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovante</button>
+                            <!-- NOVO CAMPO DE ANEXO DE CUPOM -->
+                             <div class="border-t border-neutral-700 pt-4 mt-4">
+                                <label for="comprovanteCupom" class="block mb-2 text-sm font-medium text-neutral-300">2. Anexe o Comprovante do Cupom de Desconto (Opcional)</label>
+                                <input type="file" id="comprovanteCupom" accept="image/*,application/pdf">
+                                <img id="previewCupom" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+                            </div>
+                             <!-- FIM NOVO CAMPO DE ANEXO DE CUPOM -->
+                            
+                            <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante(s) pelo administrador.</p>
+                            <button onclick="enviarComprovante('pix')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovantes</button>
                         </div>
 
                         <!-- Separador e Opção Cartão (controlado por JS) -->
@@ -598,13 +608,22 @@
                                  <button onclick="abrirLinkPagamentoCartao()" class="w-full btn-success text-white font-bold p-3 rounded-lg mb-4"><i class="fas fa-credit-card mr-2"></i>Ir para Pagamento com Cartão</button>
                                  
                                  <div class="border-t border-neutral-700 pt-4">
-                                     <p class="text-sm text-neutral-300 mb-4">2. Após pagar, volte aqui e envie o comprovante.</p>
-                                    <label for="comprovantePagamentoCartao" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento (Cartão)</label>
-                                    <input type="file" id="comprovantePagamentoCartao" accept="image/*,application/pdf">
+                                     <p class="text-sm text-neutral-300 mb-4">2. Após pagar, volte aqui e anexe o comprovante.</p>
+                                    <label for="comprovantePagamentoCartao" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento (Cartão) (Obrigatório)</label>
+                                    <input type="file" id="comprovantePagamentoCartao" accept="image/*,application/pdf" required>
                                     <img id="previewComprovanteCartao" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
                                 </div>
-                                 <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante pelo administrador.</p>
-                                 <button onclick="enviarComprovante('cartao')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovante (Cartão)</button>
+                                
+                                <!-- NOVO CAMPO DE ANEXO DE CUPOM (CARTÃO) -->
+                                <div class="border-t border-neutral-700 pt-4 mt-4">
+                                    <label for="comprovanteCupomCartao" class="block mb-2 text-sm font-medium text-neutral-300">3. Anexe o Comprovante do Cupom de Desconto (Opcional)</label>
+                                    <input type="file" id="comprovanteCupomCartao" accept="image/*,application/pdf">
+                                    <img id="previewCupomCartao" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
+                                </div>
+                                <!-- FIM NOVO CAMPO DE ANEXO DE CUPOM (CARTÃO) -->
+
+                                 <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante(s) pelo administrador.</p>
+                                 <button onclick="enviarComprovante('cartao')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovantes (Cartão)</button>
                             </div>
                         </div>
                     </div>
@@ -1345,7 +1364,7 @@
                         <h3 class="text-xl font-bold mb-6 text-center">Editar Perfil</h3>
                         <form id="formPerfil-${tipoUsuario}" onsubmit="salvarPerfil(event, '${tipoUsuario}')" class="space-y-4">
                             <div class="text-center mb-4">
-                                <img id="previewFotoPerfil-${tipoUsuario}" src="${usuario.fotoPerfil || `https://placehold.co/128x128/171717/FFFFFF?text=?`}" class="w-32 h-32 rounded-full mx-auto object-cover border-2 border-indigo-500">
+                                <img id="previewFotoPerfil-${tipoUsuario}" src="${usuario.fotoPerfil || `https://placehold.co/128x128/171717/FFFFFF?text=?`}" class="w-32 h-32 rounded-full mx-auto mb-4 border-2 border-indigo-500 object-cover">
                                 <label for="fotoPerfilInput-${tipoUsuario}" class="cursor-pointer text-indigo-400 hover:underline text-sm mt-2 block">Trocar foto</label>
                                 <input type="file" name="fotoPerfil" id="fotoPerfilInput-${tipoUsuario}" class="hidden" accept="image/*" onchange="previewImagem(event, 'previewFotoPerfil-${tipoUsuario}')">
                             </div>
@@ -1474,8 +1493,20 @@
             estado.cursoSelecionadoId = cursoId;
             const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
             document.getElementById('nomeCursoPagamento').innerText = curso.nomeDoCurso;
-            document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}`;
+            // O preço exibido é o preço original, já que o desconto virá do comprovante de cupom
+            document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}`; 
             
+            // Limpa inputs e previews
+            document.getElementById('comprovantePagamento').value = '';
+            document.getElementById('previewComprovante').classList.add('hidden');
+            document.getElementById('comprovanteCupom').value = '';
+            document.getElementById('previewCupom').classList.add('hidden');
+            if(document.getElementById('comprovantePagamentoCartao')) document.getElementById('comprovantePagamentoCartao').value = '';
+            if(document.getElementById('previewComprovanteCartao')) document.getElementById('previewComprovanteCartao').classList.add('hidden');
+            if(document.getElementById('comprovanteCupomCartao')) document.getElementById('comprovanteCupomCartao').value = '';
+            if(document.getElementById('previewCupomCartao')) document.getElementById('previewCupomCartao').classList.add('hidden');
+            
+
             const opcaoCartaoContainer = document.getElementById('opcaoCartaoContainer');
             if (curso.linkPagamentoCartao) {
                 opcaoCartaoContainer.classList.remove('hidden');
@@ -1507,10 +1538,22 @@
             showLoader();
             try {
                 const fileInputId = metodo === 'pix' ? 'comprovantePagamento' : 'comprovantePagamentoCartao';
+                const fileCupomId = metodo === 'pix' ? 'comprovanteCupom' : 'comprovanteCupomCartao';
+                
                 const fileInput = document.getElementById(fileInputId);
-                if (fileInput.files.length === 0) { mostrarModal("Por favor, anexe o comprovante."); return; }
-                const file = fileInput.files[0];
+                const fileCupomInput = document.getElementById(fileCupomId);
 
+                // Validação de Comprovante de Pagamento (Obrigatório)
+                if (fileInput.files.length === 0) { 
+                    mostrarModal("Por favor, anexe o Comprovante de Pagamento."); 
+                    return; 
+                }
+                const file = fileInput.files[0];
+                const fileCupom = fileCupomInput.files[0];
+                
+                let comprovanteCupomUrl = null;
+
+                // 1. Upload do Comprovante de Pagamento
                 const filePath = `public/comprovante-${Date.now()}-${sanitizeFileName(file.name)}`;
                 const { error: uploadError } = await supabaseClient.storage.from('comprovantes').upload(filePath, file);
 
@@ -1518,9 +1561,24 @@
                     handleStorageError(uploadError, 'comprovantes');
                     return;
                 }
+                const { data: { publicUrl: comprovanteUrl } } = supabaseClient.storage.from('comprovantes').getPublicUrl(filePath);
 
-                const { data: { publicUrl } } = supabaseClient.storage.from('comprovantes').getPublicUrl(filePath);
+                // 2. Upload do Comprovante de Cupom (Opcional)
+                if(fileCupom) {
+                    const fileCupomPath = `public/cupom-${Date.now()}-${sanitizeFileName(fileCupom.name)}`;
+                    const { error: uploadCupomError } = await supabaseClient.storage.from('comprovantes').upload(fileCupomPath, fileCupom);
 
+                    if (uploadCupomError) {
+                        handleStorageError(uploadCupomError, 'comprovantes');
+                        // Continua mesmo com erro, mas notifica o usuário
+                        console.error("Erro ao enviar o comprovante de cupom:", uploadCupomError);
+                    } else {
+                         const { data: { publicUrl: cupomUrl } } = supabaseClient.storage.from('comprovantes').getPublicUrl(fileCupomPath);
+                         comprovanteCupomUrl = cupomUrl;
+                    }
+                }
+
+                // 3. Atualizar a inscrição do Aluno
                 const { data: aluno, error: fetchError } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
                 if (fetchError) {
                     mostrarModal("Erro ao encontrar seu usuário.");
@@ -1530,7 +1588,8 @@
                 const novaInscricao = { 
                     cursoId: estado.cursoSelecionadoId, 
                     status: 'pendente', 
-                    comprovante: publicUrl, 
+                    comprovante: comprovanteUrl, 
+                    comprovanteCupom: comprovanteCupomUrl, // Adicionado comprovante de cupom
                     frequencia: {}
                 };
                 const novasInscricoes = [...(aluno.cursosInscritos || []), novaInscricao];
@@ -1542,10 +1601,21 @@
                     return;
                 }
                 
-                mostrarModal("Comprovante enviado! Aguarde a aprovação.");
-                fileInput.value = ''; 
-                const previewId = metodo === 'pix' ? 'previewComprovante' : 'previewComprovanteCartao';
-                document.getElementById(previewId).classList.add('hidden');
+                mostrarModal("Comprovantes enviados! Aguarde a aprovação do administrador.");
+                
+                // Limpa inputs e previews
+                document.getElementById('comprovantePagamento').value = '';
+                document.getElementById('previewComprovante').classList.add('hidden');
+                document.getElementById('comprovanteCupom').value = '';
+                document.getElementById('previewCupom').classList.add('hidden');
+                
+                if(metodo === 'cartao') {
+                    document.getElementById('comprovantePagamentoCartao').value = '';
+                    document.getElementById('previewComprovanteCartao').classList.add('hidden');
+                    document.getElementById('comprovanteCupomCartao').value = '';
+                    document.getElementById('previewCupomCartao').classList.add('hidden');
+                }
+                
                 await renderizarMeusCursos(); 
                 mudarAbaPainelAluno('meusCursos'); 
                 mostrarTela('painelAluno');
@@ -2066,7 +2136,7 @@
             showLoader();
             try {
                 const texto = document.getElementById(`anotacoesTexto-${cursoId}`).value;
-                const { data: aluno, error } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
+                const { data: aluno } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
                 if (error) { mostrarModal('Erro ao salvar anotação.'); return; }
 
                 const inscricaoIndex = aluno.cursosInscritos.findIndex(i => i.cursoId == cursoId);
@@ -2597,7 +2667,12 @@
                             temPendente = true; 
                             const curso = cursos.find(c => c.id == inscricao.cursoId);
                             if(curso){
-                            container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4"><div><p><span class="font-bold">${aluno.nomeCompleto}</span> em <span class="text-indigo-400">${curso.nomeDoCurso}</span>.</p></div><div class="flex items-center gap-4 flex-wrap justify-center"><a href="${inscricao.comprovante}" target="_blank" class="btn-secondary px-4 py-1 rounded-lg">Comprovante</a><button onclick="reprovarPagamento('${aluno.email}', ${curso.id})" class="btn-danger text-white px-4 py-1 rounded-lg">Reprovar</button><button onclick="aprovarPagamento('${aluno.email}', ${curso.id})" class="btn-success text-white px-4 py-1 rounded-lg">Aprovar</button></div></div>`;
+                            let cupomLink = '';
+                            if (inscricao.comprovanteCupom) {
+                                cupomLink = `<a href="${inscricao.comprovanteCupom}" target="_blank" class="btn-secondary px-4 py-1 rounded-lg text-xs" title="Comprovante de Cupom">Cupom</a>`;
+                            }
+
+                            container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4"><div><p><span class="font-bold">${aluno.nomeCompleto}</span> em <span class="text-indigo-400">${curso.nomeDoCurso}</span>.</p></div><div class="flex items-center gap-2 flex-wrap justify-center"><a href="${inscricao.comprovante}" target="_blank" class="btn-secondary px-4 py-1 rounded-lg">Comprovante Pagamento</a>${cupomLink}<button onclick="reprovarPagamento('${aluno.email}', ${curso.id})" class="btn-danger text-white px-4 py-1 rounded-lg">Reprovar</button><button onclick="aprovarPagamento('${aluno.email}', ${curso.id})" class="btn-success text-white px-4 py-1 rounded-lg">Aprovar</button></div></div>`;
                             }
                         });
                     }
@@ -3263,15 +3338,24 @@
                                 : `<button onclick="adminEmitirCertificado('aluno', '${aluno.email}', ${curso.id}, true)" class="btn-primary text-xs px-2 py-1 rounded-lg">Liberar Certificado</button>`;
                         }
 
+                        // Adiciona detalhes do comprovante de cupom
+                        let cupomInfo = '';
+                        if (inscricao.comprovanteCupom) {
+                             cupomInfo = `<a href="${inscricao.comprovanteCupom}" target="_blank" class="text-xs text-indigo-400 hover:underline ml-2"><i class="fas fa-tag mr-1"></i>Ver Cupom</a>`;
+                        }
+
+
                         html += `
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-neutral-700 p-2 rounded-lg gap-2">
-                                <div>
+                                <div class="flex-grow">
                                     <span onclick="verDetalhes('aluno', '${aluno.email}')" class="cursor-pointer font-semibold">${aluno.nomeCompleto}</span>
-                                    <div class="text-xs text-neutral-400 mt-1">Frequência Geral: ${frequenciaHtml}</div>
+                                    <div class="text-xs text-neutral-400 mt-1">Frequência Geral: ${frequenciaHtml}${cupomInfo}</div>
                                 </div>
-                                <div class="flex items-center gap-4 w-full sm:w-auto">
-                                <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
-                                <div class="w-32 text-right">${certButton}</div>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
+                                    ${certButton}
+                                    <!-- Botão de Remover Matrícula -->
+                                    <button onclick="confirmarRemocaoMatricula('${aluno.email}', ${curso.id}, '${curso.nomeDoCurso}')" class="text-red-400 hover:text-red-300 text-sm px-2 py-1 rounded-lg" title="Remover Matrícula"><i class="fas fa-user-times"></i></button>
                                 </div>
                             </div>`;
                     };
@@ -3763,6 +3847,66 @@
                 hideLoader();
             }
         }
+        
+        // ===================================================
+        // NOVA FUNÇÃO: REMOVER MATRÍCULA
+        // ===================================================
+        window.confirmarRemocaoMatricula = function(alunoEmail, cursoId, cursoNome) {
+            mostrarConfirmacao(`Tem certeza que deseja remover a matrícula de **${alunoEmail}** do curso **${cursoNome}**? O aluno perderá acesso, e esta ação é irreversível.`, () => removerMatricula(alunoEmail, cursoId));
+        }
+
+        async function removerMatricula(alunoEmail, cursoId) {
+            showLoader();
+            try {
+                // 1. Busca o aluno e as inscrições
+                const { data: aluno, error: fetchError } = await supabaseClient
+                    .from('alunos')
+                    .select('id, cursosInscritos')
+                    .eq('email', alunoEmail)
+                    .single();
+
+                if (fetchError || !aluno) {
+                    mostrarModal(`Erro ao encontrar o aluno.`);
+                    return;
+                }
+                
+                const inscricoes = aluno.cursosInscritos || [];
+                
+                // 2. Remove o curso da lista
+                const novasInscricoes = inscricoes.filter(i => i.cursoId != cursoId);
+
+                if (novasInscricoes.length === inscricoes.length) {
+                    mostrarModal("O aluno não estava matriculado neste curso ou a matrícula não foi encontrada.");
+                    return;
+                }
+
+                // 3. Atualiza o registro do aluno
+                const { error: updateError } = await supabaseClient
+                    .from('alunos')
+                    .update({ cursosInscritos: novasInscricoes })
+                    .eq('id', aluno.id);
+
+                if (updateError) {
+                    mostrarModal("Erro ao remover a matrícula do aluno.");
+                    console.error("Erro Supabase ao remover matrícula:", updateError);
+                    return;
+                }
+                
+                mostrarModal(`Matrícula removida com sucesso para o aluno ${alunoEmail}.`);
+                
+                // 4. Atualiza a lista de inscritos no modal
+                await verInscritos(cursoId);
+
+            } catch (e) {
+                mostrarModal("Ocorreu um erro inesperado ao tentar remover a matrícula.");
+                console.error("Erro na função removerMatricula:", e);
+            } finally {
+                hideLoader();
+            }
+        }
+        // ===================================================
+        // FIM: NOVA FUNÇÃO: REMOVER MATRÍCULA
+        // ===================================================
 
 
         // ===================================================
@@ -3790,7 +3934,9 @@
                 'fotoPerfilAluno': 'previewFotoAluno', 
                 'fotoPerfilMinistrante': 'previewFotoMinistrante', 
                 'comprovantePagamento': 'previewComprovante', 
+                'comprovanteCupom': 'previewCupom',
                 'comprovantePagamentoCartao': 'previewComprovanteCartao',
+                'comprovanteCupomCartao': 'previewCupomCartao',
                 'imagemUploadCurso': 'previewImagemCurso' 
             };
             Object.entries(previews).forEach(([inputId, previewId]) => {
