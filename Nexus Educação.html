@@ -183,9 +183,9 @@
                     </div>
                      <!-- Botões de Login -->
                     <div class="flex items-center gap-4">
-                        <button onclick="mostrarTela('telaLoginAluno')" class="btn-secondary text-lg px-5 py-3 rounded-lg"><i class="fas fa-user-graduate mr-2"></i>Aluno</button>
-                        <button onclick="mostrarTela('telaLoginMinistrante')" class="btn-secondary text-lg px-5 py-3 rounded-lg"><i class="fas fa-chalkboard-teacher mr-2"></i>Ministrante</button>
-                        <button onclick="mostrarTela('telaLoginAdmin')" class="btn-secondary text-lg px-5 py-3 rounded-lg"><i class="fas fa-user-shield mr-2"></i>Admin</button>
+                        <button onclick="window.mostrarTela('telaLoginAluno')" class="btn-secondary text-lg px-5 py-3 rounded-lg"><i class="fas fa-user-graduate mr-2"></i>Aluno</button>
+                        <button onclick="window.mostrarTela('telaLoginMinistrante')" class="btn-secondary text-lg px-5 py-3 rounded-lg"><i class="fas fa-chalkboard-teacher mr-2"></i>Ministrante</button>
+                        <button onclick="window.mostrarTela('telaLoginAdmin')" class="btn-secondary text-lg px-5 py-3 rounded-lg"><i class="fas fa-user-shield mr-2"></i>Admin</button>
                     </div>
                 </div>
 
@@ -267,9 +267,9 @@
                             <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
                         </div>
                         <button onclick="loginAluno()" class="w-full btn-primary font-bold p-3 rounded-lg">Entrar</button>
-                        <p class="text-center text-neutral-300">Não tem uma conta? <a href="#" onclick="mostrarTela('telaCadastroAluno')" class="font-semibold text-indigo-400 hover:underline">Cadastre-se</a></p>
+                        <p class="text-center text-neutral-300">Não tem uma conta? <a href="#" onclick="window.mostrarTela('telaCadastroAluno')" class="font-semibold text-indigo-400 hover:underline">Cadastre-se</a></p>
                     </div>
-                    <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
+                    <button onclick="window.mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
             </section>
 
@@ -312,8 +312,8 @@
                     <p class="text-xs text-neutral-400 mt-4 text-center">
                         Ao se cadastrar, você concorda com nossos Termos de Serviço e Política de Privacidade. Seus dados serão tratados com segurança e em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
                     </p>
-                    <p class="text-center text-neutral-300 mt-4">Já tem uma conta? <a href="#" onclick="mostrarTela('telaLoginAluno')" class="font-semibold text-indigo-400 hover:underline">Faça Login</a></p>
-                    <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
+                    <p class="text-center text-neutral-300 mt-4">Já tem uma conta? <a href="#" onclick="window.mostrarTela('telaLoginAluno')" class="font-semibold text-indigo-400 hover:underline">Faça Login</a></p>
+                    <button onclick="window.mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
             </section>
             
@@ -328,9 +328,9 @@
                            <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility(this)"></i>
                         </div>
                         <button onclick="loginMinistrante()" class="w-full btn-primary font-bold p-3 rounded-lg">Entrar</button>
-                        <p class="text-center text-neutral-300">Não tem uma conta? <a href="#" onclick="mostrarTela('telaCadastroMinistrante')" class="font-semibold text-indigo-400 hover:underline">Cadastre-se</a></p>
+                        <p class="text-center text-neutral-300">Não tem uma conta? <a href="#" onclick="window.mostrarTela('telaCadastroMinistrante')" class="font-semibold text-indigo-400 hover:underline">Cadastre-se</a></p>
                     </div>
-                    <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
+                    <button onclick="window.mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
             </section>
 
@@ -396,8 +396,8 @@
                     <p class="text-xs text-neutral-400 mt-4 text-center">
                         Ao se cadastrar, você concorda com nossos Termos de Serviço e Política de Privacidade. Seus dados serão tratados com segurança e em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
                     </p>
-                    <p class="text-center text-neutral-300 mt-4">Já tem uma conta? <a href="#" onclick="mostrarTela('telaLoginMinistrante')" class="font-semibold text-indigo-400 hover:underline">Faça Login</a></p>
-                    <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
+                    <p class="text-center text-neutral-300 mt-4">Já tem uma conta? <a href="#" onclick="window.mostrarTela('telaLoginMinistrante')" class="font-semibold text-indigo-400 hover:underline">Faça Login</a></p>
+                    <button onclick="window.mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
             </section>
             
@@ -413,7 +413,7 @@
                         </div>
                         <button onclick="loginAdmin()" class="w-full btn-primary font-bold p-3 rounded-lg">Entrar</button>
                     </div>
-                    <button onclick="mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
+                    <button onclick="window.mostrarTela('telaInicial')" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar para o início</button>
                 </div>
             </section>
 
@@ -566,68 +566,48 @@
                     <p id="precoCursoPagamento" class="text-center text-white font-bold text-3xl mb-4"></p>
                     
                     <div class="text-center space-y-4">
-                        <p class="text-neutral-300">Escolha um método de pagamento para garantir sua vaga.</p>
+                        
+                        <!-- REMOVIDO TEXTO: Selecione o link de pagamento ou insira seu código de cupom para liberar a opção de pagamento. -->
 
-                        <!-- Opção PIX -->
-                        <div class="bg-neutral-800 p-4 rounded-lg">
-                            <h3 class="text-lg font-semibold text-white mb-2">Opção 1: Pagar com PIX</h3>
-                            <p class="text-sm text-neutral-400">Chave PIX (CNPJ)</p>
-                            <div class="flex justify-center items-center gap-4 mt-2">
-                                <p id="chavePixPagamento" class="text-lg font-mono text-white">62.323.279/0001-00</p>
-                                <button onclick="copiarChavePix()" class="text-indigo-400 hover:text-indigo-300"><i class="fas fa-copy"></i></button>
+                        <!-- Área de Cupom -->
+                        <div id="cupomArea" class="bg-neutral-800 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-white mb-2"><i class="fas fa-tag mr-2 text-indigo-400"></i>Cupom de Desconto (Opcional)</h3>
+                            <div class="flex gap-2">
+                                <input type="text" id="inputCupom" oninput="window.verificarCupomEExibirPagamento(estado.cursoSelecionadoId)" placeholder="CÓDIGO DO CUPOM (se tiver)" class="w-full p-3 rounded-lg border-2 bg-neutral-700 uppercase">
                             </div>
+                            <p id="statusCupom" class="text-sm mt-2 text-neutral-400">O preço normal está disponível abaixo. Insira um cupom para um desconto.</p>
+                        </div>
+                        <!-- Fim Área de Cupom -->
+
+                        <!-- Opções de Pagamento - Inicialmente apenas o preço normal é exibido -->
+                        <div id="opcoesPagamento" class="space-y-4">
+                             <!-- Links de Pagamento Serão Injetados Aqui pela função verificarCupomEExibirPagamento -->
+                             
+                        </div>
+                        
+                        <!-- Opção Pague Aqui (Comprovante) - SEMPRE VISÍVEL -->
+                        <div id="pagamentoComprovanteArea" class="bg-neutral-800 p-4 rounded-lg"> 
+                            <h3 class="text-lg font-semibold text-white mb-2">Pague Aqui e Envie o Comprovante</h3>
                             
+                            <div id="linkPagamentoContainer" class="my-4 space-y-3">
+                                <!-- Botão "Pague Aqui" será injetado aqui pela função verificarCupomEExibirPagamento -->
+                            </div>
+
+                            <p class="text-sm text-neutral-300 mb-4">1. Clique no botão de pagamento liberado acima para realizar a transação.</p>
+
                             <div class="border-t border-neutral-700 pt-4 mt-4">
-                                <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">1. Anexe o Comprovante de Pagamento (Obrigatório)</label>
+                                <label for="comprovantePagamento" class="block mb-2 text-sm font-medium text-neutral-300">2. Anexe o Comprovante de Pagamento (Obrigatório)</label>
                                 <input type="file" id="comprovantePagamento" accept="image/*,application/pdf" required>
                                 <img id="previewComprovante" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
                             </div>
                             
-                            <!-- NOVO CAMPO DE ANEXO DE CUPOM -->
-                             <div class="border-t border-neutral-700 pt-4 mt-4">
-                                <label for="comprovanteCupom" class="block mb-2 text-sm font-medium text-neutral-300">2. Anexe o Comprovante do Cupom de Desconto (Opcional)</label>
-                                <input type="file" id="comprovanteCupom" accept="image/*,application/pdf">
-                                <img id="previewCupom" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
-                            </div>
-                             <!-- FIM NOVO CAMPO DE ANEXO DE CUPOM -->
+                            <!-- REMOVIDO: ANEXO DE COMPROVANTE DE CUPOM -->
                             
-                            <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante(s) pelo administrador.</p>
-                            <button onclick="enviarComprovante('pix')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovantes</button>
-                        </div>
-
-                        <!-- Separador e Opção Cartão (controlado por JS) -->
-                        <div id="opcaoCartaoContainer" class="hidden">
-                             <div class="relative flex py-2 items-center">
-                                <div class="flex-grow border-t border-neutral-600"></div>
-                                <span class="flex-shrink mx-4 text-neutral-400">OU</span>
-                                <div class="flex-grow border-t border-neutral-600"></div>
-                            </div>
-                            <div class="bg-neutral-800 p-4 rounded-lg">
-                                 <h3 class="text-lg font-semibold text-white mb-2">Opção 2: Pagar com Cartão</h3>
-                                 <p class="text-sm text-neutral-300 mb-4">1. Clique no botão abaixo para ir ao site de pagamento seguro.</p>
-                                 <button onclick="abrirLinkPagamentoCartao()" class="w-full btn-success text-white font-bold p-3 rounded-lg mb-4"><i class="fas fa-credit-card mr-2"></i>Ir para Pagamento com Cartão</button>
-                                 
-                                 <div class="border-t border-neutral-700 pt-4">
-                                     <p class="text-sm text-neutral-300 mb-4">2. Após pagar, volte aqui e anexe o comprovante.</p>
-                                    <label for="comprovantePagamentoCartao" class="block mb-2 text-sm font-medium text-neutral-300">Anexe o Comprovante de Pagamento (Cartão) (Obrigatório)</label>
-                                    <input type="file" id="comprovantePagamentoCartao" accept="image/*,application/pdf" required>
-                                    <img id="previewComprovanteCartao" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
-                                </div>
-                                
-                                <!-- NOVO CAMPO DE ANEXO DE CUPOM (CARTÃO) -->
-                                <div class="border-t border-neutral-700 pt-4 mt-4">
-                                    <label for="comprovanteCupomCartao" class="block mb-2 text-sm font-medium text-neutral-300">3. Anexe o Comprovante do Cupom de Desconto (Opcional)</label>
-                                    <input type="file" id="comprovanteCupomCartao" accept="image/*,application/pdf">
-                                    <img id="previewCupomCartao" class="hidden w-full max-w-xs rounded-lg mx-auto mt-4 object-cover">
-                                </div>
-                                <!-- FIM NOVO CAMPO DE ANEXO DE CUPOM (CARTÃO) -->
-
-                                 <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante(s) pelo administrador.</p>
-                                 <button onclick="enviarComprovante('cartao')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovantes (Cartão)</button>
-                            </div>
+                            <p class="text-xs text-yellow-400 mt-4">Sua vaga será confirmada após a aprovação do comprovante pelo administrador.</p>
+                            <button onclick="enviarComprovante('pagueaqui')" class="w-full btn-primary font-bold p-3 rounded-lg mt-2">Enviar Comprovantes</button>
                         </div>
                     </div>
-                     <button onclick="mostrarTelaAnterior()" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar</button>
+                     <button onclick="window.mostrarTelaAnterior()" class="mt-6 text-sm text-indigo-400 hover:underline w-full text-center">Voltar</button>
                  </div>
             </section>
 
@@ -660,13 +640,13 @@
             <p class="mt-4 text-lg text-white">A carregar...</p>
         </div>
     </div>
-    <div id="modalNotificacao" class="hidden modal-backdrop"><div class="modal-content max-w-lg glassmorphism p-6 rounded-xl shadow-lg text-center"><p id="mensagemModal" class="mb-4 text-lg whitespace-pre-wrap"></p><button onclick="fecharModal('modalNotificacao')" class="btn-primary px-6 py-2 rounded-lg">OK</button></div></div>
-    <div id="modalConfirmacao" class="hidden modal-backdrop"><div class="modal-content max-w-sm glassmorphism p-6 rounded-xl shadow-lg text-center"><p id="mensagemConfirmacao" class="mb-6 text-lg">Você tem certeza?</p><div class="flex justify-center gap-4"><button id="btnCancelarConfirmacao" onclick="fecharModal('modalConfirmacao')" class="btn-secondary px-6 py-2 rounded-lg">Cancelar</button><button id="btnConfirmarAcao" class="btn-danger px-6 py-2 rounded-lg text-white font-semibold">Confirmar</button></div></div></div>
+    <div id="modalNotificacao" class="hidden modal-backdrop"><div class="modal-content max-w-lg glassmorphism p-6 rounded-xl shadow-lg text-center"><p id="mensagemModal" class="mb-4 text-lg whitespace-pre-wrap"></p><button onclick="window.fecharModal('modalNotificacao')" class="btn-primary px-6 py-2 rounded-lg">OK</button></div></div>
+    <div id="modalConfirmacao" class="hidden modal-backdrop"><div class="modal-content max-w-sm glassmorphism p-6 rounded-xl shadow-lg text-center"><p id="mensagemConfirmacao" class="mb-6 text-lg">Você tem certeza?</p><div class="flex justify-center gap-4"><button id="btnCancelarConfirmacao" onclick="window.fecharModal('modalConfirmacao')" class="btn-secondary px-6 py-2 rounded-lg">Cancelar</button><button id="btnConfirmarAcao" class="btn-danger px-6 py-2 rounded-lg text-white font-semibold">Confirmar</button></div></div></div>
     <div id="modalDetalhes" class="hidden modal-backdrop"><div id="conteudoModalDetalhes" class="modal-content glassmorphism p-6 rounded-xl shadow-lg max-h-[80vh] overflow-y-auto custom-scrollbar"></div></div>
     <div id="modalImagem" class="hidden modal-backdrop">
         <div class="relative">
              <img id="imagemAmpliada" src="" class="max-w-[90vw] max-h-[85vh] object-contain rounded-lg">
-             <button onclick="fecharModal('modalImagem')" class="absolute -top-2 -right-2 bg-black/70 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold z-10">&times;</button>
+             <button onclick="window.fecharModal('modalImagem')" class="absolute -top-2 -right-2 bg-black/70 text-white rounded-full w-8 h-8 flex items-center justify-center text-xl font-bold z-10">&times;</button>
         </div>
     </div>
     <div id="modalCurso" class="hidden modal-backdrop">
@@ -691,10 +671,14 @@
                         <input type="number" name="cotaMinima" placeholder="Ex: 20" required class="w-full p-3 rounded-lg border-2">
                     </div>
                 </div>
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-neutral-300">Link de Pagamento (Cartão)</label>
-                    <input type="url" name="linkPagamentoCartao" placeholder="https://seu-link-de-pagamento.com" class="w-full p-3 rounded-lg border-2">
+                
+                <!-- NOVO: Campos de Cupons Progressivos -->
+                <h4 class="font-semibold text-lg border-b border-neutral-700 pt-2 pb-1">Links de Pagamento e Cupons (Administrador)</h4>
+                <div id="cuponsContainer" class="space-y-3">
+                    <!-- Campos de cupons/links serão injetados aqui -->
                 </div>
+                <!-- FIM NOVO -->
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-neutral-300">Carga Horária (Aluno)</label>
@@ -720,7 +704,7 @@
                     <input type="hidden" name="assinaturaAdmin">
                 </div>
                 <div class="flex justify-end gap-4 pt-4">
-                     <button type="button" onclick="fecharModal('modalCurso')" class="btn-secondary px-6 py-2 rounded-lg">Cancelar</button>
+                     <button type="button" onclick="window.fecharModal('modalCurso')" class="btn-secondary px-6 py-2 rounded-lg">Cancelar</button>
                      <button type="submit" class="btn-primary font-bold px-6 py-2 rounded-lg">Salvar</button>
                 </div>
              </form>
@@ -754,6 +738,18 @@
         };
 
         // ===================================================
+        // DADOS E REGRAS DE CUPOM (Configuração centralizada)
+        // ===================================================
+        const DESCONTOS_CONFIG = [
+            { percentual: 0, nome: 'Preço Normal (0%)', key: 'desconto_0' },
+            { percentual: 10, nome: '10% de Desconto', key: 'desconto_10' },
+            { percentual: 20, nome: '20% de Desconto', key: 'desconto_20' },
+            { percentual: 50, nome: '50% de Desconto', key: 'desconto_50' },
+            { percentual: 100, nome: '100% de Desconto', key: 'desconto_100' },
+        ];
+
+
+        // ===================================================
         // FUNÇÕES UTILITÁRIAS E DE CARREGAMENTO
         // ===================================================
         window.showLoader = function() { document.getElementById('modalCarregamento').classList.remove('hidden'); }
@@ -767,11 +763,11 @@
         function handleStorageError(error, bucketName) {
             console.error(`Storage error in bucket '${bucketName}':`, error);
             if (error.message && error.message.toLowerCase().includes('bucket not found')) {
-                mostrarModal(`Erro de Configuração: O bucket '${bucketName}' não foi encontrado. Por favor, crie este bucket (público) no seu painel Supabase Storage.`);
+                window.mostrarModal(`Erro de Configuração: O bucket '${bucketName}' não foi encontrado. Por favor, crie este bucket (público) no seu painel Supabase Storage.`);
             } else if (error.message && error.message.toLowerCase().includes('violates row-level security policy')) {
-                mostrarModal(`Erro de Permissão (RLS):\nO Supabase está a bloquear o envio para o bucket '${bucketName}'.\n\nIsto tem de ser corrigido no seu painel do Supabase, não no código.\n\nCOMO RESOLVER:\n1. No seu projeto Supabase, vá a 'Storage'.\n2. Encontre o bucket '${bucketName}', clique nos três pontos (...) e selecione 'Policies'.\n3. Clique em 'New Policy' -> 'For INSERT operation'.\n4. Para um acesso público rápido, pode usar o template 'Enable insert for anyone'. Para mais segurança, consulte a documentação do Supabase sobre RLS para Storage.`);
+                window.mostrarModal(`Erro de Permissão (RLS):\nO Supabase está a bloquear o envio para o bucket '${bucketName}'.\n\nIsto tem de ser corrigido no seu painel do Supabase, não no código.\n\nCOMO RESOLVER:\n1. No seu projeto Supabase, vá a 'Storage'.\n2. Encontre o bucket '${bucketName}', clique nos três pontos (...) e selecione 'Policies'.\n3. Clique em 'New Policy' -> 'For INSERT operation'.\n4. Para um acesso público rápido, pode usar o template 'Enable insert for anyone'. Para mais segurança, consulte a documentação do Supabase sobre RLS para Storage.`);
             } else {
-                mostrarModal("Erro ao enviar o ficheiro.");
+                window.mostrarModal("Erro ao enviar o ficheiro.");
             }
         }
         
@@ -801,7 +797,7 @@
             }
             window.scrollTo(0, 0);
         }
-        window.mostrarTelaAnterior = function() { (estado.telaAnterior) ? mostrarTela(estado.telaAnterior) : mostrarTela('telaInicial'); }
+        window.mostrarTelaAnterior = function() { (estado.telaAnterior) ? window.mostrarTela(estado.telaAnterior) : window.mostrarTela('telaInicial'); }
         window.mostrarModal = function(mensagem, modalId = 'modalNotificacao') {
             const modal = document.getElementById(modalId);
             if (!modal) return;
@@ -819,12 +815,12 @@
         }
         document.getElementById('btnConfirmarAcao').addEventListener('click', () => {
             if(estado.confirmacaoCallback) { estado.confirmacaoCallback(); }
-            fecharModal('modalConfirmacao'); estado.confirmacaoCallback = null;
+            window.fecharModal('modalConfirmacao'); estado.confirmacaoCallback = null;
         });
         
         window.verImagemAmpliada = function(src) {
             document.getElementById('imagemAmpliada').src = src;
-            mostrarModal('', 'modalImagem');
+            window.mostrarModal('', 'modalImagem');
         }
 
         window.togglePasswordVisibility = function(icon) {
@@ -875,7 +871,7 @@
         // ===================================================
         window.cadastrarAluno = async function(event) {
             event.preventDefault();
-            showLoader();
+            window.showLoader();
             try {
                 const formData = new FormData(event.target), dados = Object.fromEntries(formData.entries());
                 
@@ -884,7 +880,7 @@
                 
                 const { data: existingUser, error: checkError } = await supabaseClient.from('alunos').select('email').eq('email', dados.email).single();
                 if (existingUser) {
-                    mostrarModal("Este email já está cadastrado.");
+                    window.mostrarModal("Este email já está cadastrado.");
                     return;
                 }
                 
@@ -906,30 +902,30 @@
                 
                 const { error: insertError } = await supabaseClient.from('alunos').insert([dados]);
                 if (insertError) {
-                    mostrarModal("Erro ao realizar cadastro. Verifique os dados e tente novamente.");
+                    window.mostrarModal("Erro ao realizar cadastro. Verifique os dados e tente novamente.");
                     console.error("Insert Error:", insertError);
                     return;
                 }
 
-                mostrarModal("Cadastro realizado com sucesso!");
+                window.mostrarModal("Cadastro realizado com sucesso!");
                 document.getElementById('formCadastroAluno').reset(); 
                 document.getElementById('previewFotoAluno').classList.add('hidden');
-                mostrarTela('telaLoginAluno');
+                window.mostrarTela('telaLoginAluno');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
         window.cadastrarMinistrante = async function(event) {
             event.preventDefault();
-            showLoader();
+            window.showLoader();
             try {
                 const formData = new FormData(event.target);
                 const dados = Object.fromEntries(formData.entries());
 
                 const { data: existingUser, error: checkError } = await supabaseClient.from('ministrantes').select('email').eq('email', dados.email).single();
                 if (existingUser) {
-                    mostrarModal("Este email já está cadastrado.");
+                    window.mostrarModal("Este email já está cadastrado.");
                     return;
                 }
 
@@ -961,22 +957,22 @@
 
                 const { error: insertError } = await supabaseClient.from('ministrantes').insert([dados]);
                 if (insertError) {
-                    mostrarModal("Erro ao realizar cadastro.");
+                    window.mostrarModal("Erro ao realizar cadastro.");
                     console.error("Insert Error:", insertError);
                     return;
                 }
 
-                mostrarModal("Cadastro realizado com sucesso!");
+                window.mostrarModal("Cadastro realizado com sucesso!");
                 document.getElementById('formCadastroMinistrante').reset();
                 document.getElementById('previewFotoMinistrante').classList.add('hidden');
-                mostrarTela('telaLoginMinistrante');
+                window.mostrarTela('telaLoginMinistrante');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         window.loginAluno = async function() {
-            showLoader();
+            window.showLoader();
             try {
                 const email = document.getElementById('loginEmailAluno').value, senha = document.getElementById('loginSenhaAluno').value;
                 const { data: aluno, error } = await supabaseClient.from('alunos').select('*').eq('email', email).eq('senha', senha).single();
@@ -986,14 +982,14 @@
                     localStorage.setItem('sessaoUsuario', JSON.stringify(estado.usuarioLogado));
                     await loginComSessao(estado.usuarioLogado, 'aluno'); 
                 } else { 
-                    mostrarModal("Email ou senha inválidos."); 
+                    window.mostrarModal("Email ou senha inválidos."); 
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         window.loginMinistrante = async function() {
-            showLoader();
+            window.showLoader();
             try {
                 const email = document.getElementById('loginEmailMinistrante').value, senha = document.getElementById('loginSenhaMinistrante').value;
                 const { data: ministrante, error } = await supabaseClient.from('ministrantes').select('*').eq('email', email).eq('senha', senha).single();
@@ -1003,14 +999,14 @@
                     localStorage.setItem('sessaoUsuario', JSON.stringify(estado.usuarioLogado));
                     await loginComSessao(estado.usuarioLogado, 'ministrante'); 
                 } else { 
-                    mostrarModal("Email ou senha inválidos."); 
+                    window.mostrarModal("Email ou senha inválidos."); 
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         window.loginAdmin = async function() {
-            showLoader();
+            window.showLoader();
             try {
                 const email = document.getElementById('loginEmailAdmin').value, senha = document.getElementById('loginSenhaAdmin').value;
                 const { data: admin, error } = await supabaseClient.from('admins').select('*').eq('email', email).eq('senha', senha).single();
@@ -1020,10 +1016,10 @@
                     localStorage.setItem('sessaoUsuario', JSON.stringify(estado.usuarioLogado));
                     await loginComSessao(estado.usuarioLogado, 'admin');
                 } else { 
-                    mostrarModal("Email ou senha de administrador inválidos."); 
+                    window.mostrarModal("Email ou senha de administrador inválidos."); 
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         window.logout = function() { 
@@ -1033,15 +1029,15 @@
             }
             estado.usuarioLogado = null; 
             localStorage.removeItem('sessaoUsuario');
-            mostrarTela('telaInicial'); 
+            window.mostrarTela('telaInicial'); 
         }
         async function verificarSessao() {
             const sessao = JSON.parse(localStorage.getItem('sessaoUsuario'));
             if (sessao) { 
-                showLoader();
+                window.showLoader();
                 estado.usuarioLogado = sessao; 
                 await loginComSessao(sessao, sessao.tipo, true); 
-                hideLoader();
+                window.hideLoader();
             }
         }
         async function loginComSessao(sessao, tipo, isReload = false) {
@@ -1050,28 +1046,28 @@
             if(usuario) {
                 try {
                     if(tipo === 'aluno') {
-                        if (!isReload) mostrarModal(`Bem-vindo(a), ${usuario.nomeCompleto.split(' ')[0]}! Pronto para aprender mais e potencializar seu futuro?`);
+                        if (!isReload) window.mostrarModal(`Bem-vindo(a), ${usuario.nomeCompleto.split(' ')[0]}! Pronto para aprender mais e potencializar seu futuro?`);
                         document.getElementById('boasVindasAluno').innerText = `Bem-vindo(a), ${usuario.nomeCompleto.split(' ')[0]}!`;
                         document.getElementById('subtituloAluno').innerText = "Pronto para aprender mais e potencializar seu futuro?";
                         await renderizarPainelAluno(); 
-                        mostrarTela('painelAluno');
+                        window.mostrarTela('painelAluno');
                     } else if (tipo === 'ministrante') {
-                         if (!isReload) mostrarModal(`Bem-vindo(a), ${usuario.nomeCompleto}!`);
+                         if (!isReload) window.mostrarModal(`Bem-vindo(a), ${usuario.nomeCompleto}!`);
                         document.getElementById('boasVindasMinistrante').innerText = `Bem-vindo(a), ${usuario.nomeCompleto}!`;
                         await renderizarPainelMinistrante(); 
-                        mostrarTela('painelMinistrante');
+                        window.mostrarTela('painelMinistrante');
                     } else if (tipo === 'admin') {
-                         if (!isReload) mostrarModal(`Bem-vindo, ${usuario.nome}!`);
+                         if (!isReload) window.mostrarModal(`Bem-vindo, ${usuario.nome}!`);
                         await renderizarPainelAdmin(); 
-                        mostrarTela('painelAdmin');
+                        window.mostrarTela('painelAdmin');
                     }
                 } catch (e) {
                     console.error("Erro ao renderizar painel do usuário:", e);
-                    mostrarModal("Ocorreu um erro ao carregar seu painel. Por favor, tente fazer o login novamente.");
-                    logout();
+                    window.mostrarModal("Ocorreu um erro ao carregar seu painel. Por favor, tente fazer o login novamente.");
+                    window.logout();
                 }
             } else { 
-                logout(); 
+                window.logout(); 
             }
         }
         
@@ -1079,7 +1075,7 @@
         // RENDERIZAÇÃO DE CONTEÚDO GERAL
         // ===================================================
         window.renderizarCursos = async function(containerId, filtro = '') {
-            showLoader();
+            window.showLoader();
             try {
                 const container = document.getElementById(containerId);
                 
@@ -1115,7 +1111,8 @@
                 cursos.forEach(curso => {
                     if (curso.status === 'cancelado') return;
                     const isRecebendo = curso.statusInscricao === 'recebendo';
-                    const buttonHtml = `<button onclick="verDetalhesCurso(${curso.id})" class="w-full btn-primary font-bold py-2 px-4 rounded-lg mt-auto">Ver Detalhes</button>`;
+                    // ALTERAÇÃO AQUI: Botão com novo texto
+                    const buttonHtml = `<button onclick="window.verDetalhesCurso(${curso.id})" class="w-full btn-primary font-bold py-2 px-4 rounded-lg mt-auto">Ver Detalhes e se Inscrever</button>`;
                     const allMinistrantesNomes = [...new Set(curso.aulas.flatMap(a => a.ministrantes))];
                     
                     const ministrantesComTitulacao = allMinistrantesNomes.map(nome => {
@@ -1142,7 +1139,7 @@
                     container.innerHTML += `<div class="glassmorphism rounded-xl overflow-hidden shadow-lg flex flex-col h-full"><div class="relative"><img class="w-full h-48 object-cover" src="${curso.imagem}" alt="Imagem do curso ${curso.nomeDoCurso}"><div class="absolute top-2 right-2 text-xs font-bold py-1 px-3 rounded-full ${isRecebendo ? 'bg-green-500' : 'bg-red-500'}">${isRecebendo ? 'Recebendo inscrições' : 'Inscrições encerradas'}</div></div><div class="p-6 flex flex-col flex-grow"><h3 class="text-xl font-bold mb-2">${curso.nomeDoCurso}</h3>${dataHoraHtml}<p class="text-neutral-300 text-sm mb-4"><i class="fas fa-chalkboard-teacher w-5 mr-1 text-neutral-400"></i> ${ministrantesComTitulacao || 'A definir'}</p><p class="text-2xl font-bold text-white mb-4">R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}</p>${buttonHtml}</div></div>`;
                 });
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -1171,7 +1168,7 @@
         }
 
         window.verDetalhesCurso = async function(cursoId) {
-            showLoader();
+            window.showLoader();
             try {
                 const [{ data: curso, error: cursoError }, { data: todosMinistrantes, error: ministrantesError }] = await Promise.all([
                     supabaseClient.from('cursos').select('*').eq('id', cursoId).single(),
@@ -1179,12 +1176,13 @@
                 ]);
 
                 if (cursoError || !curso || curso.status === 'cancelado') {
-                    mostrarModal("Curso não encontrado ou não está mais disponível.");
+                    window.mostrarModal("Curso não encontrado ou não está mais disponível.");
                     return;
                 }
 
                 const isRecebendo = curso.statusInscricao === 'recebendo';
-                const buttonHtml = isRecebendo ? `<button onclick="inscrever(${curso.id})" class="w-full btn-primary font-bold py-3 px-6 rounded-lg">Inscreva-se por R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}</button>` : `<button class="w-full bg-neutral-600 text-neutral-400 font-bold py-3 px-6 rounded-lg cursor-not-allowed" disabled>Inscrições encerradas</button>`;
+                // ALTERAÇÃO AQUI: Botão de inscrição no modal
+                const buttonHtml = isRecebendo ? `<button onclick="window.inscrever(${curso.id})" class="w-full btn-primary font-bold py-3 px-6 rounded-lg">Inscreva-se por R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}</button>` : `<button class="w-full bg-neutral-600 text-neutral-400 font-bold py-3 px-6 rounded-lg cursor-not-allowed" disabled>Inscrições encerradas</button>`;
 
                 let aulasHtml = '<p class="text-sm text-neutral-400">Nenhuma aula detalhada.</p>';
                 if (curso.aulas && curso.aulas.length > 0) {
@@ -1215,7 +1213,7 @@
                 
                 const modalContent = `
                     <div class="w-full max-w-3xl">
-                        <img src="${curso.imagem}" alt="Imagem do curso ${curso.nomeDoCurso}" class="w-full max-h-72 object-contain rounded-t-lg cursor-pointer" onclick="verImagemAmpliada('${curso.imagem}')">
+                        <img src="${curso.imagem}" alt="Imagem do curso ${curso.nomeDoCurso}" class="w-full max-h-72 object-contain rounded-t-lg cursor-pointer" onclick="window.verImagemAmpliada('${curso.imagem}')">
                         <div class="p-6">
                             <h2 class="text-2xl font-bold mb-4 text-white">${curso.nomeDoCurso}</h2>
                             
@@ -1235,13 +1233,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="flex justify-end mt-4"><button onclick="fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button></div>
+                    <div class="flex justify-end mt-4"><button onclick="window.fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button></div>
                 `;
                 document.getElementById('conteudoModalDetalhes').innerHTML = modalContent;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '800px';
-                mostrarModal('', 'modalDetalhes');
+                window.mostrarModal('', 'modalDetalhes');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -1261,14 +1259,14 @@
 
         window.salvarPerfil = async function(event, tipoUsuario) {
             event.preventDefault();
-            showLoader();
+            window.showLoader();
             try {
                 const formData = new FormData(event.target);
                 const dados = Object.fromEntries(formData.entries());
 
                 const { data: usuarioAtual, error: fetchError } = await supabaseClient.from(tipoUsuario + 's').select('*').eq('email', estado.usuarioLogado.email).single();
                 if (fetchError) {
-                    mostrarModal("Erro ao carregar perfil para salvar.");
+                    window.mostrarModal("Erro ao carregar perfil para salvar.");
                     return;
                 }
 
@@ -1297,14 +1295,14 @@
                 if (tipoUsuario === 'ministrante') {
                     novosDados.formacao = {
                         graduadoEm: dados.graduadoEm || '', especialistaEm: dados.especialistaEm || '',
-                        mestreEm: dados.mestreEm || '', doutorEm: dados.doutorEm || '', posDoutorEm: dados.posDoutorEm || ''
+                        mestreEm: dados.mestreEm || '', doutorEm: dados.doutorEm || '', posDoutorEm: dados.doutorEm || '', posDoutorEm: dados.posDoutorEm || ''
                     };
-                    ['graduadoEm', 'especialistaEm', 'mestreEm', 'doutorEm', 'posDoutorEm'].forEach(k => delete novosDados[k]);
+                    ['graduadoEm', 'especialistaEm', 'mestreEm', 'doutorEm', 'posDoutorEm'].forEach(k => delete dados[k]);
                 }
                 
                 const { error: updateError } = await supabaseClient.from(tipoUsuario + 's').update(novosDados).eq('id', usuarioAtual.id);
                 if (updateError) {
-                    mostrarModal("Erro ao atualizar o perfil.");
+                    window.mostrarModal("Erro ao atualizar o perfil.");
                     console.error(updateError);
                     return;
                 }
@@ -1319,14 +1317,14 @@
                     }
                 }
                 
-                mostrarModal("Perfil atualizado com sucesso!");
+                window.mostrarModal("Perfil atualizado com sucesso!");
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         async function renderizarPerfil(containerId, tipoUsuario) {
-            showLoader();
+            window.showLoader();
             try {
                 const container = document.getElementById(containerId);
                 if (!container) return;
@@ -1412,7 +1410,7 @@
                     </div>
                 `;
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
@@ -1420,23 +1418,23 @@
         // LÓGICA DO ALUNO
         // ===================================================
         async function renderizarPainelAluno() {
-            showLoader();
+            window.showLoader();
             try {
                 // Executar todas as renderizações de aba em paralelo
                 await Promise.all([
-                    renderizarCursosPainelAluno(),
-                    renderizarMeusCursos(),
+                    window.renderizarCursosPainelAluno(),
+                    window.renderizarMeusCursos(),
                     renderizarPerfil('abaConteudo-meuPerfil', 'aluno')
                 ]);
             } catch (e) {
                 console.error("Error rendering student panel:", e);
-                mostrarModal("Error loading your panel.");
+                window.mostrarModal("Error loading your panel.");
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
-        window.renderizarCursosPainelAluno = async function() { await renderizarCursos('listaCursosPainelAluno', document.getElementById('buscaCursoAluno').value); }
-        async function renderizarMeusCursos() {
+        window.renderizarCursosPainelAluno = async function() { await window.renderizarCursos('listaCursosPainelAluno', document.getElementById('buscaCursoAluno').value); }
+        window.renderizarMeusCursos = async function() {
             const container = document.getElementById('listaMeusCursos');
             const { data: aluno, error: alunoError } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
             const { data: todosCursos, error: cursosError } = await supabaseClient.from('cursos').select('*');
@@ -1458,7 +1456,7 @@
                     let statusInfo, acaoBotao = '';
                     switch(inscricao.status) {
                         case 'pendente': statusInfo = '<span class="text-yellow-400 font-semibold">Pagamento em análise</span>'; acaoBotao = '<button class="btn-secondary px-4 py-2 rounded-lg text-sm" disabled>Aguardando</button>'; break;
-                        case 'aprovado': statusInfo = '<span class="text-green-400 font-semibold">Acesso Liberado</span>'; acaoBotao = `<button onclick="acessarCurso(${cursoInfo.id})" class="btn-primary px-4 py-2 rounded-lg text-sm">Acessar Curso</button>`; break;
+                        case 'aprovado': statusInfo = '<span class="text-green-400 font-semibold">Acesso Liberado</span>'; acaoBotao = `<button onclick="window.acessarCurso(${cursoInfo.id})" class="btn-primary px-4 py-2 rounded-lg text-sm">Acessar Curso</button>`; break;
                         case 'reprovado': statusInfo = '<span class="text-red-400 font-semibold">Pagamento Reprovado</span>'; acaoBotao = '<button class="btn-danger text-white px-4 py-2 rounded-lg text-sm" disabled>Reprovado</button>'; break;
                         case 'reembolso_pendente': statusInfo = '<span class="text-blue-400 font-semibold">Curso Cancelado - Reembolso Pendente</span>'; break;
                         case 'reembolsado': statusInfo = '<span class="text-gray-400 font-semibold">Curso Cancelado - Reembolsado</span>'; break;
@@ -1474,85 +1472,166 @@
             document.getElementById(`aba-${abaId}`).classList.add('border-indigo-500', 'text-indigo-400');
         }
         window.inscrever = async function(cursoId) {
-            fecharModal('modalDetalhes');
-            if (!estado.usuarioLogado || estado.usuarioLogado.tipo !== 'aluno') { mostrarModal("Faça login como aluno para se inscrever."); if(!estado.usuarioLogado) mostrarTela('telaLoginAluno'); return; }
+            window.fecharModal('modalDetalhes');
+            if (!estado.usuarioLogado || estado.usuarioLogado.tipo !== 'aluno') { window.mostrarModal("Faça login como aluno para se inscrever."); if(!estado.usuarioLogado) window.mostrarTela('telaLoginAluno'); return; }
             
             const { data: aluno, error } = await supabaseClient.from('alunos').select('cursosInscritos').eq('email', estado.usuarioLogado.email).single();
             if (error || !aluno) {
-                mostrarModal("Erro ao verificar sua inscrição.");
+                window.mostrarModal("Erro ao verificar sua inscrição.");
                 return;
             }
 
             if (Array.isArray(aluno.cursosInscritos) && aluno.cursosInscritos.find(i => i.cursoId == cursoId)) { 
-                mostrarModal("Você já está neste curso."); 
-                mudarAbaPainelAluno('meusCursos'); 
-                mostrarTela('painelAluno'); 
+                window.mostrarModal("Você já está neste curso."); 
+                window.mudarAbaPainelAluno('meusCursos'); 
+                window.mostrarTela('painelAluno'); 
                 return; 
             }
             
             estado.cursoSelecionadoId = cursoId;
-            const { data: curso } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
+            const { data: curso } = await supabaseClient.from('cursos').select('preco, nomeDoCurso').eq('id', cursoId).single();
             document.getElementById('nomeCursoPagamento').innerText = curso.nomeDoCurso;
-            // O preço exibido é o preço original, já que o desconto virá do comprovante de cupom
-            document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${parseFloat(curso.preco).toFixed(2).replace('.',',')}`; 
             
-            // Limpa inputs e previews
+            const precoOriginal = parseFloat(curso.preco);
+            document.getElementById('precoCursoPagamento').innerText = `Valor: R$ ${precoOriginal.toFixed(2).replace('.',',')}`; 
+            
+            // Limpa inputs, previews e área de opções de pagamento
+            document.getElementById('inputCupom').value = '';
+            document.getElementById('statusCupom').innerHTML = 'O preço normal está disponível abaixo. Insira um cupom para um desconto.';
+            document.getElementById('statusCupom').className = 'text-sm mt-2 text-neutral-400';
             document.getElementById('comprovantePagamento').value = '';
             document.getElementById('previewComprovante').classList.add('hidden');
-            document.getElementById('comprovanteCupom').value = '';
-            document.getElementById('previewCupom').classList.add('hidden');
-            if(document.getElementById('comprovantePagamentoCartao')) document.getElementById('comprovantePagamentoCartao').value = '';
-            if(document.getElementById('previewComprovanteCartao')) document.getElementById('previewComprovanteCartao').classList.add('hidden');
-            if(document.getElementById('comprovanteCupomCartao')) document.getElementById('comprovanteCupomCartao').value = '';
-            if(document.getElementById('previewCupomCartao')) document.getElementById('previewCupomCartao').classList.add('hidden');
             
+            // Inicializa a exibição (mostra o link de 0% por defeito)
+            window.verificarCupomEExibirPagamento(cursoId, true);
+            
+            window.mostrarTela('telaPagamento');
+        }
+        
+        window.verificarCupomEExibirPagamento = async function(cursoId, isInitialLoad = false) {
+            const inputCupom = document.getElementById('inputCupom');
+            const statusCupom = document.getElementById('statusCupom');
+            const linkPagamentoContainer = document.getElementById('linkPagamentoContainer');
+            const precoDisplay = document.getElementById('precoCursoPagamento');
+            
+            const cupom = inputCupom.value.trim().toUpperCase();
+            linkPagamentoContainer.innerHTML = ''; // Limpa a área dos botões
+            
+            const { data: curso } = await supabaseClient.from('cursos').select('preco, linksDePagamento').eq('id', cursoId).single();
+            if (!curso) return;
 
-            const opcaoCartaoContainer = document.getElementById('opcaoCartaoContainer');
-            if (curso.linkPagamentoCartao) {
-                opcaoCartaoContainer.classList.remove('hidden');
+            const precoOriginal = parseFloat(curso.preco);
+            const linksDePagamento = curso.linksDePagamento || {};
+
+            let cupomEncontrado = null;
+            let linkDePagamento = null;
+            let precoAExibir = precoOriginal;
+            
+            const configNormal = DESCONTOS_CONFIG.find(c => c.percentual === 0);
+            const linkNormalInfo = linksDePagamento[configNormal.key];
+            
+            // Variáveis para o botão de preço normal
+            const precoNormalFormatado = precoOriginal.toFixed(2).replace('.', ',');
+            let buttonNormalHtml = '';
+
+            if (linkNormalInfo && linkNormalInfo.link) {
+                 buttonNormalHtml = `
+                    <a href="${linkNormalInfo.link}" target="_blank" onclick="window.exibirComprovanteArea('NENHUM')" class="w-full btn-success text-white font-bold p-3 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-credit-card mr-2"></i> Pague Aqui R$ ${precoNormalFormatado}
+                    </a>
+                `;
             } else {
-                opcaoCartaoContainer.classList.add('hidden');
+                 buttonNormalHtml = `<p class="text-red-400">Erro: Link de pagamento de preço normal não configurado pelo administrador.</p>`;
+            }
+
+
+            // 1. Tenta encontrar um cupom de desconto (se o campo não estiver vazio)
+            if (cupom.length > 0) {
+                for (const config of DESCONTOS_CONFIG.filter(c => c.percentual > 0)) {
+                    const linkInfo = linksDePagamento[config.key];
+                    if (linkInfo && linkInfo.cupom.toUpperCase() === cupom && linkInfo.link) {
+                        cupomEncontrado = config;
+                        linkDePagamento = linkInfo.link;
+                        
+                        const descontoAplicado = config.percentual / 100;
+                        precoAExibir = precoOriginal * (1 - descontoAplicado);
+                        precoAExibir = Math.max(0, precoAExibir);
+                        break;
+                    }
+                }
             }
             
-            mostrarTela('telaPagamento');
+            // 2. Determina qual link e status exibir
+            
+            // Se um cupom de desconto for encontrado
+            if (cupomEncontrado && linkDePagamento) {
+                const precoFormatado = precoAExibir.toFixed(2).replace('.', ',');
+                
+                statusCupom.innerHTML = `<i class="fas fa-check-circle mr-1"></i>Cupom **${cupom}** aplicado! ${cupomEncontrado.nome}.`;
+                statusCupom.className = 'text-sm mt-2 text-green-400';
+                precoDisplay.innerHTML = `
+                    <span class="text-sm font-normal text-neutral-400 line-through mr-3">R$ ${precoNormalFormatado}</span>
+                    R$ ${precoFormatado}
+                `;
+                
+                // Exibir APENAS o link de desconto
+                const buttonHtml = `
+                    <a href="${linkDePagamento}" target="_blank" onclick="window.exibirComprovanteArea('${cupom}')" class="w-full btn-success text-white font-bold p-3 rounded-lg mb-4 flex items-center justify-center">
+                        <i class="fas fa-credit-card mr-2"></i> Pague Agora (Cupom) R$ ${precoFormatado}
+                    </a>
+                `;
+                linkPagamentoContainer.innerHTML = buttonHtml;
+            
+            } else {
+                // Se não houver cupom válido OU se o campo estiver vazio (fallback para preço normal)
+                
+                precoAExibir = precoOriginal;
+                precoDisplay.innerText = `Valor: R$ ${precoNormalFormatado}`;
+
+                // Atualiza status se um cupom foi digitado mas não é válido
+                if (cupom.length > 0) {
+                    statusCupom.innerHTML = 'Cupom inválido ou expirado. Use o link de preço normal abaixo.';
+                    statusCupom.className = 'text-sm mt-2 text-red-400';
+                } else {
+                    statusCupom.innerHTML = 'O preço normal está disponível abaixo. Insira um cupom para um desconto.';
+                    statusCupom.className = 'text-sm mt-2 text-neutral-400';
+                }
+                
+                // Exibir SEMPRE o link de Preço Normal (0%)
+                linkPagamentoContainer.innerHTML = buttonNormalHtml;
+            }
         }
-        window.copiarChavePix = function() { navigator.clipboard.writeText('62.323.279/0001-00').then(() => mostrarModal("Chave PIX copiada!"), () => mostrarModal("Falha ao copiar.")); }
+        
+        window.exibirComprovanteArea = function(cupom) {
+            // Salva o cupom (ou "NENHUM") para persistência na inscrição
+            localStorage.setItem('cupomUsado', cupom);
+            
+            // Esconde o teclado no mobile
+            document.getElementById('inputCupom').blur(); 
+            
+            // Rolagem suave para a área do comprovante (melhor usabilidade)
+            document.getElementById('pagamentoComprovanteArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+
+        window.copiarChavePix = function() { navigator.clipboard.writeText('62.323.279/0001-00').then(() => window.mostrarModal("Chave PIX copiada!"), () => window.mostrarModal("Falha ao copiar.")); }
 
         window.abrirLinkPagamentoCartao = async function() {
-            if (!estado.cursoSelecionadoId) return;
-            showLoader();
-            try {
-                const { data: curso, error } = await supabaseClient.from('cursos').select('linkPagamentoCartao').eq('id', estado.cursoSelecionadoId).single();
-
-                if (error || !curso || !curso.linkPagamentoCartao) {
-                    mostrarModal("Link de pagamento com cartão não está disponível para este curso.");
-                    return;
-                }
-                window.open(curso.linkPagamentoCartao, '_blank');
-            } finally {
-                hideLoader();
-            }
+            // Esta função foi descontinuada
         }
 
-        window.enviarComprovante = async function(metodo = 'pix') {
-            showLoader();
+        window.enviarComprovante = async function(metodo = 'pagueaqui') {
+            window.showLoader();
             try {
-                const fileInputId = metodo === 'pix' ? 'comprovantePagamento' : 'comprovantePagamentoCartao';
-                const fileCupomId = metodo === 'pix' ? 'comprovanteCupom' : 'comprovanteCupomCartao';
-                
-                const fileInput = document.getElementById(fileInputId);
-                const fileCupomInput = document.getElementById(fileCupomId);
+                const fileInput = document.getElementById('comprovantePagamento');
 
                 // Validação de Comprovante de Pagamento (Obrigatório)
                 if (fileInput.files.length === 0) { 
-                    mostrarModal("Por favor, anexe o Comprovante de Pagamento."); 
+                    window.mostrarModal("Por favor, anexe o Comprovante de Pagamento."); 
                     return; 
                 }
                 const file = fileInput.files[0];
-                const fileCupom = fileCupomInput.files[0];
                 
-                let comprovanteCupomUrl = null;
-
                 // 1. Upload do Comprovante de Pagamento
                 const filePath = `public/comprovante-${Date.now()}-${sanitizeFileName(file.name)}`;
                 const { error: uploadError } = await supabaseClient.storage.from('comprovantes').upload(filePath, file);
@@ -1563,64 +1642,43 @@
                 }
                 const { data: { publicUrl: comprovanteUrl } } = supabaseClient.storage.from('comprovantes').getPublicUrl(filePath);
 
-                // 2. Upload do Comprovante de Cupom (Opcional)
-                if(fileCupom) {
-                    const fileCupomPath = `public/cupom-${Date.now()}-${sanitizeFileName(fileCupom.name)}`;
-                    const { error: uploadCupomError } = await supabaseClient.storage.from('comprovantes').upload(fileCupomPath, fileCupom);
-
-                    if (uploadCupomError) {
-                        handleStorageError(uploadCupomError, 'comprovantes');
-                        // Continua mesmo com erro, mas notifica o usuário
-                        console.error("Erro ao enviar o comprovante de cupom:", uploadCupomError);
-                    } else {
-                         const { data: { publicUrl: cupomUrl } } = supabaseClient.storage.from('comprovantes').getPublicUrl(fileCupomPath);
-                         comprovanteCupomUrl = cupomUrl;
-                    }
-                }
-
-                // 3. Atualizar a inscrição do Aluno
+                // 2. Atualizar a inscrição do Aluno
                 const { data: aluno, error: fetchError } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
                 if (fetchError) {
-                    mostrarModal("Erro ao encontrar seu usuário.");
+                    window.mostrarModal("Erro ao encontrar seu usuário.");
                     return;
                 }
+
+                const cupomUsado = localStorage.getItem('cupomUsado') || null;
 
                 const novaInscricao = { 
                     cursoId: estado.cursoSelecionadoId, 
                     status: 'pendente', 
                     comprovante: comprovanteUrl, 
-                    comprovanteCupom: comprovanteCupomUrl, // Adicionado comprovante de cupom
+                    comprovanteCupom: null, // Removido campo comprovante de cupom
+                    cupomAplicado: (cupomUsado === 'NENHUM' || !cupomUsado ? null : cupomUsado), // Salva null se for preço normal ou se não houver
                     frequencia: {}
                 };
                 const novasInscricoes = [...(aluno.cursosInscritos || []), novaInscricao];
 
                 const { error: updateError } = await supabaseClient.from('alunos').update({ cursosInscritos: novasInscricoes }).eq('id', aluno.id);
                 if (updateError) {
-                    mostrarModal("Erro ao registrar sua inscrição.");
+                    window.mostrarModal("Erro ao registrar sua inscrição.");
                     console.error(updateError);
                     return;
                 }
                 
-                mostrarModal("Comprovantes enviados! Aguarde a aprovação do administrador.");
+                window.mostrarModal("Comprovante enviado! Aguarde a aprovação do administrador.");
                 
-                // Limpa inputs e previews
-                document.getElementById('comprovantePagamento').value = '';
-                document.getElementById('previewComprovante').classList.add('hidden');
-                document.getElementById('comprovanteCupom').value = '';
-                document.getElementById('previewCupom').classList.add('hidden');
+                // Limpa inputs e estados
+                localStorage.removeItem('cupomUsado');
+                document.getElementById('inputCupom').value = '';
                 
-                if(metodo === 'cartao') {
-                    document.getElementById('comprovantePagamentoCartao').value = '';
-                    document.getElementById('previewComprovanteCartao').classList.add('hidden');
-                    document.getElementById('comprovanteCupomCartao').value = '';
-                    document.getElementById('previewCupomCartao').classList.add('hidden');
-                }
-                
-                await renderizarMeusCursos(); 
-                mudarAbaPainelAluno('meusCursos'); 
-                mostrarTela('painelAluno');
+                await window.renderizarMeusCursos(); 
+                window.mudarAbaPainelAluno('meusCursos'); 
+                window.mostrarTela('painelAluno');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
@@ -1628,13 +1686,13 @@
         // TELA DO CURSO (AULA, CHAT, CERTIFICADO)
         // ===================================================
         window.acessarCurso = async function(cursoId) {
-            showLoader();
+            window.showLoader();
             try {
                 estado.cursoSelecionadoId = cursoId;
                 estado.aulaSelecionadaIndex = 0;
                 const { data: curso, error } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
                 if(error || !curso || curso.status === 'cancelado') {
-                    mostrarModal("Este curso não está mais disponível.");
+                    window.mostrarModal("Este curso não está mais disponível.");
                     return;
                 }
 
@@ -1642,25 +1700,25 @@
                 document.getElementById('tituloTelaCurso').innerText = curso.nomeDoCurso;
 
                 const btnVoltarContainer = document.getElementById('botoesVoltarCurso');
-                if (usuarioTipo === 'aluno') btnVoltarContainer.innerHTML = `<button onclick="mostrarTela('painelAluno'); mudarAbaPainelAluno('meusCursos');" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>`;
-                else if (usuarioTipo === 'ministrante') btnVoltarContainer.innerHTML = `<button onclick="mostrarTela('painelMinistrante')" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>`;
-                else if (usuarioTipo === 'admin') btnVoltarContainer.innerHTML = `<button onclick="mostrarTela('painelAdmin')" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>`;
+                if (usuarioTipo === 'aluno') btnVoltarContainer.innerHTML = `<button onclick="window.mostrarTela('painelAluno'); window.mudarAbaPainelAluno('meusCursos');" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>`;
+                else if (usuarioTipo === 'ministrante') btnVoltarContainer.innerHTML = `<button onclick="window.mostrarTela('painelMinistrante')" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>`;
+                else if (usuarioTipo === 'admin') btnVoltarContainer.innerHTML = `<button onclick="window.mostrarTela('painelAdmin')" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>`;
                 
                 const abasContainer = document.getElementById('infoAbas');
                 abasContainer.innerHTML = `
-                    <a href="#" onclick="mudarAbaInfoCurso('chat', ${cursoId})" id="aba-info-chat" class="tab-info-curso border-indigo-500 text-indigo-400 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Chat</a>
-                    <a href="#" onclick="mudarAbaInfoCurso('aulas', ${cursoId})" id="aba-info-aulas" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Aulas</a>
+                    <a href="#" onclick="window.mudarAbaInfoCurso('chat', ${cursoId})" id="aba-info-chat" class="tab-info-curso border-indigo-500 text-indigo-400 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Chat</a>
+                    <a href="#" onclick="window.mudarAbaInfoCurso('aulas', ${cursoId})" id="aba-info-aulas" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Aulas</a>
                 `;
                 if (usuarioTipo === 'aluno') {
-                    abasContainer.innerHTML += `<a href="#" onclick="mudarAbaInfoCurso('frequencia', ${cursoId})" id="aba-info-frequencia" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Frequência</a>`;
-                    abasContainer.innerHTML += `<a href="#" onclick="mudarAbaInfoCurso('certificado', ${cursoId})" id="aba-info-certificado" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Certificado</a>`;
-                    abasContainer.innerHTML += `<a href="#" onclick="mudarAbaInfoCurso('anotacoes', ${cursoId})" id="aba-info-anotacoes" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Anotações</a>`;
+                    abasContainer.innerHTML += `<a href="#" onclick="window.mudarAbaInfoCurso('frequencia', ${cursoId})" id="aba-info-frequencia" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Frequência</a>`;
+                    abasContainer.innerHTML += `<a href="#" onclick="window.mudarAbaInfoCurso('certificado', ${cursoId})" id="aba-info-certificado" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Certificado</a>`;
+                    abasContainer.innerHTML += `<a href="#" onclick="window.mudarAbaInfoCurso('anotacoes', ${cursoId})" id="aba-info-anotacoes" class="tab-info-curso border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm">Anotações</a>`;
                 }
                 
                 let chatExtraControls = '';
                 if (usuarioTipo === 'ministrante' || usuarioTipo === 'admin') {
-                    chatExtraControls = `<label class="text-neutral-400 hover:text-indigo-400 p-2 text-lg cursor-pointer"><i class="fas fa-paperclip"></i><input type="file" class="hidden" onchange="enviarAnexo(event, ${cursoId})" accept="image/*,application/pdf"></label>`;
-                    chatExtraControls += `<button type="button" onclick="acessarLinkMinistrante(${cursoId})" class="text-neutral-400 hover:text-indigo-400 p-2 text-lg" title="Acessar link de preparação"><i class="fas fa-external-link-alt"></i></button>`;
+                    chatExtraControls = `<label class="text-neutral-400 hover:text-indigo-400 p-2 text-lg cursor-pointer"><i class="fas fa-paperclip"></i><input type="file" class="hidden" onchange="window.enviarAnexo(event, ${cursoId})" accept="image/*,application/pdf"></label>`;
+                    chatExtraControls += `<button type="button" onclick="window.acessarLinkMinistrante(${cursoId})" class="text-neutral-400 hover:text-indigo-400 p-2 text-lg" title="Acessar link de preparação"><i class="fas fa-external-link-alt"></i></button>`;
                 }
 
                 const conteudoContainer = document.getElementById('infoConteudoAba');
@@ -1674,7 +1732,7 @@
                             </div>
                             <div id="chat-messages-${cursoId}" class="flex-grow p-4 overflow-y-auto custom-scrollbar space-y-4"></div>
                             <div class="p-4 border-t border-neutral-700">
-                                <form onsubmit="enviarMensagem(event, ${cursoId})" class="flex gap-3 items-center">
+                                <form onsubmit="window.enviarMensagem(event, ${cursoId})" class="flex gap-3 items-center">
                                     <input type="text" placeholder="Digite sua mensagem..." class="w-full p-3 rounded-full border-2 bg-neutral-800 border-neutral-700 focus:border-indigo-500 focus:ring-0">
                                     ${chatExtraControls}
                                     <button type="submit" class="btn-primary flex-shrink-0 w-12 h-12 rounded-full font-bold text-xl"><i class="fas fa-paper-plane"></i></button>
@@ -1701,24 +1759,24 @@
                 
                 // Render content in parallel
                 const renderPromises = [
-                    renderizarListaAulas(cursoId),
-                    renderizarChat(cursoId),
-                    renderizarMateriaisAgrupados(cursoId),
-                    mudarAula(cursoId, 0)
+                    window.renderizarListaAulas(cursoId),
+                    window.renderizarChat(cursoId),
+                    window.renderizarMateriaisAgrupados(cursoId),
+                    window.mudarAula(cursoId, 0)
                 ];
 
                 if(usuarioTipo === 'aluno') {
                     renderPromises.push(
-                        renderizarAreaCertificado(cursoId),
-                        renderizarAreaFrequencia(cursoId),
-                        renderizarAnotacoes(cursoId)
+                        window.renderizarAreaCertificado(cursoId),
+                        window.renderizarAreaFrequencia(cursoId),
+                        window.renderizarAnotacoes(cursoId)
                     );
                 }
                 
                 await Promise.all(renderPromises);
 
-                mudarAbaInfoCurso('chat', cursoId);
-                mostrarTela('telaCurso');
+                window.mudarAbaInfoCurso('chat', cursoId);
+                window.mostrarTela('telaCurso');
 
                 if (estado.chatInterval) clearInterval(estado.chatInterval);
                 estado.chatInterval = setInterval(async () => {
@@ -1726,15 +1784,15 @@
                         const container = document.getElementById(`chat-messages-${cursoId}`);
                         const shouldScroll = container.scrollTop + container.clientHeight >= container.scrollHeight - 20;
                         await Promise.all([
-                            renderizarChat(cursoId, shouldScroll),
-                            renderizarMateriaisAgrupados(cursoId)
+                            window.renderizarChat(cursoId, shouldScroll),
+                            window.renderizarMateriaisAgrupados(cursoId)
                         ]);
                     } else {
                         clearInterval(estado.chatInterval);
                     }
                 }, 5000); 
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -1758,10 +1816,10 @@
                 if (url) {
                     window.open(url, '_blank');
                 } else {
-                    mostrarModal("O link de acesso do ministrante é inválido.");
+                    window.mostrarModal("O link de acesso do ministrante é inválido.");
                 }
             } else {
-                mostrarModal("Nenhum link de acesso definido para esta aula.");
+                window.mostrarModal("Nenhum link de acesso definido para esta aula.");
             }
         }
 
@@ -1798,11 +1856,11 @@
             if (activeItem) activeItem.classList.add('active');
             
             if(estado.usuarioLogado.tipo === 'aluno') {
-                await renderizarAreaFrequencia(cursoId);
+                await window.renderizarAreaFrequencia(cursoId);
             }
         }
 
-        async function renderizarListaAulas(cursoId) {
+        window.renderizarListaAulas = async function(cursoId) {
             const { data: curso, error } = await supabaseClient.from('cursos').select('aulas').eq('id', cursoId).single();
             const container = document.getElementById('listaAulasCurso');
             if (!container) return;
@@ -1815,7 +1873,7 @@
 
             curso.aulas.forEach((aula, index) => {
                 container.innerHTML += `
-                    <div id="aula-item-${index}" class="aula-item p-4 rounded-lg border-2 border-neutral-700 cursor-pointer hover:bg-neutral-800/50 transition-colors" onclick="mudarAula(${cursoId}, ${index})">
+                    <div id="aula-item-${index}" class="aula-item p-4 rounded-lg border-2 border-neutral-700 cursor-pointer hover:bg-neutral-800/50 transition-colors" onclick="window.mudarAula(${cursoId}, ${index})">
                         <p class="font-bold text-white">Aula ${index + 1}: ${aula.titulo}</p>
                         <p class="text-sm text-neutral-400 mt-1"><i class="fas fa-calendar-alt fa-fw mr-2"></i>${new Date(aula.data).toLocaleDateString('pt-BR', {timeZone: 'UTC'})} | ${aula.horarioInicio} - ${aula.horarioFim}</p>
                     </div>
@@ -1850,7 +1908,7 @@
             if (tipoUsuario !== 'admin') {
                 const { data: usuarioAtual, error: fetchError } = await supabaseClient.from(tipoUsuario + 's').select('fotoPerfil').eq('email', estado.usuarioLogado.email).single();
                 if (fetchError) {
-                    mostrarModal("Erro ao obter dados do usuário. Tente novamente.");
+                    window.mostrarModal("Erro ao obter dados do usuário. Tente novamente.");
                     console.error("Fetch user error:", fetchError);
                     return;
                 }
@@ -1869,15 +1927,15 @@
 
             const { error } = await supabaseClient.from('chats').insert([novaMensagem]);
             if (error) {
-                mostrarModal("Erro ao enviar mensagem. Verifique sua conexão ou as permissões do banco de dados.");
+                window.mostrarModal("Erro ao enviar mensagem. Verifique sua conexão ou as permissões do banco de dados.");
                 console.error("Chat insert error:", error);
             } else {
                 input.value = '';
-                await renderizarChat(cursoId, true); 
+                await window.renderizarChat(cursoId, true); 
             }
         }
 
-        async function renderizarChat(cursoId, forceScroll = false) {
+        window.renderizarChat = async function(cursoId, forceScroll = false) {
             const container = document.getElementById(`chat-messages-${cursoId}`);
             if (!container) return;
 
@@ -1908,14 +1966,14 @@
                 if (msg.type === 'anexo') {
                     let anexoPreview = '';
                     if (msg.fileType.startsWith('image/')) {
-                        anexoPreview = `<img src="${msg.fileData}" class="max-w-xs max-h-48 rounded-md mt-2 object-cover cursor-pointer" onclick="verImagemAmpliada('${msg.fileData}')">`;
+                        anexoPreview = `<img src="${msg.fileData}" class="max-w-xs max-h-48 rounded-md mt-2 object-cover cursor-pointer" onclick="window.verImagemAmpliada('${msg.fileData}')">`;
                     } else {
                         anexoPreview = `<div class="mt-2 p-3 bg-neutral-900/50 rounded-md flex items-center gap-3"><i class="fas fa-file-pdf text-red-400 text-2xl"></i> <span class="truncate">${msg.fileName}</span></div>`;
                     }
 
                     let deleteButton = '';
                     if (estado.usuarioLogado.tipo === 'admin') {
-                        deleteButton = `<button onclick="confirmarExclusaoMensagem(${msg.id}, '${msg.fileData}')" class="text-red-400 hover:text-red-300 text-xs ml-auto flex-shrink-0 p-1"><i class="fas fa-trash"></i></button>`;
+                        deleteButton = `<button onclick="window.confirmarExclusaoMensagem(${msg.id}, '${msg.fileData}')" class="text-red-400 hover:text-red-300 text-xs ml-auto flex-shrink-0 p-1"><i class="fas fa-trash"></i></button>`;
                     }
 
                     messageContentHtml = `
@@ -1929,7 +1987,7 @@
                 } else { 
                     let deleteButtonHtml = '';
                     if (estado.usuarioLogado.tipo === 'admin') {
-                         deleteButtonHtml = `<button onclick="confirmarExclusaoMensagem(${msg.id}, null)" class="text-red-400 hover:text-red-300 text-xs ml-2 opacity-50 hover:opacity-100 flex-shrink-0"><i class="fas fa-trash"></i></button>`;
+                         deleteButtonHtml = `<button onclick="window.confirmarExclusaoMensagem(${msg.id}, null)" class="text-red-400 hover:text-red-300 text-xs ml-2 opacity-50 hover:opacity-100 flex-shrink-0"><i class="fas fa-trash"></i></button>`;
                     }
                     messageContentHtml = `
                         <div class="flex items-start justify-between w-full">
@@ -1957,7 +2015,7 @@
             }
         }
 
-        async function renderizarMateriaisAgrupados(cursoId) {
+        window.renderizarMateriaisAgrupados = async function(cursoId) {
             const container = document.getElementById('listaMateriaisAgrupados');
             if (!container) return;
 
@@ -1976,7 +2034,7 @@
 
                 let deleteButton = '';
                 if (estado.usuarioLogado.tipo === 'admin') {
-                    deleteButton = `<button onclick="event.preventDefault(); event.stopPropagation(); confirmarExclusaoMensagem(${msg.id}, '${msg.fileData}')" class="text-red-400 hover:text-red-300 ml-auto p-2 flex-shrink-0"><i class="fas fa-trash"></i></button>`;
+                    deleteButton = `<button onclick="event.preventDefault(); event.stopPropagation(); window.confirmarExclusaoMensagem(${msg.id}, '${msg.fileData}')" class="text-red-400 hover:text-red-300 ml-auto p-2 flex-shrink-0"><i class="fas fa-trash"></i></button>`;
                 }
 
                 container.innerHTML += `
@@ -1998,7 +2056,7 @@
             const file = event.target.files[0];
             if (!file) return;
 
-            showLoader();
+            window.showLoader();
             try {
                 const sanitizedFileName = sanitizeFileName(file.name);
                 const filePath = `public/chat-${cursoId}-${Date.now()}-${sanitizedFileName}`;
@@ -2018,7 +2076,7 @@
                 if (tipoUsuario !== 'admin') {
                     const { data: usuarioAtual, error: fetchError } = await supabaseClient.from(tipoUsuario + 's').select('fotoPerfil').eq('email', estado.usuarioLogado.email).single();
                     if (fetchError) {
-                        mostrarModal("Erro ao obter dados do usuário. Tente novamente.");
+                        window.mostrarModal("Erro ao obter dados do usuário. Tente novamente.");
                         console.error("Fetch user error:", fetchError);
                         return;
                     }
@@ -2040,25 +2098,25 @@
                 const { error: insertError } = await supabaseClient.from('chats').insert([novoAnexo]);
 
                 if(insertError) {
-                    mostrarModal("Erro ao registrar anexo no chat. Verifique as permissões do banco de dados.");
+                    window.mostrarModal("Erro ao registrar anexo no chat. Verifique as permissões do banco de dados.");
                     console.error("Chat insert error (anexo):", insertError);
                 } else {
-                    await renderizarChat(cursoId, true);
-                    await renderizarMateriaisAgrupados(cursoId);
+                    await window.renderizarChat(cursoId, true);
+                    await window.renderizarMateriaisAgrupados(cursoId);
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
                 event.target.value = ''; // Reset input
             }
         }
 
         window.confirmarExclusaoMensagem = function(mensagemId, fileUrl) {
             const mensagem = fileUrl ? 'Tem certeza que deseja excluir esta mensagem e seu anexo? Esta ação é irreversível.' : 'Tem certeza que deseja excluir esta mensagem?';
-            mostrarConfirmacao(mensagem, () => excluirMensagem(mensagemId, fileUrl));
+            window.mostrarConfirmacao(mensagem, () => excluirMensagem(mensagemId, fileUrl));
         }
 
         async function excluirMensagem(mensagemId, fileUrl) {
-            showLoader();
+            window.showLoader();
             try {
                 if (fileUrl && fileUrl !== 'null') { 
                     const urlParts = fileUrl.split('/chats/');
@@ -2074,18 +2132,18 @@
                 const { error: dbError } = await supabaseClient.from('chats').delete().eq('id', mensagemId);
                 if (dbError) throw dbError;
                 
-                mostrarModal("Mensagem excluída com sucesso!");
-                await renderizarChat(estado.cursoSelecionadoId, false);
-                await renderizarMateriaisAgrupados(estado.cursoSelecionadoId);
+                window.mostrarModal("Mensagem excluída com sucesso!");
+                await window.renderizarChat(estado.cursoSelecionadoId, false);
+                await window.renderizarMateriaisAgrupados(estado.cursoSelecionadoId);
             } catch (error) {
-                mostrarModal("Ocorreu um erro ao excluir a mensagem.");
+                window.mostrarModal("Ocorreu um erro ao excluir a mensagem.");
                 console.error("Erro ao excluir mensagem:", error);
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
-        async function renderizarAnotacoes(cursoId) {
+        window.renderizarAnotacoes = async function(cursoId) {
             const container = document.getElementById('abaConteudo-info-anotacoes');
             if (!container) return;
 
@@ -2106,7 +2164,7 @@
                         <a href="${file.url}" target="_blank" download="${file.name}" class="text-indigo-400 hover:underline truncate text-sm">
                             <i class="fas fa-file-alt mr-2"></i>${file.name}
                         </a>
-                        <button onclick="confirmarExcluirAnexoAnotacao(${cursoId}, '${file.url}')" class="text-red-400 hover:text-red-300 text-xs p-1"><i class="fas fa-trash"></i></button>
+                        <button onclick="window.confirmarExcluirAnexoAnotacao(${cursoId}, '${file.url}')" class="text-red-400 hover:text-red-300 text-xs p-1"><i class="fas fa-trash"></i></button>
                     </div>
                 `).join('');
             }
@@ -2115,14 +2173,14 @@
                 <div>
                     <h3 class="font-bold text-lg mb-2">Resumo e Pontos Importantes</h3>
                     <textarea id="anotacoesTexto-${cursoId}" class="w-full p-3 rounded-lg border-2 h-40 custom-scrollbar">${texto}</textarea>
-                    <button onclick="salvarAnotacaoTexto(${cursoId})" class="btn-primary font-bold py-2 px-4 rounded-lg mt-2">Salvar Texto</button>
+                    <button onclick="window.salvarAnotacaoTexto(${cursoId})" class="btn-primary font-bold py-2 px-4 rounded-lg mt-2">Salvar Texto</button>
                 </div>
                 <div class="mt-6">
                     <h3 class="font-bold text-lg mb-2">Meus Anexos</h3>
                     <div class="mb-4">
                         <label class="btn-secondary text-sm px-3 py-2 rounded-lg cursor-pointer">
                             <i class="fas fa-upload mr-2"></i> Enviar Arquivo
-                            <input type="file" class="hidden" onchange="enviarAnexoAnotacao(event, ${cursoId})">
+                            <input type="file" class="hidden" onchange="window.enviarAnexoAnotacao(event, ${cursoId})">
                         </label>
                     </div>
                     <div id="lista-anexos-anotacoes" class="space-y-2">
@@ -2133,11 +2191,13 @@
         }
 
         window.salvarAnotacaoTexto = async function(cursoId) {
-            showLoader();
+            window.showLoader();
             try {
                 const texto = document.getElementById(`anotacoesTexto-${cursoId}`).value;
                 const { data: aluno } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
-                if (error) { mostrarModal('Erro ao salvar anotação.'); return; }
+                
+                if (!aluno) { window.mostrarModal('Erro ao salvar anotação: aluno não encontrado.'); return; }
+
 
                 const inscricaoIndex = aluno.cursosInscritos.findIndex(i => i.cursoId == cursoId);
                 if (inscricaoIndex > -1) {
@@ -2145,13 +2205,13 @@
                     aluno.cursosInscritos[inscricaoIndex].anotacoesTexto = texto;
                     const { error: updateError } = await supabaseClient.from('alunos').update({ cursosInscritos: aluno.cursosInscritos }).eq('id', aluno.id);
                     if (updateError) {
-                        mostrarModal('Erro ao salvar anotação.');
+                        window.mostrarModal('Erro ao salvar anotação.');
                     } else {
-                        mostrarModal('Anotação salva com sucesso!');
+                        window.mostrarModal('Anotação salva com sucesso!');
                     }
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -2159,10 +2219,10 @@
             const file = event.target.files[0];
             if (!file) return;
             
-            showLoader();
+            window.showLoader();
             try {
                 const { data: aluno, error: fetchError } = await supabaseClient.from('alunos').select('id, cursosInscritos').eq('email', estado.usuarioLogado.email).single();
-                if (fetchError) { mostrarModal('Erro ao buscar dados do aluno.'); return; }
+                if (fetchError) { window.mostrarModal('Erro ao buscar dados do aluno.'); return; }
 
                 const filePath = `public/aluno-${aluno.id}-curso-${cursoId}-${Date.now()}-${sanitizeFileName(file.name)}`;
                 const { error: uploadError } = await supabaseClient.storage.from('anotacoes-alunos').upload(filePath, file);
@@ -2183,24 +2243,24 @@
 
                     const { error: updateError } = await supabaseClient.from('alunos').update({ cursosInscritos: aluno.cursosInscritos }).eq('id', aluno.id);
                     if (updateError) {
-                        mostrarModal('Erro ao salvar anexo.');
+                        window.mostrarModal('Erro ao salvar anexo.');
                     } else {
-                        mostrarModal('Anexo salvo!');
-                        await renderizarAnotacoes(cursoId);
+                        window.mostrarModal('Anexo salvo!');
+                        await window.renderizarAnotacoes(cursoId);
                     }
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
                 event.target.value = ''; // Reset input
             }
         }
 
         window.confirmarExcluirAnexoAnotacao = function(cursoId, fileUrl) {
-            mostrarConfirmacao('Tem certeza que deseja excluir este anexo?', () => excluirAnexoAnotacao(cursoId, fileUrl));
+            window.mostrarConfirmacao('Tem certeza que deseja excluir este anexo?', () => excluirAnexoAnotacao(cursoId, fileUrl));
         }
 
         async function excluirAnexoAnotacao(cursoId, fileUrl) {
-            showLoader();
+            window.showLoader();
             try {
                 const urlParts = fileUrl.split('/anotacoes-alunos/');
                 if (urlParts.length < 2) throw new Error("URL do arquivo inválida.");
@@ -2209,7 +2269,7 @@
                 const { error: storageError } = await supabaseClient.storage.from('anotacoes-alunos').remove([filePath]);
                 if (storageError) {
                      if (storageError.message && storageError.message.toLowerCase().includes('bucket not found')) {
-                         mostrarModal("Erro de Configuração: O bucket 'anotacoes-alunos' não foi encontrado. Não é possível excluir o anexo.");
+                         window.mostrarModal("Erro de Configuração: O bucket 'anotacoes-alunos' não foi encontrado. Não é possível excluir o anexo.");
                          return;
                     }
                     if (storageError.statusCode !== '404') throw storageError;
@@ -2226,14 +2286,14 @@
                     if (updateError) throw updateError;
                 }
 
-                mostrarModal("Anexo excluído com sucesso!");
-                await renderizarAnotacoes(cursoId);
+                window.mostrarModal("Anexo excluído com sucesso!");
+                await window.renderizarAnotacoes(cursoId);
 
             } catch (error) {
-                mostrarModal("Ocorreu um erro ao excluir o anexo.");
+                window.mostrarModal("Ocorreu um erro ao excluir o anexo.");
                 console.error("Erro ao excluir anexo de anotação:", error);
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -2253,7 +2313,7 @@
             }
             
             if (inscricao.certificadoCodigo) {
-                area.innerHTML = `<i class="fas fa-check-circle text-green-400 text-4xl mb-3"></i><h4 class="font-bold">Certificado Liberado</h4><p class="text-neutral-300 text-sm mb-4">Seu código:</p><p class="font-mono bg-neutral-900 p-2 rounded-lg text-lg">${inscricao.certificadoCodigo}</p><button onclick="visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-primary w-full mt-4 py-2 rounded-lg">Visualizar Certificado</button>`;
+                area.innerHTML = `<i class="fas fa-check-circle text-green-400 text-4xl mb-3"></i><h4 class="font-bold">Certificado Liberado</h4><p class="text-neutral-300 text-sm mb-4">Seu código:</p><p class="font-mono bg-neutral-900 p-2 rounded-lg text-lg">${inscricao.certificadoCodigo}</p><button onclick="window.visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-primary w-full mt-4 py-2 rounded-lg">Visualizar Certificado</button>`;
             } else {
                 area.innerHTML = `<i class="fas fa-tasks text-indigo-400 text-4xl mb-3"></i><h4 class="font-bold">Certificado Pendente</h4><p class="text-neutral-300 text-sm mb-4">Você já cumpriu os requisitos. Aguardando liberação pelo administrador.</p>`;
             }
@@ -2351,30 +2411,30 @@
         }
         
         window.visualizarCertificado = async function(tipo, codigo) {
-            showLoader();
+            window.showLoader();
             try {
                 const certificadoHtml = await gerarHtmlCertificado(tipo, codigo);
-                if(certificadoHtml.includes("não encontrado")) { mostrarModal("Certificado não encontrado."); return; }
+                if(certificadoHtml.includes("não encontrado")) { window.mostrarModal("Certificado não encontrado."); return; }
                 const modalContent = `
                     <div id="certificado-para-imprimir">${certificadoHtml}</div>
                     <div class="flex justify-end mt-4 gap-2">
-                        <button onclick="imprimirCertificado('certificado-para-imprimir')" class="btn-success text-white px-4 py-2 rounded-lg">Imprimir PDF</button>
-                        <button onclick="fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button>
+                        <button onclick="window.imprimirCertificado('certificado-para-imprimir')" class="btn-success text-white px-4 py-2 rounded-lg">Imprimir PDF</button>
+                        <button onclick="window.fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button>
                     </div>`;
                 
                 document.getElementById('conteudoModalDetalhes').innerHTML = modalContent;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '900px';
-                mostrarModal('', 'modalDetalhes');
+                window.mostrarModal('', 'modalDetalhes');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         window.validarCertificadoPeloCodigo = async function() { 
             const codigo = document.getElementById('codigoValidacao').value.trim(); 
-            if (!codigo) { mostrarModal("Insira um código."); return; }
+            if (!codigo) { window.mostrarModal("Insira um código."); return; }
             const tipo = codigo.startsWith('NEXUS-AL') ? 'aluno' : 'ministrante';
-            await visualizarCertificado(tipo, codigo); 
+            await window.visualizarCertificado(tipo, codigo); 
         }
 
         window.imprimirCertificado = function(elementId) {
@@ -2403,12 +2463,12 @@
             document.getElementById(`aba-${abaId}`).classList.add('border-indigo-500', 'text-indigo-400');
 
             if (abaId === 'contratoMinistrante') {
-                renderizarAreaContratoMinistrante(estado.usuarioLogado.email);
+                window.renderizarAreaContratoMinistrante(estado.usuarioLogado.email);
             }
         }
 
         async function renderizarPainelMinistrante() {
-            showLoader();
+            window.showLoader();
             try {
                 const [
                     { data: ministrante, error: ministranteError },
@@ -2442,11 +2502,11 @@
                         }
                         const vinculo = Array.isArray(ministrante.cursosVinculados) ? ministrante.cursosVinculados.find(v => v.cursoId == curso.id) || {} : {};
                         let acoesMinistrante = `
-                            <button onclick="acessarCurso(${curso.id})" class="btn-primary w-full py-2 rounded-lg">Acessar Sala</button>
+                            <button onclick="window.acessarCurso(${curso.id})" class="btn-primary w-full py-2 rounded-lg">Acessar Sala</button>
                         `;
 
                         if(vinculo.certificadoCodigo) {
-                            acoesMinistrante += `<button onclick="visualizarCertificado('ministrante', '${vinculo.certificadoCodigo}')" class="btn-success text-white w-full py-2 rounded-lg">Ver Certificado</button>`;
+                            acoesMinistrante += `<button onclick="window.visualizarCertificado('ministrante', '${vinculo.certificadoCodigo}')" class="btn-success text-white w-full py-2 rounded-lg">Ver Certificado</button>`;
                         } else if (cursoConcluido) {
                             acoesMinistrante += `<button class="btn-secondary w-full py-2 rounded-lg" disabled>Certificado (Aguardando Liberação)</button>`;
                         }
@@ -2479,10 +2539,10 @@
                 console.error("Error rendering minister panel:", e);
                 document.getElementById('listaCursosMinistrante').innerHTML = '<p>Error loading data.</p>';
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
-        async function renderizarAreaContratoMinistrante(ministranteEmail) {
+        window.renderizarAreaContratoMinistrante = async function(ministranteEmail) {
             const areaContrato = document.getElementById('areaContratoMinistrante');
             const { data: ministrante, error } = await supabaseClient.from('ministrantes').select('contrato').eq('email', ministranteEmail).single();
 
@@ -2494,14 +2554,14 @@
             if (ministrante.contrato.assinadoPeloMinistrante) {
                 areaContrato.innerHTML = `<p class="text-green-400 mb-4 font-semibold">Contrato assinado e enviado!</p><a href="${ministrante.contrato.assinadoPeloMinistrante}" target="_blank" rel="noopener noreferrer" download="contrato-assinado.pdf" class="btn-primary py-2 px-4 rounded-lg">Baixar Cópia Assinada</a>`;
             } else if (ministrante.contrato.enviadoPeloAdmin) {
-                areaContrato.innerHTML = `<p class="text-yellow-400 mb-4 font-semibold">Contrato disponível para assinatura.</p><a href="${ministrante.contrato.enviadoPeloAdmin}" target="_blank" rel="noopener noreferrer" download="contrato-nexus.pdf" class="btn-primary py-2 px-4 rounded-lg">Baixar Contrato</a><div class="mt-4 border-t border-neutral-600 pt-4"><label for="uploadContrato" class="block text-sm mb-2">Envie o contrato assinado (.pdf):</label><input type="file" id="uploadContrato" accept=".pdf" onchange="enviarContratoAssinado(event, '${ministranteEmail}')"></div>`;
+                areaContrato.innerHTML = `<p class="text-yellow-400 mb-4 font-semibold">Contrato disponível para assinatura.</p><a href="${ministrante.contrato.enviadoPeloAdmin}" target="_blank" rel="noopener noreferrer" download="contrato-nexus.pdf" class="btn-primary py-2 px-4 rounded-lg">Baixar Contrato</a><div class="mt-4 border-t border-neutral-600 pt-4"><label for="uploadContrato" class="block text-sm mb-2">Envie o contrato assinado (.pdf):</label><input type="file" id="uploadContrato" accept=".pdf" onchange="window.enviarContratoAssinado(event, '${ministranteEmail}')"></div>`;
             } else {
                 areaContrato.innerHTML = `<p class="text-neutral-400 mb-4">Nenhum contrato enviado pelo administrador.</p>`;
             }
         }
         window.enviarContratoAssinado = async function(event, ministranteEmail) {
             const file = event.target.files[0]; if(!file) return;
-            showLoader();
+            window.showLoader();
             try {
                 const filePath = `public/contrato-assinado-${Date.now()}-${sanitizeFileName(file.name)}`;
                 const { error: uploadError } = await supabaseClient.storage.from('contratos').upload(filePath, file);
@@ -2519,11 +2579,11 @@
                 const { error: updateError } = await supabaseClient.from('ministrantes').update({ contrato: novoContrato }).eq('email', ministranteEmail);
                 
                 if (!updateError) {
-                    await renderizarAreaContratoMinistrante(ministranteEmail);
-                    mostrarModal("Contrato assinado enviado com sucesso!");
+                    await window.renderizarAreaContratoMinistrante(ministranteEmail);
+                    window.mostrarModal("Contrato assinado enviado com sucesso!");
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -2549,38 +2609,38 @@
             // Busca e renderiza novamente os dados para o separador selecionado
             switch (abaId) {
                 case 'gerenciarCursos':
-                    await renderizarPainelAdminCursos();
+                    await window.renderizarPainelAdminCursos();
                     break;
                 case 'gerenciarAprovacoes':
-                    await renderizarPainelAdminAprovacoes();
+                    await window.renderizarPainelAdminAprovacoes();
                     break;
                 case 'gerenciarReembolsos':
-                    await renderizarPainelAdminReembolsos();
+                    await window.renderizarPainelAdminReembolsos();
                     break;
                 case 'gerenciarCertificados':
-                    await renderizarPainelAdminCertificados();
+                    await window.renderizarPainelAdminCertificados();
                     break;
                 case 'gerenciarAlunos':
-                    await renderizarPainelAdminAlunos();
+                    await window.renderizarPainelAdminAlunos();
                     break;
                 case 'gerenciarMinistrantes':
-                    await renderizarPainelAdminMinistrantes();
+                    await window.renderizarPainelAdminMinistrantes();
                     break;
                 case 'gerenciarEmpresas':
-                    await renderizarPainelAdminEmpresas();
+                    await window.renderizarPainelAdminEmpresas();
                     break;
                 case 'gerenciarParceiros':
-                    await renderizarPainelAdminParceiros();
+                    await window.renderizarPainelAdminParceiros();
                     break;
             }
         }
         async function renderizarPainelAdmin() { 
             // Apenas renderiza o separador padrão no carregamento inicial
-            await renderizarPainelAdminCursos();
+            await window.renderizarPainelAdminCursos();
         }
         
-        async function renderizarPainelAdminCursos() {
-            showLoader();
+        window.renderizarPainelAdminCursos = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaCursosAdmin');
                 const [{ data: cursos, error: cursosError }, { data: todosAlunos, error: alunosError }] = await Promise.all([
@@ -2607,7 +2667,7 @@
                             : `<span class="text-yellow-400 font-semibold"><i class="fas fa-exclamation-triangle mr-2"></i>Aguardando Cota</span>`;
 
                     const statusInscricaoClass = c.statusInscricao === 'recebendo' ? 'bg-green-500' : 'bg-red-500';
-                    let acoesCurso = `<button onclick="verInscritos(${c.id})" class="btn-secondary text-xs px-3 py-2 rounded-lg">Inscritos</button><button onclick="mudarStatusInscricaoCurso(${c.id})" class="btn-secondary text-xs px-3 py-2 rounded-lg">Mudar Status</button><button onclick="abrirModalCurso(${c.id})" class="btn-secondary text-xs px-3 py-2 rounded-lg"><i class="fas fa-edit"></i></button>`;
+                    let acoesCurso = `<button onclick="window.verInscritos(${c.id})" class="btn-secondary text-xs px-3 py-2 rounded-lg">Inscritos</button><button onclick="window.mudarStatusInscricaoCurso(${c.id})" class="btn-secondary text-xs px-3 py-2 rounded-lg">Mudar Status</button><button onclick="window.abrirModalCurso(${c.id})" class="btn-secondary text-xs px-3 py-2 rounded-lg"><i class="fas fa-edit"></i></button>`;
                     
                     let dataUltimaAulaDoCurso = null;
                     if (c.aulas && c.aulas.length > 0) {
@@ -2617,14 +2677,14 @@
                     }
 
                     if (!cotaAtingida && dataUltimaAulaDoCurso && new Date(dataUltimaAulaDoCurso) < new Date()) {
-                        acoesCurso += `<button onclick="confirmarCancelamentoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg">Excluir curso e reembolsar alunos</button>`;
+                        acoesCurso += `<button onclick="window.confirmarCancelamentoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg">Excluir curso e reembolsar alunos</button>`;
                     } else {
-                        acoesCurso += `<button onclick="confirmarExclusaoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>`;
+                        acoesCurso += `<button onclick="window.confirmarExclusaoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>`;
                     }
 
                     container.innerHTML += `
                         <div class="glassmorphism p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
-                            <div class="flex items-center gap-4 cursor-pointer" onclick="acessarCurso(${c.id})">
+                            <div class="flex items-center gap-4 cursor-pointer" onclick="window.acessarCurso(${c.id})">
                                 <img src="${c.imagem}" class="w-24 h-16 object-cover rounded-md">
                                 <div>
                                     <h4 class="font-bold text-lg">${c.nomeDoCurso}</h4>
@@ -2640,11 +2700,11 @@
                         </div>`;
                 });
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
-        async function renderizarPainelAdminAprovacoes() {
-            showLoader();
+        window.renderizarPainelAdminAprovacoes = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaAprovacoesAdmin');
                 const [{ data: alunos, error: alunosError }, { data: cursos, error: cursosError }] = await Promise.all([
@@ -2668,22 +2728,22 @@
                             const curso = cursos.find(c => c.id == inscricao.cursoId);
                             if(curso){
                             let cupomLink = '';
-                            if (inscricao.comprovanteCupom) {
-                                cupomLink = `<a href="${inscricao.comprovanteCupom}" target="_blank" class="btn-secondary px-4 py-1 rounded-lg text-xs" title="Comprovante de Cupom">Cupom</a>`;
+                            if (inscricao.cupomAplicado) {
+                                cupomLink = `<span class="text-xs text-indigo-400 ml-2">Cupom: ${inscricao.cupomAplicado}</span>`;
                             }
 
-                            container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4"><div><p><span class="font-bold">${aluno.nomeCompleto}</span> em <span class="text-indigo-400">${curso.nomeDoCurso}</span>.</p></div><div class="flex items-center gap-2 flex-wrap justify-center"><a href="${inscricao.comprovante}" target="_blank" class="btn-secondary px-4 py-1 rounded-lg">Comprovante Pagamento</a>${cupomLink}<button onclick="reprovarPagamento('${aluno.email}', ${curso.id})" class="btn-danger text-white px-4 py-1 rounded-lg">Reprovar</button><button onclick="aprovarPagamento('${aluno.email}', ${curso.id})" class="btn-success text-white px-4 py-1 rounded-lg">Aprovar</button></div></div>`;
+                            container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex flex-col md:flex-row items-center justify-between gap-4"><div><p><span class="font-bold">${aluno.nomeCompleto}</span> em <span class="text-indigo-400">${curso.nomeDoCurso}</span>.</p></div><div class="flex items-center gap-2 flex-wrap justify-center"><a href="${inscricao.comprovante}" target="_blank" class="btn-secondary px-4 py-1 rounded-lg">Comprovante Pagamento</a>${cupomLink}<button onclick="window.reprovarPagamento('${aluno.email}', ${curso.id})" class="btn-danger text-white px-4 py-1 rounded-lg">Reprovar</button><button onclick="window.aprovarPagamento('${aluno.email}', ${curso.id})" class="btn-success text-white px-4 py-1 rounded-lg">Aprovar</button></div></div>`;
                             }
                         });
                     }
                 });
                 if (!temPendente) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhuma aprovação pendente.</p>'; }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
-        async function renderizarPainelAdminAlunos() {
-            showLoader();
+        window.renderizarPainelAdminAlunos = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaAlunosAdmin');
                 const { data: alunos, error } = await supabaseClient.from('alunos').select('nomeCompleto, email');
@@ -2691,13 +2751,13 @@
 
                 container.innerHTML = '';
                 if (alunos.length === 0) { container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Nenhum aluno.</p>'; return; }
-                alunos.forEach(a => { container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex items-center justify-between"><div><p class="font-bold">${a.nomeCompleto}</p><p class="text-sm text-neutral-400">${a.email}</p></div><div class="flex items-center gap-2"><button onclick="verDetalhes('aluno', '${a.email}')" class="btn-secondary px-4 py-2 rounded-lg">Detalhes</button><button onclick="confirmarExclusaoUsuario('aluno', '${a.email}')" class="btn-danger text-white px-4 py-2 rounded-lg"><i class="fas fa-trash"></i></button></div></div>`; });
+                alunos.forEach(a => { container.innerHTML += `<div class="glassmorphism p-4 rounded-lg flex items-center justify-between"><div><p class="font-bold">${a.nomeCompleto}</p><p class="text-sm text-neutral-400">${a.email}</p></div><div class="flex items-center gap-2"><button onclick="window.verDetalhes('aluno', '${a.email}')" class="btn-secondary px-4 py-2 rounded-lg">Detalhes</button><button onclick="window.confirmarExclusaoUsuario('aluno', '${a.email}')" class="btn-danger text-white px-4 py-2 rounded-lg"><i class="fas fa-trash"></i></button></div></div>`; });
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
-        async function renderizarPainelAdminMinistrantes() {
-            showLoader();
+        window.renderizarPainelAdminMinistrantes = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaMinistrantesAdmin');
                 const filtro = document.getElementById('buscaMinistrante').value.toLowerCase();
@@ -2728,25 +2788,25 @@
                                 <p class="text-xs text-neutral-300 mt-1 capitalize"><i class="fas fa-graduation-cap mr-2"></i>${titulos}</p>
                             </div>
                             <div class="flex items-center gap-2 flex-shrink-0">
-                                <button onclick="verDetalhes('ministrante', '${m.email}')" class="btn-secondary px-3 py-2 rounded-lg">Detalhes</button>
-                                <button onclick="confirmarExclusaoUsuario('ministrante', '${m.email}')" class="btn-danger text-white px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>
+                                <button onclick="window.verDetalhes('ministrante', '${m.email}')" class="btn-secondary px-3 py-2 rounded-lg">Detalhes</button>
+                                <button onclick="window.confirmarExclusaoUsuario('ministrante', '${m.email}')" class="btn-danger text-white px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>`; 
                 });
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
-        async function renderizarPainelAdminReembolsos() {
+        window.renderizarPainelAdminReembolsos = async function() {
             const container = document.getElementById('listaReembolsosAdmin');
             if (container) {
                 container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Funcionalidade de reembolsos em desenvolvimento.</p>';
             }
         }
 
-        async function renderizarPainelAdminCertificados() {
-            showLoader();
+        window.renderizarPainelAdminCertificados = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaCursosCertificados');
                 if(!container) return;
@@ -2776,8 +2836,8 @@
 
                         const vinculo = Array.isArray(ministrante.cursosVinculados) ? ministrante.cursosVinculados.find(v => v.cursoId == curso.id) : null;
                         const certButton = vinculo && vinculo.certificadoCodigo
-                            ? `<button onclick="visualizarCertificado('ministrante', '${vinculo.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
-                            : `<button onclick="adminEmitirCertificado('ministrante', '${ministrante.email}', ${curso.id}, false)" class="btn-primary text-xs px-2 py-1 rounded-lg">Emitir</button>`;
+                            ? `<button onclick="window.visualizarCertificado('ministrante', '${vinculo.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
+                            : `<button onclick="window.adminEmitirCertificado('ministrante', '${ministrante.email}', ${curso.id}, false)" class="btn-primary text-xs px-2 py-1 rounded-lg">Emitir</button>`;
 
                         return `<div class="flex justify-between items-center p-2 hover:bg-neutral-700/50 rounded-md">
                                     <span>${ministrante.nomeCompleto}</span>
@@ -2792,12 +2852,12 @@
 
                 }).join('');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
-        async function renderizarPainelAdminEmpresas() {
-            showLoader();
+        window.renderizarPainelAdminEmpresas = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaEmpresasAdmin');
                 const { data: alunos, error } = await supabaseClient.from('alunos').select('cnpjEmpresa');
@@ -2819,16 +2879,16 @@
                         <div>
                             <p class="font-bold">CNPJ: ${cnpj}</p>
                         </div>
-                        <button onclick="verAlunosEmpresa('${cnpj}')" class="btn-secondary px-4 py-2 rounded-lg">Ver Alunos</button>
+                        <button onclick="window.verAlunosEmpresa('${cnpj}')" class="btn-secondary px-4 py-2 rounded-lg">Ver Alunos</button>
                     </div>
                 `).join('');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
-        async function renderizarPainelAdminParceiros() {
-            showLoader();
+        window.renderizarPainelAdminParceiros = async function() {
+            window.showLoader();
             try {
                 const container = document.getElementById('listaParceirosAdmin');
                 const { data: parceiros, error } = await supabaseClient.from('parceiros').select('*');
@@ -2843,7 +2903,7 @@
                     <div class="relative group">
                         <img src="${p.logoUrl}" alt="${p.nome}" class="w-full h-24 object-contain bg-neutral-800 p-2 rounded-lg">
                         <div class="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button onclick="confirmarExclusaoParceiro(${p.id}, '${p.logoUrl}')" class="text-red-400 hover:text-red-300 text-2xl">
+                            <button onclick="window.confirmarExclusaoParceiro(${p.id}, '${p.logoUrl}')" class="text-red-400 hover:text-red-300 text-2xl">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
@@ -2854,7 +2914,7 @@
                 console.error("Erro ao renderizar parceiros no admin:", e);
                 document.getElementById('listaParceirosAdmin').innerHTML = '<p class="col-span-full text-red-500">Erro ao carregar parceiros.</p>';
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
@@ -2866,11 +2926,11 @@
             const nome = form.querySelector('input[type="text"]').value;
 
             if (!file || !nome) {
-                mostrarModal("Nome e logo do parceiro são obrigatórios.");
+                window.mostrarModal("Nome e logo do parceiro são obrigatórios.");
                 return;
             }
 
-            showLoader();
+            window.showLoader();
             try {
                 const filePath = `public/parceiro-${Date.now()}-${sanitizeFileName(file.name)}`;
                 const { error: uploadError } = await supabaseClient.storage.from('logos-parceiros').upload(filePath, file);
@@ -2884,24 +2944,24 @@
                 const { error: insertError } = await supabaseClient.from('parceiros').insert([{ nome: nome, logoUrl: publicUrl }]);
                 if (insertError) { throw insertError; }
 
-                mostrarModal("Parceiro adicionado com sucesso!");
+                window.mostrarModal("Parceiro adicionado com sucesso!");
                 form.reset();
-                await renderizarPainelAdminParceiros();
-                await renderizarParceiros(); // Atualiza a tela inicial
+                await window.renderizarPainelAdminParceiros();
+                await window.renderizarParceiros(); // Atualiza a tela inicial
             } catch (e) {
                 console.error("Erro ao salvar parceiro:", e);
-                mostrarModal("Erro ao salvar parceiro.");
+                window.mostrarModal("Erro ao salvar parceiro.");
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
         window.confirmarExclusaoParceiro = function(id, logoUrl) {
-            mostrarConfirmacao("Tem certeza que deseja excluir este parceiro? O logo será removido permanentemente.", () => excluirParceiro(id, logoUrl));
+            window.mostrarConfirmacao("Tem certeza que deseja excluir este parceiro? O logo será removido permanentemente.", () => excluirParceiro(id, logoUrl));
         }
 
         async function excluirParceiro(id, logoUrl) {
-            showLoader();
+            window.showLoader();
             try {
                 // Deletar da tabela
                 const { error: dbError } = await supabaseClient.from('parceiros').delete().eq('id', id);
@@ -2914,14 +2974,14 @@
                     await supabaseClient.storage.from('logos-parceiros').remove([filePath]);
                 }
                 
-                mostrarModal("Parceiro excluído com sucesso!");
-                await renderizarPainelAdminParceiros();
-                await renderizarParceiros(); // Atualiza a tela inicial
+                window.mostrarModal("Parceiro excluído com sucesso!");
+                await window.renderizarPainelAdminParceiros();
+                await window.renderizarParceiros(); // Atualiza a tela inicial
             } catch(e) {
                 console.error("Erro ao excluir parceiro:", e);
-                mostrarModal("Erro ao excluir parceiro.");
+                window.mostrarModal("Erro ao excluir parceiro.");
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -2974,16 +3034,76 @@
 
             container.appendChild(aulaBlock);
         }
+        
+        // NOVO: Renderiza os campos de cupom no modal do curso (Admin)
+        function renderizarCamposCupons(linksDePagamento = {}) {
+            const container = document.getElementById('cuponsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            DESCONTOS_CONFIG.forEach(config => {
+                const percentual = config.percentual;
+                const key = config.key;
+                const cupomValue = linksDePagamento[key]?.cupom || '';
+                const linkValue = linksDePagamento[key]?.link || '';
+                const nomeDesconto = config.nome;
+
+                // O preço normal (0%) não precisa de campo de cupom, apenas do link
+                if (percentual === 0) {
+                     container.innerHTML += `
+                        <div class="border border-neutral-600 p-3 rounded-lg">
+                            <p class="font-medium text-sm text-indigo-300 mb-2">${nomeDesconto}</p>
+                            <input type="url" name="link_${percentual}" placeholder="Link de Pagamento para Preço Normal (Obrigatório)" value="${linkValue}" required class="w-full p-3 rounded-lg border-2">
+                        </div>
+                    `;
+                } else {
+                     container.innerHTML += `
+                        <div class="border border-neutral-600 p-3 rounded-lg">
+                            <p class="font-medium text-sm text-indigo-300 mb-2">${nomeDesconto}</p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="cupom_${percentual}" placeholder="Cupom para ${percentual}% (Ex: PROMO${percentual})" value="${cupomValue}" class="w-full p-3 rounded-lg border-2 uppercase">
+                                <input type="url" name="link_${percentual}" placeholder="Link de Pagamento para R$ ${percentual}%" value="${linkValue}" class="w-full p-3 rounded-lg border-2">
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+
 
         window.abrirModalCurso = async function(cursoId = null) {
-            showLoader();
+            window.showLoader();
             try {
                 const form = document.getElementById('formCurso');
                 form.reset();
                 document.getElementById('previewImagemCurso').classList.add('hidden');
                 document.getElementById('aulasContainer').innerHTML = '';
                 
-                mostrarModal('', 'modalCurso');
+                let linksDePagamento = {};
+                let curso = null;
+
+                if(cursoId) {
+                    document.getElementById('tituloModalCurso').innerText = 'Editar Curso';
+                    const { data: cursoData, error } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
+                    curso = cursoData;
+                    if(curso) {
+                        Object.keys(curso).forEach(key => { 
+                            if(form[key] && key !== 'aulas' && key !== 'assinaturaAdmin' && key !== 'linksDePagamento') {
+                                form[key].value = curso[key];
+                            }
+                        });
+                        curso.aulas.forEach(async aula => await window.adicionarAulaBlock(aula));
+                        linksDePagamento = curso.linksDePagamento || {};
+                    }
+                } else { 
+                    document.getElementById('tituloModalCurso').innerText = 'Cadastrar Novo Curso'; 
+                    await window.adicionarAulaBlock();
+                }
+
+                renderizarCamposCupons(linksDePagamento); // Renderiza os campos de cupom
+
+                // Lógica da assinatura (SignaturePad)
+                window.mostrarModal('', 'modalCurso');
 
                 if (estado.signaturePad) { estado.signaturePad.off(); }
                 const canvas = document.getElementById('assinaturaCanvas');
@@ -3006,28 +3126,19 @@
 
                 document.getElementById('limparAssinaturaBtn').onclick = () => { estado.signaturePad.clear(); };
                 
-                if(cursoId) {
-                    document.getElementById('tituloModalCurso').innerText = 'Editar Curso';
-                    const { data: curso, error } = await supabaseClient.from('cursos').select('*').eq('id', cursoId).single();
-                    if(curso) {
-                        Object.keys(curso).forEach(key => { if(form[key] && key !== 'aulas' && key !== 'assinaturaAdmin') form[key].value = curso[key]; });
-                        curso.aulas.forEach(async aula => await adicionarAulaBlock(aula));
-                        if (curso.assinaturaAdmin && curso.assinaturaAdmin.startsWith('data:image')) {
-                            estado.signaturePad.fromDataURL(curso.assinaturaAdmin);
-                        }
-                    }
-                } else { 
-                    document.getElementById('tituloModalCurso').innerText = 'Cadastrar Novo Curso'; 
-                    await adicionarAulaBlock();
+                // CORREÇÃO DO ERRO: Verifica se o curso foi carregado e se a assinatura existe
+                if(curso && curso.assinaturaAdmin && estado.signaturePad && curso.assinaturaAdmin.startsWith('data:image')) {
+                    estado.signaturePad.fromDataURL(curso.assinaturaAdmin);
                 }
+
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
         window.salvarCurso = async function(event) {
             event.preventDefault();
-            showLoader();
+            window.showLoader();
             try {
                 const form = event.target;
                 const formData = new FormData(form);
@@ -3054,15 +3165,45 @@
                 }
                 
                 if (!imagemFinal) {
-                    mostrarModal("A imagem do curso é obrigatória.");
+                    window.mostrarModal("A imagem do curso é obrigatória.");
                     return;
                 }
 
                 let assinatura = cursoOriginal.assinaturaAdmin || '';
-                if (!estado.signaturePad.isEmpty()) {
+                if (estado.signaturePad && !estado.signaturePad.isEmpty()) {
                     assinatura = estado.signaturePad.toDataURL();
                 } else if (!assinatura) {
-                    mostrarModal("A assinatura do administrador é obrigatória.");
+                    window.mostrarModal("A assinatura do administrador é obrigatória.");
+                    return;
+                }
+                
+                // Coleta os dados de cupons/links
+                const linksDePagamento = {};
+                let precoNormalLinkConfigurado = false;
+
+                DESCONTOS_CONFIG.forEach(config => {
+                    const percentual = config.percentual;
+                    const cupom = formData.get(`cupom_${percentual}`)?.trim();
+                    const link = formData.get(`link_${percentual}`)?.trim();
+                    
+                    if (percentual === 0) {
+                         if (link) {
+                             linksDePagamento[config.key] = {
+                                 cupom: '', // O preço normal não tem cupom, mas a chave é mantida
+                                 link: link
+                             };
+                             precoNormalLinkConfigurado = true;
+                         }
+                    } else if (cupom && link) {
+                        linksDePagamento[config.key] = {
+                            cupom: cupom.toUpperCase(),
+                            link: link
+                        };
+                    }
+                });
+
+                if (!precoNormalLinkConfigurado) {
+                    window.mostrarModal("O link de pagamento de Preço Normal (0% de desconto) é obrigatório.");
                     return;
                 }
 
@@ -3071,7 +3212,7 @@
                     nomeDoCurso: formData.get('nomeDoCurso'),
                     preco: formData.get('preco'),
                     cotaMinima: formData.get('cotaMinima'),
-                    linkPagamentoCartao: formData.get('linkPagamentoCartao'),
+                    linksDePagamento: linksDePagamento, // NOVO CAMPO SALVO
                     cargaHorariaAluno: formData.get('cargaHorariaAluno'),
                     cargaHorariaMinistrante: formData.get('cargaHorariaMinistrante'),
                     imagem: imagemFinal,
@@ -3080,7 +3221,10 @@
                     statusInscricao: cursoOriginal.statusInscricao || 'recebendo',
                     aulas: []
                 };
-
+                
+                // Remove propriedades não utilizadas do formulário antigo
+                delete novosDados.linkPagamentoCartao; 
+                
                 const aulaBlocks = document.querySelectorAll('.aula-block');
                 aulaBlocks.forEach((block, index) => {
                     const titulo = formData.get(`aula_titulo_${index}`);
@@ -3106,35 +3250,35 @@
                 const { error } = await supabaseClient.from('cursos').upsert(novosDados, { onConflict: 'id' });
 
                 if(error) {
-                    mostrarModal("Erro ao salvar curso.");
+                    window.mostrarModal("Erro ao salvar curso.");
                     console.error(error);
                     return;
                 }
                 
-                fecharModal('modalCurso'); 
-                await renderizarPainelAdminCursos(); 
+                window.fecharModal('modalCurso'); 
+                await window.renderizarPainelAdminCursos(); 
                 if (estado.usuarioLogado && estado.usuarioLogado.tipo === 'ministrante') {
-                    await renderizarPainelMinistrante();
+                    await window.renderizarPainelMinistrante();
                 }
-                await renderizarCursos('listaCursosInicial');
-                mostrarModal('Curso salvo!');
+                await window.renderizarCursos('listaCursosInicial');
+                window.mostrarModal('Curso salvo!');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
-        window.confirmarExclusaoCurso = function(id) { mostrarConfirmacao('Deseja excluir este curso? Esta ação é irreversível.', () => excluirCurso(id)); }
+        window.confirmarExclusaoCurso = function(id) { window.mostrarConfirmacao('Deseja excluir este curso? Esta ação é irreversível.', () => excluirCurso(id)); }
         
         window.confirmarCancelamentoCurso = function(id) { 
-            mostrarConfirmacao('Deseja cancelar este curso? Os alunos com pagamento aprovado ou pendente serão movidos para a fila de reembolso.', () => cancelarCurso(id)); 
+            window.mostrarConfirmacao('Deseja cancelar este curso? Os alunos com pagamento aprovado ou pendente serão movidos para a fila de reembolso.', () => cancelarCurso(id)); 
         }
 
         async function cancelarCurso(id) {
-            showLoader();
+            window.showLoader();
             try {
                 // 1. Update course status
                 const { error: cursoError } = await supabaseClient.from('cursos').update({ status: 'cancelado', statusInscricao: 'fechado' }).eq('id', id);
                 if(cursoError) {
-                    mostrarModal("Erro ao cancelar o curso.");
+                    window.mostrarModal("Erro ao cancelar o curso.");
                     console.error(cursoError);
                     return;
                 }
@@ -3142,7 +3286,7 @@
                 // 2. Find all students and update their enrollment status
                 const { data: todosAlunos, error: alunosError } = await supabaseClient.from('alunos').select('*');
                 if (alunosError) {
-                    mostrarModal("Erro ao buscar alunos para reembolso.");
+                    window.mostrarModal("Erro ao buscar alunos para reembolso.");
                     console.error(alunosError);
                     return;
                 }
@@ -3160,33 +3304,33 @@
                     }
                 }
 
-                mostrarModal('Curso cancelado com sucesso. Alunos movidos para a fila de reembolso.');
-                await renderizarPainelAdminCursos();
+                window.mostrarModal('Curso cancelado com sucesso. Alunos movidos para a fila de reembolso.');
+                await window.renderizarPainelAdminCursos();
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         async function excluirCurso(id) { 
-            showLoader();
+            window.showLoader();
             try {
                 const { error } = await supabaseClient.from('cursos').update({ status: 'cancelado', statusInscricao: 'fechado' }).eq('id', id);
                 if (error) {
-                    mostrarModal("Erro ao excluir o curso.");
+                    window.mostrarModal("Erro ao excluir o curso.");
                     console.error(error);
                     return;
                 }
-                await renderizarPainelAdminCursos();
-                mostrarModal('Curso excluído com sucesso.');
+                await window.renderizarPainelAdminCursos();
+                window.mostrarModal('Curso excluído com sucesso.');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         window.mudarStatusInscricaoCurso = async function(id) { 
             const { data: curso } = await supabaseClient.from('cursos').select('statusInscricao').eq('id', id).single();
             const novoStatus = curso.statusInscricao === 'recebendo' ? 'fechado' : 'recebendo';
             await supabaseClient.from('cursos').update({ statusInscricao: novoStatus }).eq('id', id);
-            await renderizarPainelAdminCursos(); 
+            await window.renderizarPainelAdminCursos(); 
         }
         window.aprovarPagamento = async function(email, cursoId) {
             const { data: aluno } = await supabaseClient.from('alunos').select('*').eq('email', email).single();
@@ -3196,18 +3340,18 @@
             inscricao.aprovadoEm = new Date().toISOString();
             
             await supabaseClient.from('alunos').update({ cursosInscritos: inscricoes }).eq('id', aluno.id);
-            await renderizarPainelAdminAprovacoes(); 
+            await window.renderizarPainelAdminAprovacoes(); 
         }
         window.reprovarPagamento = async function(email, cursoId) { 
             const { data: aluno } = await supabaseClient.from('alunos').select('*').eq('email', email).single();
             const inscricoes = aluno.cursosInscritos;
             inscricoes.find(i => i.cursoId == cursoId).status = 'reprovado';
             await supabaseClient.from('alunos').update({ cursosInscritos: inscricoes }).eq('id', aluno.id);
-            await renderizarPainelAdminAprovacoes();
+            await window.renderizarPainelAdminAprovacoes();
         }
         
         window.verDetalhes = async function(tipo, email) {
-            showLoader();
+            window.showLoader();
             try {
                 const { data: usuario, error } = await supabaseClient.from(tipo + 's').select('*').eq('email', email).single();
                 if (error || !usuario) return;
@@ -3281,23 +3425,23 @@
                     html += `<div class="mt-4 pt-4 border-t border-neutral-600 flex items-center gap-2">
                                 <label class="btn-primary py-2 px-4 rounded-lg cursor-pointer text-sm">
                                     ${c.enviadoPeloAdmin ? 'Substituir Contrato' : 'Enviar Contrato'}
-                                    <input type="file" class="hidden" accept=".pdf" onchange="enviarContratoAdmin(event, '${email}')">
+                                    <input type="file" class="hidden" accept=".pdf" onchange="window.enviarContratoAdmin(event, '${email}')">
                                 </label>
-                                ${(c.enviadoPeloAdmin || c.assinadoPeloMinistrante) ? `<button onclick="confirmarExclusaoContrato('${email}')" class="btn-danger text-white py-2 px-4 rounded-lg text-sm">Excluir Contrato</button>` : ''}
+                                ${(c.enviadoPeloAdmin || c.assinadoPeloMinistrante) ? `<button onclick="window.confirmarExclusaoContrato('${email}')" class="btn-danger text-white py-2 px-4 rounded-lg text-sm">Excluir Contrato</button>` : ''}
                             </div>`;
                 }
 
-                html += `</div></div><div class="flex justify-end mt-6"><button onclick="fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button></div>`;
+                html += `</div></div><div class="flex justify-end mt-6"><button onclick="window.fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button></div>`;
                 container.innerHTML = html;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '600px';
-                mostrarModal('', 'modalDetalhes');
+                window.mostrarModal('', 'modalDetalhes');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         
         window.verInscritos = async function(cursoId) {
-            showLoader();
+            window.showLoader();
             try {
                 const [{ data: curso, error: cursoError }, { data: todosAlunos, error: alunosError }] = await Promise.all([
                     supabaseClient.from('cursos').select('id, nomeDoCurso').eq('id', cursoId).single(),
@@ -3305,7 +3449,7 @@
                 ]);
 
                 if (cursoError || alunosError) {
-                    mostrarModal("Erro ao carregar inscritos.");
+                    window.mostrarModal("Erro ao carregar inscritos.");
                     return;
                 }
 
@@ -3328,50 +3472,50 @@
                         const frequenciaHtml = `
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-semibold ${cor}">${statusFrequencia}</span>
-                                <button onclick="verFrequenciaDetalhada('${aluno.email}', ${cursoId})" class="btn-secondary text-xs px-2 py-1 rounded-md">Detalhes</button>
+                                <button onclick="window.verFrequenciaDetalhada('${aluno.email}', ${curso.id})" class="btn-secondary text-xs px-2 py-1 rounded-md">Detalhes</button>
                             </div>`;
                         
                         let certButton = '';
                         if(inscricao.status === 'aprovado') {
                             certButton = inscricao.certificadoCodigo
-                                ? `<button onclick="visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
-                                : `<button onclick="adminEmitirCertificado('aluno', '${aluno.email}', ${curso.id}, true)" class="btn-primary text-xs px-2 py-1 rounded-lg">Liberar Certificado</button>`;
+                                ? `<button onclick="window.visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
+                                : `<button onclick="window.adminEmitirCertificado('aluno', '${aluno.email}', ${curso.id}, true)" class="btn-primary text-xs px-2 py-1 rounded-lg">Liberar Certificado</button>`;
                         }
 
-                        // Adiciona detalhes do comprovante de cupom
+                        // Adiciona detalhes do cupom
                         let cupomInfo = '';
-                        if (inscricao.comprovanteCupom) {
-                             cupomInfo = `<a href="${inscricao.comprovanteCupom}" target="_blank" class="text-xs text-indigo-400 hover:underline ml-2"><i class="fas fa-tag mr-1"></i>Ver Cupom</a>`;
+                        if (inscricao.cupomAplicado) {
+                             cupomInfo = `<span class="text-xs text-neutral-400 ml-2">Cupom: ${inscricao.cupomAplicado}</span>`;
                         }
 
 
                         html += `
                             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center hover:bg-neutral-700 p-2 rounded-lg gap-2">
                                 <div class="flex-grow">
-                                    <span onclick="verDetalhes('aluno', '${aluno.email}')" class="cursor-pointer font-semibold">${aluno.nomeCompleto}</span>
+                                    <span onclick="window.verDetalhes('aluno', '${aluno.email}')" class="cursor-pointer font-semibold">${aluno.nomeCompleto}</span>
                                     <div class="text-xs text-neutral-400 mt-1">Frequência Geral: ${frequenciaHtml}${cupomInfo}</div>
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <span class="text-sm font-semibold ${statusClass} w-24 text-center">${inscricao.status}</span>
                                     ${certButton}
                                     <!-- Botão de Remover Matrícula -->
-                                    <button onclick="confirmarRemocaoMatricula('${aluno.email}', ${curso.id}, '${curso.nomeDoCurso}')" class="text-red-400 hover:text-red-300 text-sm px-2 py-1 rounded-lg" title="Remover Matrícula"><i class="fas fa-user-times"></i></button>
+                                    <button onclick="window.confirmarRemocaoMatricula('${aluno.email}', ${curso.id}, '${curso.nomeDoCurso}')" class="text-red-400 hover:text-red-300 text-sm px-2 py-1 rounded-lg" title="Remover Matrícula"><i class="fas fa-user-times"></i></button>
                                 </div>
                             </div>`;
                     };
                     html += '</div>';
                 }
-                html += `<div class="flex justify-end mt-6"><button onclick="fecharModal('modalDetalhes')" class="btn-primary px-4 py-2 rounded-lg">Fechar</button></div>`;
+                html += `<div class="flex justify-end mt-6"><button onclick="window.fecharModal('modalDetalhes')" class="btn-primary px-4 py-2 rounded-lg">Fechar</button></div>`;
                 container.innerHTML = html;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '800px';
-                mostrarModal('', 'modalDetalhes');
+                window.mostrarModal('', 'modalDetalhes');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         window.verFrequenciaDetalhada = async function(alunoEmail, cursoId) {
-            showLoader();
+            window.showLoader();
             try {
                 const { data: aluno } = await supabaseClient.from('alunos').select('*').eq('email', alunoEmail).single();
                 const { data: curso } = await supabaseClient.from('cursos').select('aulas').eq('id', cursoId).single();
@@ -3431,18 +3575,18 @@
 
                 html += `
                     <div class="flex justify-end mt-6">
-                        <button onclick="verInscritos(${cursoId})" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>
+                        <button onclick="window.verInscritos(${cursoId})" class="btn-secondary px-4 py-2 rounded-lg">Voltar</button>
                     </div>`;
 
                 container.innerHTML = html;
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         window.enviarContratoAdmin = async function(event, email) {
             const file = event.target.files[0]; if(!file) return;
-            showLoader();
+            window.showLoader();
             try {
                 const filePath = `public/contrato-admin-${Date.now()}-${sanitizeFileName(file.name)}`;
                 const { error: uploadError } = await supabaseClient.storage.from('contratos').upload(filePath, file);
@@ -3456,47 +3600,47 @@
                 const novoContrato = { ...(ministrante.contrato || {}), enviadoPeloAdmin: publicUrl, assinadoPeloMinistrante: null }; // Reset signed status on new upload
 
                 await supabaseClient.from('ministrantes').update({ contrato: novoContrato }).eq('email', email);
-                await verDetalhes('ministrante', email);
-                mostrarModal("Contrato enviado com sucesso!");
+                await window.verDetalhes('ministrante', email);
+                window.mostrarModal("Contrato enviado com sucesso!");
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         window.confirmarExclusaoUsuario = function(tipo, email) {
-            mostrarConfirmacao(`Tem a certeza que deseja excluir este ${tipo}? Esta ação não pode ser revertida.`, () => excluirUsuario(tipo, email));
+            window.mostrarConfirmacao(`Tem a certeza que deseja excluir este ${tipo}? Esta ação não pode ser revertida.`, () => excluirUsuario(tipo, email));
         }
 
         async function excluirUsuario(tipo, email) {
-            showLoader();
+            window.showLoader();
             try {
                 const { error } = await supabaseClient.from(tipo + 's').delete().eq('email', email);
                 if (error) {
-                    mostrarModal(`Erro ao excluir ${tipo}.`);
+                    window.mostrarModal(`Erro ao excluir ${tipo}.`);
                     console.error(error);
                     return;
                 }
-                mostrarModal(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} excluído com sucesso.`);
+                window.mostrarModal(`${tipo.charAt(0).toUpperCase() + tipo.slice(1)} excluído com sucesso.`);
                 if (tipo === 'aluno') {
-                    await renderizarPainelAdminAlunos();
+                    await window.renderizarPainelAdminAlunos();
                 } else {
-                    await renderizarPainelAdminMinistrantes();
+                    await window.renderizarPainelAdminMinistrantes();
                 }
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
         window.confirmarExclusaoContrato = function(email) {
-            mostrarConfirmacao('Tem a certeza que deseja excluir o contrato deste ministrante? Os arquivos enviados serão removidos permanentemente.', () => excluirContratoMinistrante(email));
+            window.mostrarConfirmacao('Tem a certeza que deseja excluir o contrato deste ministrante? Os arquivos enviados serão removidos permanentemente.', () => excluirContratoMinistrante(email));
         }
 
         async function excluirContratoMinistrante(email) {
-            showLoader();
+            window.showLoader();
             try {
                 const { data: ministrante, error: fetchError } = await supabaseClient.from('ministrantes').select('contrato').eq('email', email).single();
                 if (fetchError || !ministrante || !ministrante.contrato) {
-                    mostrarModal("Erro ao encontrar o contrato para excluir.");
+                    window.mostrarModal("Erro ao encontrar o contrato para excluir.");
                     return;
                 }
 
@@ -3524,16 +3668,16 @@
                 const { error: updateError } = await supabaseClient.from('ministrantes').update({ contrato: novoContrato }).eq('email', email);
 
                 if (updateError) {
-                    mostrarModal("Erro ao remover o registro do contrato do ministrante.");
+                    window.mostrarModal("Erro ao remover o registro do contrato do ministrante.");
                     console.error(updateError);
                     return;
                 }
 
-                mostrarModal("Contrato excluído com sucesso.");
-                await verDetalhes('ministrante', email); // Refresh the modal view
+                window.mostrarModal("Contrato excluído com sucesso.");
+                await window.verDetalhes('ministrante', email); // Refresh the modal view
 
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -3579,15 +3723,15 @@
                 <h3 class="text-xl font-bold mb-4">Registro de Frequência - Aula ${aulaIndex + 1}</h3>
                 <p class="text-sm mb-6 ${corMensagem}">${mensagemFrequencia}</p>
                 <div class="space-y-4 max-w-sm mx-auto">
-                    <form onsubmit="registrarFrequencia(event, ${cursoId}, ${aulaIndex}, 'codigo1', '${aula.codigosFrequencia.codigo1}')" class="flex gap-2 items-center">
+                    <form onsubmit="window.registrarFrequencia(event, ${cursoId}, ${aulaIndex}, 'codigo1', '${aula.codigosFrequencia.codigo1}')" class="flex gap-2 items-center">
                         <input type="text" id="input-codigo1" placeholder="Código 1" class="w-full p-2 rounded-lg border-2 font-mono text-center" ${registroAula.codigo1 || isDisabled ? 'disabled' : ''} value="${registroAula.codigo1 ? 'REGISTRADO' : ''}">
                         <button type="submit" class="btn-primary px-4 py-2 rounded-lg" ${registroAula.codigo1 || isDisabled ? 'disabled' : ''}>${registroAula.codigo1 ? '<i class="fas fa-check"></i>' : 'Enviar'}</button>
                     </form>
-                    <form onsubmit="registrarFrequencia(event, ${cursoId}, ${aulaIndex}, 'codigo2', '${aula.codigosFrequencia.codigo2}')" class="flex gap-2 items-center">
+                    <form onsubmit="window.registrarFrequencia(event, ${cursoId}, ${aulaIndex}, 'codigo2', '${aula.codigosFrequencia.codigo2}')" class="flex gap-2 items-center">
                         <input type="text" id="input-codigo2" placeholder="Código 2" class="w-full p-2 rounded-lg border-2 font-mono text-center" ${registroAula.codigo2 || isDisabled ? 'disabled' : ''} value="${registroAula.codigo2 ? 'REGISTRADO' : ''}">
                         <button type="submit" class="btn-primary px-4 py-2 rounded-lg" ${registroAula.codigo2 || isDisabled ? 'disabled' : ''}>${registroAula.codigo2 ? '<i class="fas fa-check"></i>' : 'Enviar'}</button>
                     </form>
-                    <form onsubmit="registrarFrequencia(event, ${cursoId}, ${aulaIndex}, 'codigo3', '${aula.codigosFrequencia.codigo3}')" class="flex gap-2 items-center">
+                    <form onsubmit="window.registrarFrequencia(event, ${cursoId}, ${aulaIndex}, 'codigo3', '${aula.codigosFrequencia.codigo3}')" class="flex gap-2 items-center">
                         <input type="text" id="input-codigo3" placeholder="Código 3" class="w-full p-2 rounded-lg border-2 font-mono text-center" ${registroAula.codigo3 || isDisabled ? 'disabled' : ''} value="${registroAula.codigo3 ? 'REGISTRADO' : ''}">
                         <button type="submit" class="btn-primary px-4 py-2 rounded-lg" ${registroAula.codigo3 || isDisabled ? 'disabled' : ''}>${registroAula.codigo3 ? '<i class="fas fa-check"></i>' : 'Enviar'}</button>
                     </form>
@@ -3614,14 +3758,14 @@
                 const { error } = await supabaseClient.from('alunos').update({ cursosInscritos: inscricoes }).eq('id', aluno.id);
 
                 if (error) {
-                    mostrarModal("Erro ao registrar frequência.");
+                    window.mostrarModal("Erro ao registrar frequência.");
                     console.error(error);
                 } else {
-                    mostrarModal("Código registrado com sucesso!");
+                    window.mostrarModal("Código registrado com sucesso!");
                     await renderizarAreaFrequencia(cursoId);
                 }
             } else {
-                mostrarModal("Código de frequência incorreto.");
+                window.mostrarModal("Código de frequência incorreto.");
             }
         }
 
@@ -3659,14 +3803,14 @@
             const tabela = tipo + 's';
             const { data: usuario, error: userError } = await supabaseClient.from(tabela).select('*').eq('email', email).single();
             if (userError) {
-                mostrarModal("Usuário não encontrado.");
+                window.mostrarModal("Usuário não encontrado.");
                 return;
             }
 
             if (tipo === 'aluno' && comFrequencia) {
                 const { status } = await calcularStatusFrequencia(usuario, cursoId);
                 if (status !== 'Presente') {
-                    mostrarModal("A frequência do aluno não é suficiente para emitir o certificado.");
+                    window.mostrarModal("A frequência do aluno não é suficiente para emitir o certificado.");
                     return;
                 }
             }
@@ -3680,7 +3824,7 @@
                     usuario.cursosInscritos[inscricaoIndex].certificadoEmitidoEm = new Date().toISOString();
                     
                     const { error } = await supabaseClient.from('alunos').update({ cursosInscritos: usuario.cursosInscritos }).eq('id', usuario.id);
-                    if (error) { mostrarModal("Erro ao emitir certificado."); console.error(error); return; }
+                    if (error) { window.mostrarModal("Erro ao emitir certificado."); console.error(error); return; }
                 }
             } else if (tipo === 'ministrante') {
                  let vinculos = Array.isArray(usuario.cursosVinculados) ? usuario.cursosVinculados : [];
@@ -3696,25 +3840,25 @@
                      });
                  }
                  const { error } = await supabaseClient.from('ministrantes').update({ cursosVinculados: vinculos }).eq('id', usuario.id);
-                 if (error) { mostrarModal("Erro ao emitir certificado para ministrante."); console.error(error); return; }
+                 if (error) { window.mostrarModal("Erro ao emitir certificado para ministrante."); console.error(error); return; }
             }
 
-            mostrarModal("Certificado liberado com sucesso!");
+            window.mostrarModal("Certificado liberado com sucesso!");
 
             // Refresh the current view
             if (estado.telaAtual === 'painelAdmin' && document.getElementById('aba-gerenciarCertificados').classList.contains('border-indigo-500')) {
-                await renderizarPainelAdminCertificados();
+                await window.renderizarPainelAdminCertificados();
             } else if (estado.telaAtual === 'painelAdmin' && document.getElementById('conteudoModalDetalhes').innerHTML.includes('Alunos da Empresa')) {
                 const cnpj = document.getElementById('conteudoModalDetalhes').dataset.cnpj;
-                await verAlunosEmpresa(cnpj);
+                await window.verAlunosEmpresa(cnpj);
             }
              else {
-                await verInscritos(cursoId);
+                await window.verInscritos(cursoId);
             }
         }
 
         window.verAlunosEmpresa = async function(cnpj) {
-            showLoader();
+            window.showLoader();
             try {
                 const [{ data: alunos, error: alunosError }, { data: cursos, error: cursosError }] = await Promise.all([
                     supabaseClient.from('alunos').select('*').eq('cnpjEmpresa', cnpj),
@@ -3722,7 +3866,7 @@
                 ]);
 
                 if (alunosError || cursosError) {
-                    mostrarModal("Erro ao carregar dados da empresa.");
+                    window.mostrarModal("Erro ao carregar dados da empresa.");
                     return;
                 }
 
@@ -3731,7 +3875,7 @@
                 let html = `
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-xl font-bold nexus-gradient-text">Alunos da Empresa (CNPJ: ${cnpj})</h2>
-                        <button id="btnImprimirTodos" onclick="imprimirCertificadosEmpresa('${cnpj}')" class="btn-success text-white px-4 py-2 rounded-lg">Imprimir Todos (PDF)</button>
+                        <button id="btnImprimirTodos" onclick="window.imprimirCertificadosEmpresa('${cnpj}')" class="btn-success text-white px-4 py-2 rounded-lg">Imprimir Todos (PDF)</button>
                     </div>`;
 
                 if (alunos.length === 0) {
@@ -3752,8 +3896,8 @@
                                     // Certificate can only be issued if payment is approved and frequency is sufficient
                                     if (inscricao.status === 'aprovado' && statusFrequencia === 'Presente') {
                                         certButton = inscricao.certificadoCodigo
-                                            ? `<button onclick="visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
-                                            : `<button onclick="adminEmitirCertificado('aluno', '${aluno.email}', ${inscricao.cursoId}, true)" class="btn-primary text-xs px-2 py-1 rounded-lg">Emitir</button>`;
+                                            ? `<button onclick="window.visualizarCertificado('aluno', '${inscricao.certificadoCodigo}')" class="btn-success text-white text-xs px-2 py-1 rounded-lg">Ver</button>`
+                                            : `<button onclick="window.adminEmitirCertificado('aluno', '${aluno.email}', ${inscricao.cursoId}, true)" class="btn-primary text-xs px-2 py-1 rounded-lg">Emitir</button>`;
                                     }
 
                                     html += `
@@ -3775,12 +3919,12 @@
                     html += '</div>';
                 }
 
-                html += `<div class="flex justify-end mt-6"><button onclick="fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button></div>`;
+                html += `<div class="flex justify-end mt-6"><button onclick="window.fecharModal('modalDetalhes')" class="btn-secondary px-4 py-2 rounded-lg">Fechar</button></div>`;
                 container.innerHTML = html;
                 document.querySelector('#modalDetalhes .modal-content').style.maxWidth = '800px';
-                mostrarModal('', 'modalDetalhes');
+                window.mostrarModal('', 'modalDetalhes');
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
 
@@ -3788,7 +3932,7 @@
             const btn = document.getElementById('btnImprimirTodos');
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>A gerar...';
-            showLoader();
+            window.showLoader();
 
             try {
                 const { data: alunos } = await supabaseClient.from('alunos').select('*').eq('cnpjEmpresa', cnpj);
@@ -3826,7 +3970,7 @@
                 }
 
                 if (!algumCertificadoGerado) {
-                    mostrarModal("Nenhum aluno desta empresa está elegível para receber certificados no momento.");
+                    window.mostrarModal("Nenhum aluno desta empresa está elegível para receber certificados no momento.");
                     return;
                 }
 
@@ -3840,11 +3984,11 @@
                 await html2pdf().set(opt).from(containerParaPdf).save();
                 
                 // Atualiza a vista para mostrar os botões "Ver"
-                verAlunosEmpresa(cnpj);
+                window.verAlunosEmpresa(cnpj);
             } finally {
                 btn.disabled = false;
                 btn.innerText = 'Imprimir Todos (PDF)';
-                hideLoader();
+                window.hideLoader();
             }
         }
         
@@ -3852,11 +3996,11 @@
         // NOVA FUNÇÃO: REMOVER MATRÍCULA
         // ===================================================
         window.confirmarRemocaoMatricula = function(alunoEmail, cursoId, cursoNome) {
-            mostrarConfirmacao(`Tem certeza que deseja remover a matrícula de **${alunoEmail}** do curso **${cursoNome}**? O aluno perderá acesso, e esta ação é irreversível.`, () => removerMatricula(alunoEmail, cursoId));
+            window.mostrarConfirmacao(`Tem certeza que deseja remover a matrícula de **${alunoEmail}** do curso **${cursoNome}**? O aluno perderá acesso, e esta ação é irreversível.`, () => removerMatricula(alunoEmail, cursoId));
         }
 
         async function removerMatricula(alunoEmail, cursoId) {
-            showLoader();
+            window.showLoader();
             try {
                 // 1. Busca o aluno e as inscrições
                 const { data: aluno, error: fetchError } = await supabaseClient
@@ -3866,7 +4010,7 @@
                     .single();
 
                 if (fetchError || !aluno) {
-                    mostrarModal(`Erro ao encontrar o aluno.`);
+                    window.mostrarModal(`Erro ao encontrar o aluno.`);
                     return;
                 }
                 
@@ -3876,7 +4020,7 @@
                 const novasInscricoes = inscricoes.filter(i => i.cursoId != cursoId);
 
                 if (novasInscricoes.length === inscricoes.length) {
-                    mostrarModal("O aluno não estava matriculado neste curso ou a matrícula não foi encontrada.");
+                    window.mostrarModal("O aluno não estava matriculado neste curso ou a matrícula não foi encontrada.");
                     return;
                 }
 
@@ -3887,21 +4031,21 @@
                     .eq('id', aluno.id);
 
                 if (updateError) {
-                    mostrarModal("Erro ao remover a matrícula do aluno.");
+                    window.mostrarModal("Erro ao remover a matrícula do aluno.");
                     console.error("Erro Supabase ao remover matrícula:", updateError);
                     return;
                 }
                 
-                mostrarModal(`Matrícula removida com sucesso para o aluno ${alunoEmail}.`);
+                window.mostrarModal(`Matrícula removida com sucesso para o aluno ${alunoEmail}.`);
                 
                 // 4. Atualiza a lista de inscritos no modal
-                await verInscritos(cursoId);
+                await window.verInscritos(cursoId);
 
             } catch (e) {
-                mostrarModal("Ocorreu um erro inesperado ao tentar remover a matrícula.");
+                window.mostrarModal("Ocorreu um erro inesperado ao tentar remover a matrícula.");
                 console.error("Erro na função removerMatricula:", e);
             } finally {
-                hideLoader();
+                window.hideLoader();
             }
         }
         // ===================================================
@@ -3914,36 +4058,34 @@
         // ===================================================
         document.addEventListener('DOMContentLoaded', () => {
             if (!SUPABASE_URL || !SUPABASE_KEY) {
-                mostrarModal("CONFIGURAÇÃO NECESSÁRIA: As credenciais do Supabase não foram encontradas. Por favor, adicione as variáveis SUPABASE_URL e SUPABASE_KEY no seu ficheiro HTML.");
+                window.mostrarModal("CONFIGURAÇÃO NECESSÁRIA: As credenciais do Supabase não foram encontradas. Por favor, adicione as variáveis SUPABASE_URL e SUPABASE_KEY no seu ficheiro HTML.");
                 return;
             }
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
             // Login com a tecla Enter
-            document.getElementById('loginSenhaAluno').addEventListener('keydown', e => { if (e.key === 'Enter') loginAluno(); });
-            document.getElementById('loginSenhaMinistrante').addEventListener('keydown', e => { if (e.key === 'Enter') loginMinistrante(); });
-            document.getElementById('loginSenhaAdmin').addEventListener('keydown', e => { if (e.key === 'Enter') loginAdmin(); });
+            document.getElementById('loginSenhaAluno').addEventListener('keydown', e => { if (e.key === 'Enter') window.loginAluno(); });
+            document.getElementById('loginSenhaMinistrante').addEventListener('keydown', e => { if (e.key === 'Enter') window.loginMinistrante(); });
+            document.getElementById('loginSenhaAdmin').addEventListener('keydown', e => { if (e.key === 'Enter') window.loginAdmin(); });
 
 
             verificarSessao();
             if (!estado.usuarioLogado) { 
-                renderizarCursos('listaCursosInicial'); 
-                renderizarParceiros();
+                window.renderizarCursos('listaCursosInicial'); 
+                window.renderizarParceiros();
             }
             const previews = { 
                 'fotoPerfilAluno': 'previewFotoAluno', 
                 'fotoPerfilMinistrante': 'previewFotoMinistrante', 
                 'comprovantePagamento': 'previewComprovante', 
-                'comprovanteCupom': 'previewCupom',
-                'comprovantePagamentoCartao': 'previewComprovanteCartao',
-                'comprovanteCupomCartao': 'previewCupomCartao',
+                // Removido 'comprovanteCupom'
                 'imagemUploadCurso': 'previewImagemCurso' 
             };
             Object.entries(previews).forEach(([inputId, previewId]) => {
                 const inputElement = document.getElementById(inputId);
                 if (inputElement) {
                     inputElement.addEventListener('change', function(event){
-                        previewImagem(event, previewId);
+                        window.previewImagem(event, previewId);
                     });
                 }
             });
@@ -3958,4 +4100,3 @@
 
 </body>
 </html>
-
