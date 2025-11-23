@@ -280,23 +280,15 @@
                     <form id="formCadastroAluno" onsubmit="cadastrarAluno(event)" class="space-y-4">
                         <input type="text" name="nomeCompleto" placeholder="Nome Completo" required class="w-full p-3 rounded-lg border-2">
                         <input type="text" name="cpf" placeholder="CPF" required class="w-full p-3 rounded-lg border-2">
-                        <input type="text" name="cep" placeholder="CEP" required class="w-full p-3 rounded-lg border-2">
+                        <!-- REMOVIDO: input CEP -->
                         <input type="text" name="whatsapp" placeholder="WhatsApp" required class="w-full p-3 rounded-lg border-2">
                         <input type="text" name="instagram" placeholder="@ do Instagram" required class="w-full p-3 rounded-lg border-2">
-                        <input type="text" name="cnpjEmpresa" placeholder="Vincular-se ao CNPJ de uma empresa no caso de funcionário (opcional)" class="w-full p-3 rounded-lg border-2">
-                        <input type="text" name="dataNascimento" placeholder="Data de Nascimento" required class="w-full p-3 rounded-lg border-2" oninput="formatarData(event)" maxlength="10">
-                        <div class="border border-neutral-600 p-3 rounded-lg">
-                            <label class="block mb-2 text-sm font-medium text-neutral-300">Chave PIX para Reembolso</label>
-                            <div class="flex flex-col sm:flex-row gap-4">
-                               <select name="tipoPix" required class="p-3 rounded-lg border-2">
-                                    <option value="email">Email</option>
-                                    <option value="cpf">CPF</option>
-                                    <option value="cnpj">CNPJ</option>
-                                    <option value="celular">Celular</option>
-                                </select>
-                                <input type="text" name="chavePix" placeholder="Chave PIX" required class="w-full p-3 rounded-lg border-2">
-                            </div>
+                        <div class="flex items-center gap-2">
+                             <input type="text" name="cnpjEmpresa" placeholder="Vincular-se ao CNPJ de uma empresa" class="w-full p-3 rounded-lg border-2">
+                             <span class="text-sm text-neutral-400 whitespace-nowrap">(Opcional)</span>
                         </div>
+                        <!-- REMOVIDO: input Data de Nascimento -->
+                        <!-- REMOVIDO: Área de Chave PIX para Reembolso -->
                         <div class="border border-neutral-600 p-3 rounded-lg">
                              <label for="fotoPerfilAluno" class="block mb-2 text-sm font-medium text-neutral-300">Foto de Perfil</label>
                              <input type="file" name="fotoPerfil" id="fotoPerfilAluno" accept="image/*">
@@ -503,7 +495,7 @@
                     <nav class="flex flex-wrap -mb-px space-x-8" aria-label="Tabs">
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarCursos')" id="aba-gerenciarCursos" class="tab-admin border-indigo-500 text-indigo-400 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Cursos</a>
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarAprovacoes')" id="aba-gerenciarAprovacoes" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Aprovações</a>
-                        <a href="#" onclick="mudarAbaPainelAdmin('gerenciarReembolsos')" id="aba-gerenciarReembolsos" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Reembolsos</a>
+                        <!-- REMOVIDO: Aba Reembolsos -->
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarCertificados')" id="aba-gerenciarCertificados" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Certificados</a>
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarAlunos')" id="aba-gerenciarAlunos" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Alunos</a>
                         <a href="#" onclick="mudarAbaPainelAdmin('gerenciarMinistrantes')" id="aba-gerenciarMinistrantes" class="tab-admin border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Ministrantes</a>
@@ -876,7 +868,7 @@
                 const formData = new FormData(event.target), dados = Object.fromEntries(formData.entries());
                 
                 // CORREÇÃO: Converter data de nascimento para o formato ISO antes de salvar no DB
-                dados.dataNascimento = converterDataParaISO(dados.dataNascimento);
+                // REMOVIDO: dados.dataNascimento = converterDataParaISO(dados.dataNascimento);
                 
                 const { data: existingUser, error: checkError } = await supabaseClient.from('alunos').select('email').eq('email', dados.email).single();
                 if (existingUser) {
@@ -885,6 +877,11 @@
                 }
                 
                 dados.cursosInscritos = [];
+                // REMOVIDO: Chave PIX e CEP
+                delete dados.cep;
+                delete dados.tipoPix;
+                delete dados.chavePix;
+                delete dados.dataNascimento;
                 
                 const file = formData.get('fotoPerfil');
                 if(file && file.size > 0) {
@@ -1028,6 +1025,7 @@
                 estado.chatInterval = null;
             }
             estado.usuarioLogado = null; 
+            // FIREBASE/SUPABASE STORAGE: Substitua localStorage por Firestore se usar a função de Storage.
             localStorage.removeItem('sessaoUsuario');
             window.mostrarTela('telaInicial'); 
         }
@@ -1074,6 +1072,31 @@
         // ===================================================
         // RENDERIZAÇÃO DE CONTEÚDO GERAL
         // ===================================================
+        // Adiciona função para determinar o gênero (simples)
+        function isNomeFeminino(nome) {
+            if (!nome) return false;
+            const nomeLower = nome.toLowerCase().trim();
+            const primeiroNome = nomeLower.split(' ')[0];
+            
+            // Lista de nomes femininos comuns como primeiro nome
+            const nomesFemininos = ['maria', 'ana', 'paula', 'carla', 'elena', 'joana', 'lúcia', 'clara', 'beatriz', 'isabela', 'laura', 'sophia', 'luiza', 'luísa', 'marina', 'patrícia', 'fernanda', 'silvana'];
+            
+            // Lista de nomes masculinos que podem terminar em 'a' para evitar falsos positivos
+            const nomesMasculinosComA = ['lucas', 'matias', 'jona', 'isaías'];
+            
+            // 1. Verifica se o primeiro nome é um nome masculino que termina em 's' ou 'o' (forte indicativo masculino)
+            if (primeiroNome.endsWith('s') || primeiroNome.endsWith('o') || nomesMasculinosComA.includes(primeiroNome)) {
+                 return false;
+            }
+            
+            // 2. Verifica se o primeiro nome está na lista de femininos ou se termina em 'a' (que é o padrão feminino em PT)
+            if (nomesFemininos.includes(primeiroNome) || primeiroNome.endsWith('a')) {
+                return true;
+            }
+
+            return false;
+        }
+
         window.renderizarCursos = async function(containerId, filtro = '') {
             window.showLoader();
             try {
@@ -1123,9 +1146,11 @@
                         
                         const titulos = ministranteInfo.formacao;
                         let titulacao = '';
-                        if(titulos.posDoutorEm) titulacao = 'Pós-Doutor(a)';
-                        else if(titulos.doutorEm) titulacao = 'Doutor(a)';
-                        else if(titulos.mestreEm) titulacao = 'Mestra';
+                        const isFeminino = isNomeFeminino(nome);
+
+                        if(titulos.posDoutorEm) titulacao = isFeminino ? 'Pós-Doutora' : 'Pós-Doutor';
+                        else if(titulos.doutorEm) titulacao = isFeminino ? 'Doutora' : 'Doutor';
+                        else if(titulos.mestreEm) titulacao = isFeminino ? 'Mestra' : 'Mestre';
                         else if(titulos.especialistaEm) titulacao = 'Especialista';
                         
                         return titulacao ? `${nome} (${titulacao})` : nome;
@@ -1203,7 +1228,18 @@
                     const titulos = { graduadoEm: 'Graduado(a) em', especialistaEm: 'Especialista em', mestreEm: 'Mestra em', doutorEm: 'Doutor(a) em', posDoutorEm: 'Pós-Doutor(a) em' };
                     const qualificacoes = Object.entries(ministranteInfo.formacao)
                         .filter(([key, value]) => value)
-                        .map(([key, value]) => `<li>${titulos[key] || key}: ${value}</li>`).join('');
+                        .map(([key, value]) => {
+                            let tituloDisplay = titulos[key] || key;
+                            // Aplica lógica de gênero no modal de detalhes
+                            if (key === 'mestreEm') {
+                                const isFeminino = isNomeFeminino(nome);
+                                tituloDisplay = isFeminino ? 'Mestra em' : 'Mestre em';
+                            } else if (key === 'doutorEm') {
+                                const isFeminino = isNomeFeminino(nome);
+                                tituloDisplay = isFeminino ? 'Doutora em' : 'Doutor em';
+                            }
+                            return `<li>${tituloDisplay}: ${value}</li>`;
+                        }).join('');
 
                     return `<div class="mb-4">
                                 <p class="font-bold text-white">${ministranteInfo.nomeCompleto}</p>
@@ -1298,6 +1334,12 @@
                         mestreEm: dados.mestreEm || '', doutorEm: dados.doutorEm || '', posDoutorEm: dados.doutorEm || '', posDoutorEm: dados.posDoutorEm || ''
                     };
                     ['graduadoEm', 'especialistaEm', 'mestreEm', 'doutorEm', 'posDoutorEm'].forEach(k => delete dados[k]);
+                } else if (tipoUsuario === 'aluno') {
+                    // REMOVIDO: CAMPOS EXCLUÍDOS DO FORMULÁRIO
+                    delete novosDados.cep;
+                    delete novosDados.dataNascimento;
+                    delete novosDados.tipoPix;
+                    delete novosDados.chavePix;
                 }
                 
                 const { error: updateError } = await supabaseClient.from(tipoUsuario + 's').update(novosDados).eq('id', usuarioAtual.id);
@@ -1337,10 +1379,10 @@
 
                 let camposEspecificos = '';
                 if (tipoUsuario === 'aluno') {
+                    // REMOVIDO: CEP E DATA DE NASCIMENTO
                     camposEspecificos = `
                         <input type="text" name="cpf" placeholder="CPF" value="${usuario.cpf || ''}" required class="w-full p-3 rounded-lg border-2">
                         <input type="text" name="cnpjEmpresa" placeholder="CNPJ da Empresa" value="${usuario.cnpjEmpresa || ''}" class="w-full p-3 rounded-lg border-2">
-                        <input type="text" name="dataNascimento" placeholder="Data de Nascimento" value="${usuario.dataNascimento || ''}" required class="w-full p-3 rounded-lg border-2" oninput="formatarData(event)" maxlength="10">
                     `;
                 } else if (tipoUsuario === 'ministrante') {
                     camposEspecificos = `
@@ -1357,6 +1399,60 @@
                     `;
                 }
 
+                // Lógica para mostrar endereço completo do aluno ou apenas os campos do ministrante
+                let enderecoHtml = '';
+                if (tipoUsuario === 'aluno') {
+                     enderecoHtml = `
+                        <div class="border border-neutral-600 p-3 rounded-lg space-y-3">
+                            <label class="block -mb-2 text-sm font-medium text-neutral-300">Endereço</label>
+                            <!-- REMOVIDO: Input CEP -->
+                            <input type="text" name="rua" placeholder="Rua" value="${usuario.rua || ''}" required class="w-full p-3 rounded-lg border-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="numero" placeholder="Número" value="${usuario.numero || ''}" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="bairro" placeholder="Bairro" value="${usuario.bairro || ''}" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="cidade" placeholder="Cidade" value="${usuario.cidade || ''}" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="estado" placeholder="Estado" value="${usuario.estado || ''}" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                        </div>
+                    `;
+                } else if (tipoUsuario === 'ministrante') {
+                     enderecoHtml = `
+                        <div class="border border-neutral-600 p-3 rounded-lg space-y-3">
+                            <label class="block -mb-2 text-sm font-medium text-neutral-300">Endereço</label>
+                            <input type="text" name="cep" placeholder="CEP" value="${usuario.cep || ''}" required class="w-full p-3 rounded-lg border-2">
+                            <input type="text" name="rua" placeholder="Rua" value="${usuario.rua || ''}" required class="w-full p-3 rounded-lg border-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="numero" placeholder="Número" value="${usuario.numero || ''}" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="bairro" placeholder="Bairro" value="${usuario.bairro || ''}" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <input type="text" name="cidade" placeholder="Cidade" value="${usuario.cidade || ''}" required class="w-full p-3 rounded-lg border-2">
+                                <input type="text" name="estado" placeholder="Estado" value="${usuario.estado || ''}" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                        </div>
+                    `;
+                }
+
+                let pixHtml = '';
+                if (tipoUsuario === 'ministrante') {
+                    pixHtml = `
+                        <div class="border border-neutral-600 p-3 rounded-lg">
+                            <label class="block mb-2 text-sm font-medium text-neutral-300">Chave PIX</label>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <select name="tipoPix" required class="p-3 rounded-lg border-2">
+                                        <option value="email" ${usuario.tipoPix === 'email' ? 'selected' : ''}>Email</option>
+                                        <option value="cpf" ${usuario.tipoPix === 'cpf' ? 'selected' : ''}>CPF</option>
+                                        <option value="cnpj" ${usuario.tipoPix === 'cnpj' ? 'selected' : ''}>CNPJ</option>
+                                        <option value="celular" ${usuario.tipoPix === 'celular' ? 'selected' : ''}>Celular</option>
+                                    </select>
+                                    <input type="text" name="chavePix" placeholder="Chave PIX" value="${usuario.chavePix || ''}" required class="w-full p-3 rounded-lg border-2">
+                            </div>
+                        </div>
+                    `;
+                }
+                
                 container.innerHTML = `
                     <div class="glassmorphism p-8 rounded-xl">
                         <h3 class="text-xl font-bold mb-6 text-center">Editar Perfil</h3>
@@ -1368,34 +1464,11 @@
                             </div>
                             <input type="text" name="nomeCompleto" placeholder="Nome Completo" value="${usuario.nomeCompleto || ''}" required class="w-full p-3 rounded-lg border-2">
                             ${camposEspecificos}
-                            <div class="border border-neutral-600 p-3 rounded-lg space-y-3">
-                                <label class="block -mb-2 text-sm font-medium text-neutral-300">Endereço</label>
-                                <input type="text" name="cep" placeholder="CEP" value="${usuario.cep || ''}" required class="w-full p-3 rounded-lg border-2">
-                                <input type="text" name="rua" placeholder="Rua" value="${usuario.rua || ''}" required class="w-full p-3 rounded-lg border-2">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="text" name="numero" placeholder="Número" value="${usuario.numero || ''}" required class="w-full p-3 rounded-lg border-2">
-                                    <input type="text" name="bairro" placeholder="Bairro" value="${usuario.bairro || ''}" required class="w-full p-3 rounded-lg border-2">
-                                </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <input type="text" name="cidade" placeholder="Cidade" value="${usuario.cidade || ''}" required class="w-full p-3 rounded-lg border-2">
-                                    <input type="text" name="estado" placeholder="Estado" value="${usuario.estado || ''}" required class="w-full p-3 rounded-lg border-2">
-                                </div>
-                            </div>
+                            ${enderecoHtml}
                             <input type="text" name="whatsapp" placeholder="WhatsApp" value="${usuario.whatsapp || ''}" required class="w-full p-3 rounded-lg border-2">
                             <input type="text" name="instagram" placeholder="@ do Instagram" value="${usuario.instagram || ''}" required class="w-full p-3 rounded-lg border-2">
                             
-                            <div class="border border-neutral-600 p-3 rounded-lg">
-                                <label class="block mb-2 text-sm font-medium text-neutral-300">Chave PIX</label>
-                                <div class="flex flex-col sm:flex-row gap-4">
-                                <select name="tipoPix" required class="p-3 rounded-lg border-2">
-                                        <option value="email" ${usuario.tipoPix === 'email' ? 'selected' : ''}>Email</option>
-                                        <option value="cpf" ${usuario.tipoPix === 'cpf' ? 'selected' : ''}>CPF</option>
-                                        <option value="cnpj" ${usuario.tipoPix === 'cnpj' ? 'selected' : ''}>CNPJ</option>
-                                        <option value="celular" ${usuario.tipoPix === 'celular' ? 'selected' : ''}>Celular</option>
-                                    </select>
-                                    <input type="text" name="chavePix" placeholder="Chave PIX" value="${usuario.chavePix || ''}" required class="w-full p-3 rounded-lg border-2">
-                                </div>
-                            </div>
+                            ${pixHtml}
 
                             <div class="pt-4">
                                 <h4 class="font-semibold mb-2">Alterar Senha</h4>
@@ -2299,7 +2372,7 @@
 
         async function renderizarAreaCertificado(cursoId) {
             const area = document.getElementById('areaCertificado');
-            const { data: aluno, error } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
+            const { data: aluno } = await supabaseClient.from('alunos').select('*').eq('email', estado.usuarioLogado.email).single();
             if (error || !aluno) return;
 
             const inscricao = Array.isArray(aluno.cursosInscritos) ? aluno.cursosInscritos.find(i => i.cursoId == cursoId) : null;
@@ -2382,7 +2455,17 @@
                 ministrantesHtml = nomesMinistrantes.map(nome => {
                     const ministranteInfo = todosMinistrantes.find(m => m.nomeCompleto === nome);
                     if (!ministranteInfo) return `<p>${nome}</p>`;
-                    const qualificacoes = Object.values(ministranteInfo.formacao).filter(Boolean).join(', ');
+                    // Lógica de titulação atualizada
+                    const qualificacoes = Object.entries(ministranteInfo.formacao)
+                        .filter(([key, value]) => value)
+                        .map(([key, value]) => {
+                            let tituloDisplay = key;
+                            const isFeminino = isNomeFeminino(nome);
+                            if (key === 'mestreEm') tituloDisplay = isFeminino ? 'Mestra em' : 'Mestre em';
+                            else if (key === 'doutorEm') tituloDisplay = isFeminino ? 'Doutora em' : 'Doutor em';
+                            return `${tituloDisplay.replace('Em', '').replace(/([A-Z])/g, ' $1').trim()}: ${value}`;
+                        }).join(', ');
+                        
                     return `<div class="mb-2"><p class="font-bold">${ministranteInfo.nomeCompleto}</p><p class="text-xs text-neutral-400">${qualificacoes}</p></div>`;
                 }).join('');
             }
@@ -2615,7 +2698,8 @@
                     await window.renderizarPainelAdminAprovacoes();
                     break;
                 case 'gerenciarReembolsos':
-                    await window.renderizarPainelAdminReembolsos();
+                    // Mantido, mas vazio, para não quebrar o switch, mas a aba foi removida do HTML
+                    await window.renderizarPainelAdminReembolsos(); 
                     break;
                 case 'gerenciarCertificados':
                     await window.renderizarPainelAdminCertificados();
@@ -2677,7 +2761,10 @@
                     }
 
                     if (!cotaAtingida && dataUltimaAulaDoCurso && new Date(dataUltimaAulaDoCurso) < new Date()) {
-                        acoesCurso += `<button onclick="window.confirmarCancelamentoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg">Excluir curso e reembolsar alunos</button>`;
+                        // REMOVIDO: Opção de Cancelar Curso e Reembolsar Alunos
+                        // acoesCurso += `<button onclick="window.confirmarCancelamentoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg">Excluir curso e reembolsar alunos</button>`;
+                        // Mantido apenas o botão de exclusão
+                        acoesCurso += `<button onclick="window.confirmarExclusaoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>`;
                     } else {
                         acoesCurso += `<button onclick="window.confirmarExclusaoCurso(${c.id})" class="btn-danger text-white text-xs px-3 py-2 rounded-lg"><i class="fas fa-trash"></i></button>`;
                     }
@@ -2776,7 +2863,14 @@
                 ministrantesFiltrados.forEach(m => { 
                     const titulos = Object.entries(m.formacao || {})
                         .filter(([key, value]) => value)
-                        .map(([key, value]) => key.replace('Em', '').replace(/([A-Z])/g, ' $1').trim())
+                        .map(([key, value]) => {
+                            let tituloDisplay = key;
+                            const isFeminino = isNomeFeminino(m.nomeCompleto);
+                            if (key === 'mestreEm') tituloDisplay = isFeminino ? 'Mestra' : 'Mestre';
+                            else if (key === 'doutorEm') tituloDisplay = isFeminino ? 'Doutora' : 'Doutor';
+                            else tituloDisplay = key.replace('Em', '').replace(/([A-Z])/g, ' $1').trim();
+                            return tituloDisplay;
+                        })
                         .join(', ') || 'Nenhuma titulação informada';
 
                     container.innerHTML += `
@@ -2801,7 +2895,8 @@
         window.renderizarPainelAdminReembolsos = async function() {
             const container = document.getElementById('listaReembolsosAdmin');
             if (container) {
-                container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">Funcionalidade de reembolsos em desenvolvimento.</p>';
+                // REMOVIDO: Funcionalidade de Reembolsos do Painel Admin
+                container.innerHTML = '<p class="text-center text-neutral-400 bg-neutral-800 p-6 rounded-lg">A gestão de reembolsos não está mais disponível neste painel.</p>';
             }
         }
 
@@ -3282,8 +3377,9 @@
                     console.error(cursoError);
                     return;
                 }
-
+                
                 // 2. Find all students and update their enrollment status
+                // NOTA: A lógica de reembolso foi removida. Apenas o status é atualizado para 'reembolsado' para remover da lista.
                 const { data: todosAlunos, error: alunosError } = await supabaseClient.from('alunos').select('*');
                 if (alunosError) {
                     window.mostrarModal("Erro ao buscar alunos para reembolso.");
@@ -3291,20 +3387,21 @@
                     return;
                 }
                 
-                const alunosParaReembolsar = todosAlunos.filter(aluno =>
+                const alunosAfetados = todosAlunos.filter(aluno =>
                     Array.isArray(aluno.cursosInscritos) &&
                     aluno.cursosInscritos.some(i => i.cursoId == id && (i.status === 'aprovado' || i.status === 'pendente'))
                 );
 
-                for (const aluno of alunosParaReembolsar) {
+                for (const aluno of alunosAfetados) {
                     const inscricaoIndex = aluno.cursosInscritos.findIndex(i => i.cursoId == id);
                     if (inscricaoIndex > -1) {
-                        aluno.cursosInscritos[inscricaoIndex].status = 'reembolso_pendente';
+                        // Altera status para reembolsado (o usuário pediu para remover a gestão de reembolso)
+                        aluno.cursosInscritos[inscricaoIndex].status = 'reembolsado'; 
                         await supabaseClient.from('alunos').update({ cursosInscritos: aluno.cursosInscritos }).eq('id', aluno.id);
                     }
                 }
 
-                window.mostrarModal('Curso cancelado com sucesso. Alunos movidos para a fila de reembolso.');
+                window.mostrarModal('Curso cancelado com sucesso. Status de inscrições ativas alterado para "reembolsado".');
                 await window.renderizarPainelAdminCursos();
             } finally {
                 window.hideLoader();
@@ -3374,9 +3471,15 @@
 
                 let html = `<div class="w-full max-w-lg mx-auto"><div class="text-center p-6">${fotoHtml}<h2 class="text-xl font-bold">${usuario.nomeCompleto}</h2><p class="text-sm text-neutral-400">${usuario.email}</p></div><div class="border-t border-neutral-700 px-6 py-4 space-y-2">`;
                 for (const [key, value] of Object.entries(usuario)) {
-                    if (!['senha', 'fotoPerfil', 'formacao', 'cursosInscritos', 'cursosVinculados', 'contrato', 'id', 'email', 'nomeCompleto'].includes(key) && typeof value !== 'object') {
+                    // REMOVIDO: CAMPOS EXCLUÍDOS DO ALUNO (cep, dataNascimento, tipoPix, chavePix)
+                    if (!['senha', 'fotoPerfil', 'formacao', 'cursosInscritos', 'cursosVinculados', 'contrato', 'id', 'email', 'nomeCompleto', 'cep', 'dataNascimento', 'tipoPix', 'chavePix'].includes(key) && typeof value !== 'object') {
                         html += `<p><strong class="font-semibold text-neutral-300 capitalize">${key.replace(/([A-Z])/g, ' $1')}:</strong> ${value || 'Não informado'}</p>`;
                     }
+                }
+                
+                // Adiciona campos de PIX apenas para Ministrante
+                if (tipo === 'ministrante' && usuario.tipoPix) {
+                     html += `<p><strong class="font-semibold text-neutral-300">Chave PIX (${usuario.tipoPix}):</strong> ${usuario.chavePix || 'Não informado'}</p>`;
                 }
 
                 if (tipo === 'ministrante' && usuario.formacao) {
@@ -3391,7 +3494,18 @@
                     let formacaoHtml = '';
                     for (const [key, value] of Object.entries(usuario.formacao)) {
                         if (value) {
-                            formacaoHtml += `<p><strong class="font-semibold text-neutral-300 w-32 inline-block">${titulos[key]}:</strong> <span>${value}</span></p>`;
+                            let tituloDisplay = titulos[key] || key;
+                            // CORREÇÃO DE GÊNERO:
+                            if (key === 'mestreEm') {
+                                const isFeminino = isNomeFeminino(usuario.nomeCompleto);
+                                tituloDisplay = isFeminino ? 'Mestra em' : 'Mestre em';
+                            } else if (key === 'doutorEm') {
+                                const isFeminino = isNomeFeminino(usuario.nomeCompleto);
+                                tituloDisplay = isFeminino ? 'Doutora em' : 'Doutor em';
+                            }
+                            // FIM CORREÇÃO GÊNERO
+
+                            formacaoHtml += `<p><strong class="font-semibold text-neutral-300 w-32 inline-block">${tituloDisplay}:</strong> <span>${value}</span></p>`;
                             hasFormation = true;
                         }
                     }
@@ -3468,7 +3582,7 @@
 
                         const statusClass = inscricao.status === 'aprovado' ? 'text-green-400' : (inscricao.status === 'pendente' ? 'text-yellow-400' : 'text-red-400');
                         
-                        const { status: statusFrequencia, cor } = await calcularStatusFrequencia(aluno, cursoId);
+                        const { status: statusFrequencia, cor } = await calcularStatusFrequencia(aluno, curso.id);
                         const frequenciaHtml = `
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-semibold ${cor}">${statusFrequencia}</span>
@@ -4057,10 +4171,17 @@
         // INICIALIZAÇÃO E EVENT LISTENERS
         // ===================================================
         document.addEventListener('DOMContentLoaded', () => {
+            // Verifica as variáveis de ambiente Canvas
+            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+            const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
             if (!SUPABASE_URL || !SUPABASE_KEY) {
+                // Mantém a lógica de Supabase se não estiver usando Firebase
                 window.mostrarModal("CONFIGURAÇÃO NECESSÁRIA: As credenciais do Supabase não foram encontradas. Por favor, adicione as variáveis SUPABASE_URL e SUPABASE_KEY no seu ficheiro HTML.");
                 return;
             }
+            // Inicialização Supabase
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
             // Login com a tecla Enter
